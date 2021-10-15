@@ -7,7 +7,7 @@ export const PMContainer = styled.div`
   margin: auto;
   z-index: 1;
   position: absolute;
-  top: 20%;
+  top: 4%;
   left: 20%;
   border-radius: 0.5rem;
   background-color: #fff;
@@ -24,11 +24,14 @@ export const PMHeader = styled.div`
   align-items: center;
   padding: 1rem;
 `;
-export const PMSearchInput = styled.div`
+export const PMSearchForm = styled.form`
   border: 1px solid black;
   margin: 1rem;
   height: 2.5rem;
   border-radius: 0.5rem;
+  &input {
+    height: 2rem;
+  }
 `;
 export const PMFilters = styled.div`
   display: flex;

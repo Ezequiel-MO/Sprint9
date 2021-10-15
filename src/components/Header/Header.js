@@ -7,21 +7,23 @@ import {
 } from "./styles";
 import { Icon } from "@iconify/react";
 import logo from "../../assets/logo.svg";
-import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Header = () => {
-  const [showModal, setShowModal] = useState(false);
+const Header = ({ showModal, setShowModal }) => {
   return (
     <HeaderContainer>
       <HeaderLeft>
-        <RegularButton
-          aria-label='menu'
-          onClick={() => setShowModal((prevState) => !prevState)}
-        >
+        <RegularButton aria-label='menu'>
           <Icon icon='bytesize:menu' color='#ea5933' width='30' />
         </RegularButton>
-        <img src={logo} alt='company-logo' />
-        <ProjectButton aria-label='open-project'>
+        <Link to='/'>
+          <img src={logo} alt='company-logo' />
+        </Link>
+        <ProjectButton
+          aria-label='open-project'
+          onClick={() => setShowModal((prevState) => !prevState)}
+          disabled={showModal}
+        >
           BEM20210047
           <span>
             <Icon icon='mdi:chevron-down' color='#ea5933' width='24' />
@@ -29,12 +31,9 @@ const Header = () => {
         </ProjectButton>
       </HeaderLeft>
       <HeaderRight>
-        <Icon
-          icon='whh:avatar'
-          color='#ea5933'
-          width='48'
-          data-testid='avatar'
-        />
+        <Link to='/login' data-testid='avatar'>
+          <Icon icon='whh:avatar' color='#ea5933' width='48' />
+        </Link>
       </HeaderRight>
     </HeaderContainer>
   );

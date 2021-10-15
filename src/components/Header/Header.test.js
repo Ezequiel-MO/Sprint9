@@ -1,23 +1,43 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import ReactDOM from "react-dom";
 import Header from "./Header";
+import { BrowserRouter as Router } from "react-router-dom";
 
-describe("Header", () => {
-  beforeEach(() => render(<Header />));
+const MockHeader = () => {
+  return (
+    <Router>
+      <Header />
+    </Router>
+  );
+};
+
+beforeEach(() => render(<MockHeader />));
+
+describe("Menu Icon", () => {
   it("should render a sidebar menu icon button", () => {
     const btnEl = screen.queryByRole("button", { name: /menu/i });
     expect(btnEl).toBeInTheDocument();
   });
-  it("should render an image with logo", () => {
-    const imageEl = screen.getByAltText(/company-logo/i);
-    expect(imageEl).toBeInTheDocument();
-  });
+});
+
+describe("Project Button", () => {
   it("should render a button with current project", () => {
     const btnEl = screen.getByRole("button", { name: /open-project/i });
     expect(btnEl).toBeInTheDocument();
   });
-  it("when current project bottom is clicked, showModal state should be toggled", () => {
+  /*  it("when clicked, the button should become disabled", () => {
     const btnEl = screen.getByRole("button", { name: /open-project/i });
-    expect(btnEl).toBeInTheDocument();
-  });
+    fireEvent.click(btnEl);
+    expect(btnEl).toBeDisabled();
+  }); */
+});
+
+it("should render an image with logo", () => {
+  const imageEl = screen.getByAltText(/company-logo/i);
+  expect(imageEl).toBeInTheDocument();
+});
+
+it("should render an Avatar that links to the login page", () => {
+  const linkEl = screen.getByTestId(/avatar/i);
+  expect(linkEl).toBeInTheDocument();
 });
