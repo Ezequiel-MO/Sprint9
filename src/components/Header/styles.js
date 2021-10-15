@@ -15,6 +15,7 @@ export const HeaderLeft = styled.div`
   flex: 0.25;
   & img {
     width: 8rem;
+    margin: 0 1rem;
   }
 `;
 
