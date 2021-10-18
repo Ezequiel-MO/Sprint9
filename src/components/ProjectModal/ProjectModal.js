@@ -11,11 +11,12 @@ import { Button } from "../../generalStyles.js";
 import { useState } from "react";
 import PMProjectList from "./PMProjectList/PMProjectList.js";
 import { Icon } from "@iconify/react";
-import { projectData } from "../../data/projects-data.js";
+import { SET_UserIsSearchingProject } from "../../features/UserIsSearchingProjectSlice.js";
+import { useDispatch } from "react-redux";
 
-const ProjectModal = ({ setShowModal }) => {
+const ProjectModal = () => {
   const [project, setProject] = useState("");
-
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     setProject("");
@@ -82,7 +83,9 @@ const ProjectModal = ({ setShowModal }) => {
       </PMFilters>
       <PMProjectList />
       <OpenCancelButtons>
-        <Button onClick={() => setShowModal(false)}>CANCEL</Button>
+        <Button onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
+          CANCEL
+        </Button>
         <Button>OPEN</Button>
       </OpenCancelButtons>
     </PMContainer>

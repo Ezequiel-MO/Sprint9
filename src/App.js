@@ -4,20 +4,25 @@ import Login from "./pages/Login/Login";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Welcome from "./pages/Welcome/Welcome";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUserIsSearchingProject,
+  SET_UserIsSearchingProject,
+} from "./features/UserIsSearchingProjectSlice";
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
+  const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
+  const dispatch = useDispatch();
   return (
     <Router>
-      <Header showModal={showModal} setShowModal={setShowModal} />
-      <Container onClick={() => setShowModal(false)}>
+      <Header />
+      <Container onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/' component={Welcome} />
         </Switch>
       </Container>
-      {showModal && <ProjectModal setShowModal={setShowModal} />}
+      {userIsSearchingProject && <ProjectModal />}
     </Router>
   );
 }

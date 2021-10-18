@@ -2,12 +2,16 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import ReactDOM from "react-dom";
 import Header from "./Header";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "../../app/store";
 
 const MockHeader = () => {
   return (
-    <Router>
-      <Header />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+      </Router>
+    </Provider>
   );
 };
 
@@ -18,18 +22,6 @@ describe("Menu Icon", () => {
     const btnEl = screen.queryByRole("button", { name: /menu/i });
     expect(btnEl).toBeInTheDocument();
   });
-});
-
-describe("Project Button", () => {
-  it("should render a button", () => {
-    const btnEl = screen.getByRole("button", { name: /open-project/i });
-    expect(btnEl).toBeInTheDocument();
-  });
-  /*  it("when clicked, the button should become disabled", () => {
-    const btnEl = screen.getByRole("button", { name: /open-project/i });
-    fireEvent.click(btnEl);
-    expect(btnEl).toBeDisabled();
-  }); */
 });
 
 it("should render an image with logo", () => {

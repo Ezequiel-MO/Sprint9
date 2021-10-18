@@ -2,14 +2,14 @@ import {
   HeaderContainer,
   HeaderLeft,
   RegularButton,
-  ProjectButton,
   HeaderRight,
 } from "./styles";
 import { Icon } from "@iconify/react";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
+import ProjectButton from "./ProjectButton/ProjectButton.js";
 
-const Header = ({ showModal, setShowModal }) => {
+const Header = () => {
   return (
     <HeaderContainer>
       <HeaderLeft>
@@ -19,16 +19,7 @@ const Header = ({ showModal, setShowModal }) => {
         <Link to='/'>
           <img src={logo} alt='company-logo' />
         </Link>
-        <ProjectButton
-          aria-label='open-project'
-          onClick={() => setShowModal((prevState) => !prevState)}
-          disabled={showModal}
-        >
-          BEM20210047
-          <span>
-            <Icon icon='mdi:chevron-down' color='#ea5933' width='24' />
-          </span>
-        </ProjectButton>
+        <ProjectButton />
       </HeaderLeft>
       <HeaderRight>
         <Link to='/login' data-testid='avatar'>

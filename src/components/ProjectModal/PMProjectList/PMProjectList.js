@@ -1,8 +1,9 @@
 import { projectData } from "../../../data/projects-data";
+import { Table } from "./styles.js";
 
 const PMProjectList = () => {
   return (
-    <table>
+    <Table>
       <tbody>
         <tr>
           <th>Project</th>
@@ -17,7 +18,7 @@ const PMProjectList = () => {
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

@@ -1,7 +1,17 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { Provider } from "react-redux";
+import store from "../../app/store";
 import ProjectModal from "./ProjectModal";
 
-beforeEach(() => render(<ProjectModal />));
+const MockProjectModal = () => {
+  return (
+    <Provider store={store}>
+      <ProjectModal />
+    </Provider>
+  );
+};
+
+beforeEach(() => render(<MockProjectModal />));
 
 describe("Project Modal", () => {
   it("should render a button to create a new project", () => {
