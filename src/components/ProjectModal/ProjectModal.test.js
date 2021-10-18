@@ -16,10 +16,14 @@ describe("Project Modal", () => {
     const btnEl = screen.queryByRole("button", { name: /Sort by User/i });
     expect(btnEl).toBeInTheDocument();
   });
-  it("should render a table with project list", () => {});
-  it("should render a radiobox to select project", () => {});
-  it("should render a button to cancel selection", () => {});
-  it("should render a button to open project", () => {});
+  it("should render a button to cancel selection", () => {
+    const btnEl = screen.queryByRole("button", { name: /Cancel/i });
+    expect(btnEl).toBeInTheDocument();
+  });
+  it("should render a button to open project", () => {
+    const btnEl = screen.queryByRole("button", { name: /Open/i });
+    expect(btnEl).toBeInTheDocument();
+  });
 });
 
 describe("Search Project input", () => {
@@ -34,7 +38,7 @@ describe("Search Project input", () => {
   });
   it("input should be empty once the button has been clicked", () => {
     const inputEl = screen.getByPlaceholderText(/Search project/i);
-    const btnEl = screen.getByRole("button", { name: /search/i });
+    const btnEl = screen.getByTestId(/search/i);
     fireEvent.change(inputEl, { target: { value: "BMM20210124" } });
     fireEvent.click(btnEl);
     expect(inputEl.value).toBe("");

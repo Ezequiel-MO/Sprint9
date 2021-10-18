@@ -25,25 +25,43 @@ export const PMHeader = styled.div`
   padding: 1rem;
 `;
 export const PMSearchForm = styled.form`
-  border: 1px solid black;
   margin: 1rem;
   height: 2.5rem;
   border-radius: 0.5rem;
-  &input {
-    height: 2rem;
+  display: flex;
+  position: relative;
+  & button {
+    display: none;
   }
 `;
+
+export const Input = styled.input`
+  height: 2rem;
+  flex-grow: 1;
+  font-size: 1rem;
+  padding-left: 2rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 1px solid #ea5933;
+  border-radius: 0.4rem;
+  background-color: #f1bfb1;
+  &::focus {
+    border: 1px solid #ea5933;
+  }
+`;
+
+export const StyledIcon = styled.span`
+  position: absolute;
+  top: 0.1rem;
+  left: 0.1rem;
+`;
+
 export const PMFilters = styled.div`
   display: flex;
   justify-content: flex-start;
   margin: 1rem;
 `;
-export const PMTable = styled.div`
-  border: 1px solid black;
-  width: 48rem;
-  height: 10rem;
-  margin: 0 auto;
-`;
+
 export const OpenCancelButtons = styled.div`
   position: absolute;
   bottom: 3%;

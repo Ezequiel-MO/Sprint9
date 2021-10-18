@@ -21,7 +21,7 @@ describe("Menu Icon", () => {
 });
 
 describe("Project Button", () => {
-  it("should render a button with current project", () => {
+  it("should render a button", () => {
     const btnEl = screen.getByRole("button", { name: /open-project/i });
     expect(btnEl).toBeInTheDocument();
   });
