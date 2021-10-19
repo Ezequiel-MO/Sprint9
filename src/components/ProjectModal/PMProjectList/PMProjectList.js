@@ -6,9 +6,9 @@ const PMProjectList = () => {
     <Table>
       <tbody>
         <tr>
-          <th>Project</th>
-          <th>User</th>
-          <th>Date</th>
+          <th align='left'>Project</th>
+          <th align='left'>User</th>
+          <th align='left'>Date</th>
         </tr>
         {projectData.map(({ code, user, date }) => (
           <tr key={code}>
