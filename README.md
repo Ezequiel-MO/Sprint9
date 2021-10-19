@@ -32,16 +32,26 @@ npm install
 
 - Learn the TDD methodology
 - Learn to Unit Test
+- Complete a whole iteration
+  1. Back Office - feed data into the Project form
+  2. Back Office - MongoDB - interact, read and update if new Data
+  3. MongoDB sync with API
+  4. Front End - read data from API and render
 
-## Sprint-1 Mock-up design
+## Sprint-1 Mock-up design-1
 
 ![Project board](/mockup-screenshots/sprint1-mockup.png?raw=true "Pop up screen when Project Name input in Header is submitted")
+
+## Sprint-1 Mock-up design-2
+
+![Project form](/mockup-screenshots/sprint1-mockup2.png?raw=true "Page where basic Project data is fed")
 
 ## Built with 🛠️
 
 - Bootstrapped with [create-react-app](https://github.com/facebook/create-react-app)
 - Styling is done with [styled components](https://styled-components.com/)
 - Dependencies managed with [yarn](https://yarnpkg.com/)
+- Redux implemented to manage Global state [redux](https://redux.js.org/)
 
 ## Authors ✒️
 
