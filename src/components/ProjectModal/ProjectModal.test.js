@@ -26,10 +26,7 @@ describe("Project Modal", () => {
     const btnEl = screen.queryByRole("button", { name: /Sort by User/i });
     expect(btnEl).toBeInTheDocument();
   });
-  it("should render a button to cancel selection", () => {
-    const btnEl = screen.queryByRole("button", { name: /Cancel/i });
-    expect(btnEl).toBeInTheDocument();
-  });
+
   it("should render a button to open project", () => {
     const btnEl = screen.queryByRole("button", { name: /Open/i });
     expect(btnEl).toBeInTheDocument();

@@ -1,6 +1,7 @@
 import Header from "./components/Header/Header";
 import ProjectModal from "./components/ProjectModal/ProjectModal";
 import Login from "./pages/Login/Login";
+import ProjectLog from "./pages/ProjectLog/ProjectLog";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Welcome from "./pages/Welcome/Welcome";
@@ -19,6 +20,7 @@ function App() {
       <Container onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
         <Switch>
           <Route path='/login' component={Login} />
+          <Route path='/project-form' component={ProjectLog} />
           <Route path='/' component={Welcome} />
         </Switch>
       </Container>

@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  min-height: 100vh;
 `;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;

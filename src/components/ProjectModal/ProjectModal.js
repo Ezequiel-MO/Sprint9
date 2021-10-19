@@ -7,26 +7,33 @@ import {
   PMFilters,
   OpenCancelButtons,
 } from "./styles.js";
-import { Button } from "../../generalStyles.js";
 import { useState } from "react";
 import PMProjectList from "./PMProjectList/PMProjectList.js";
 import { Icon } from "@iconify/react";
 import { SET_UserIsSearchingProject } from "../../features/UserIsSearchingProjectSlice.js";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import Button from "../../uicomponents/Button/Button.js";
 
 const ProjectModal = () => {
   const [project, setProject] = useState("");
+  const history = useHistory();
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     setProject("");
     console.log("project=>", project);
   };
+
+  const handleClick = () => {
+    dispatch(SET_UserIsSearchingProject(false));
+    history.push("/project-form");
+  };
   return (
     <PMContainer>
       <PMHeader>
         <h3>Select a project</h3>
-        <Button>
+        <Button onClick={handleClick}>
           <span>
             <Icon
               icon='fluent:add-12-filled'

@@ -18,4 +18,9 @@ describe("Project Button", () => {
     const btnEl = screen.getByRole("button", { name: /open-project/i });
     expect(btnEl).toBeInTheDocument();
   });
+  it("when clicked, the button should become disabled", () => {
+    const btnEl = screen.getByRole("button", { name: /open-project/i });
+    fireEvent.click(btnEl);
+    expect(btnEl).toHaveAttribute("disabled");
+  });
 });
