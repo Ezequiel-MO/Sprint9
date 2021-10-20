@@ -1,0 +1,46 @@
+{
+    project: "generali",
+    contact: "omar",
+    id: "GENERALI2021",
+    ...
+    ...
+    ...
+    accomodation: [1234, 2345, 3456],
+    events: [
+        {
+            date_in: "1/2/3"
+            locations: [986, ,455, 345],
+            dinner: [45253, 2452, 24626]
+            },
+            {
+            date_in: "1/2/3"
+            locations: [986, ,455, 345],
+            dinner: [45253, 2452, 24626]
+            },
+            {
+            date_in: "1/2/3"
+            locations: [986, ,455, 345],
+            dinner: [45253, 2452, 24626]
+            }
+    ]
+}
+
+{
+    locations: [
+        {
+            id: 1234,
+            type: "hotel",
+            ciudad: "barcelona",
+            nombre: "hotel w",
+            img: [ url1, url2, 3, 4],
+            coord: [41, 2]
+        },
+        {
+            id: 12345,
+            type: "restaurante",
+            ciudad: "huesca",
+            nombre: "",
+            img: [ url1, url2, 3, 4]
+        }
+    ]
+}

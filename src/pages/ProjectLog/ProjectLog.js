@@ -1,4 +1,4 @@
-import TextInput from "../../uicomponents/TextInput/TextInput";
+import Input from "../../uicomponents/Input/Input";
 import {
   ProjectLogContainer,
   ProjectConfiguration,
@@ -17,6 +17,8 @@ const ProjectLog = () => {
     code: "",
     accountManager: "",
     groupName: "",
+    arrivalDay: "",
+    departureDay: "",
     groupLocation: "",
     clientCo: "",
     clientAccManager: "",
@@ -26,6 +28,8 @@ const ProjectLog = () => {
     code,
     accountManager,
     groupName,
+    arrivalDay,
+    departureDay,
     groupLocation,
     clientCo,
     clientAccManager,
@@ -45,13 +49,15 @@ const ProjectLog = () => {
     <ProjectLogContainer onSubmit={handleSubmit}>
       <ProjectConfiguration>
         <ProjectDetails>
-          <TextInput
+          <Input
+            type='text'
             placeholder='Write Project Code'
             name='code'
             value={code}
             onChange={handleChange}
           />
-          <TextInput
+          <Input
+            type='text'
             placeholder='Account Manager'
             name='accountManager'
             value={accountManager}
@@ -59,18 +65,32 @@ const ProjectLog = () => {
           />
         </ProjectDetails>
         <GroupDetails>
-          <TextInput
+          <Input
+            type='text'
             placeholder='Group Name'
             name='groupName'
             value={groupName}
             onChange={handleChange}
           />
           <GroupDates>
-            <input type='date' placeholder='Arrival date' />
-            <input type='date' placeholder='Departure Date' />
+            <Input
+              type='date'
+              placeholder='Arrival date'
+              name='arrivalDay'
+              value={arrivalDay}
+              onChange={handleChange}
+            />
+            <Input
+              type='date'
+              placeholder='Departure date'
+              name='departureDay'
+              value={departureDay}
+              onChange={handleChange}
+            />
           </GroupDates>
           <GroupLocation>
-            <TextInput
+            <Input
+              type='text'
               placeholder='Location'
               name='groupLocation'
               value={groupLocation}
@@ -79,13 +99,15 @@ const ProjectLog = () => {
           </GroupLocation>
         </GroupDetails>
         <ClientDetails>
-          <TextInput
+          <Input
+            type='text'
             placeholder='Client company'
             name='clientCo'
             value={clientCo}
             onChange={handleChange}
           />
-          <TextInput
+          <Input
+            type='text'
             placeholder='Client Acc. Exec'
             name='clientAccManager'
             value={clientAccManager}

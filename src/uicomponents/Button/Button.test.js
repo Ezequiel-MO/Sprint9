@@ -1,8 +1,8 @@
 import { render, fireEvent } from "@testing-library/react";
 import Button from "./Button";
 
-describe("Cancel Button", () => {
-  it("should render a button to cancel selection", () => {
+describe("Button", () => {
+  it("should render a button", () => {
     const { getByTestId } = render(<Button />);
     const btnEl = getByTestId(/generic-button/i);
     expect(btnEl).toBeInTheDocument();

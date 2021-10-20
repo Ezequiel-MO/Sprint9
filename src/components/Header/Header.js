@@ -7,9 +7,16 @@ import {
 import { Icon } from "@iconify/react";
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
-import ProjectButton from "./ProjectButton/ProjectButton.js";
+import Button from "../../uicomponents/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUserIsSearchingProject,
+  SET_UserIsSearchingProject,
+} from "../../features/UserIsSearchingProjectSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
   return (
     <HeaderContainer>
       <HeaderLeft>
@@ -19,7 +26,15 @@ const Header = () => {
         <Link to='/'>
           <img src={logo} alt='company-logo' />
         </Link>
-        <ProjectButton />
+        <Button
+          onClick={() => dispatch(SET_UserIsSearchingProject(true))}
+          disabled={userIsSearchingProject}
+        >
+          BEM20210047
+          <span>
+            <Icon icon='mdi:chevron-down' color='#ea5933' width='24' />
+          </span>
+        </Button>
       </HeaderLeft>
       <HeaderRight>
         <Link to='/login' data-testid='avatar'>
