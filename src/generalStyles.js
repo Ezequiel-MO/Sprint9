@@ -4,6 +4,41 @@ export const Container = styled.div`
   position: relative;
 `;
 
+export const Table = styled.table`
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+
+  & tbody tr {
+    cursor: pointer;
+    :nth-of-type(odd) {
+      background-color: #f1bfb1;
+    }
+    :nth-of-type(even) {
+      background-color: #efefef;
+    }
+    :hover {
+      background-color: #c2b280;
+    }
+  }
+
+  & tbody tr:first-child {
+    cursor: default;
+  }
+
+  & tbody tr th {
+    background-color: #ea5933;
+    color: #333;
+  }
+
+  & tbody tr th,
+  & tbody tr td {
+    height: 2rem;
+    width: fit-content;
+    padding: 0.5rem;
+  }
+`;
+
 export const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;

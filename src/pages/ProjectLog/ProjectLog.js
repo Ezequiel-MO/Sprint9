@@ -11,15 +11,16 @@ import {
 } from "./styles";
 import { useState } from "react";
 import { StyledButton } from "../../generalStyles";
+import PLList from "./PLList/PLLists";
 
 const ProjectLog = () => {
   const [projectInputData, setProjectInputData] = useState({
     code: "",
     accountManager: "",
     groupName: "",
+    groupLocation: "",
     arrivalDay: "",
     departureDay: "",
-    groupLocation: "",
     clientCo: "",
     clientAccManager: "",
   });
@@ -28,9 +29,9 @@ const ProjectLog = () => {
     code,
     accountManager,
     groupName,
+    groupLocation,
     arrivalDay,
     departureDay,
-    groupLocation,
     clientCo,
     clientAccManager,
   } = projectInputData;
@@ -72,6 +73,15 @@ const ProjectLog = () => {
             value={groupName}
             onChange={handleChange}
           />
+
+          <Input
+            type='text'
+            placeholder='Location'
+            name='groupLocation'
+            value={groupLocation}
+            onChange={handleChange}
+          />
+
           <GroupDates>
             <Input
               type='date'
@@ -88,15 +98,6 @@ const ProjectLog = () => {
               onChange={handleChange}
             />
           </GroupDates>
-          <GroupLocation>
-            <Input
-              type='text'
-              placeholder='Location'
-              name='groupLocation'
-              value={groupLocation}
-              onChange={handleChange}
-            />
-          </GroupLocation>
         </GroupDetails>
         <ClientDetails>
           <Input
@@ -116,7 +117,7 @@ const ProjectLog = () => {
         </ClientDetails>
       </ProjectConfiguration>
       <ProjectResults>
-        <h4>results</h4>
+        <PLList data={projectInputData} />
         <StyledButton type='submit'>Save</StyledButton>
       </ProjectResults>
     </ProjectLogContainer>

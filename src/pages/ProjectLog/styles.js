@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const ProjectLogContainer = styled.form`
-  border: 1px solid black;
   height: fit-content;
-  display: grid;
-  grid-template-columns: 50% 50%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  padding: 3rem;
 `;
 export const ProjectConfiguration = styled.div``;
 export const ProjectDetails = styled.div``;

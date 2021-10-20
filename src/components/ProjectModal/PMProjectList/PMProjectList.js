@@ -1,5 +1,5 @@
 import { projectData } from "../../../data/projects-data";
-import { Table } from "./styles.js";
+import { Table } from "../../../generalStyles";
 
 const PMProjectList = () => {
   return (
