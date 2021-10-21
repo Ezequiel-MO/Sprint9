@@ -24,7 +24,8 @@ export const GroupDates = styled.div``;
 export const GroupLocation = styled.div``;
 
 export const ProjectResults = styled.div`
-  border: 3px solid #a9ba9d;
+  border: ${({ validForm }) =>
+    validForm ? `3px solid green` : `3px solid #a9ba9d;`};
   border-radius: 1rem;
   padding: 1rem;
 `;

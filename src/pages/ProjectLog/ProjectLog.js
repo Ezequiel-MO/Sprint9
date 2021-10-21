@@ -6,7 +6,7 @@ import {
   GroupContainer,
   ProjectResults,
 } from "./styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PLList from "./PLList/PLLists";
 import SaveButton from "../../uicomponents/SaveButton/SaveButton";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();
+  const [projectFormIsValid, setProjectFormIsValid] = useState(false);
   const [projectInputData, setProjectInputData] = useState({
     code: "",
     accountManager: "",
@@ -38,6 +39,14 @@ const ProjectLog = () => {
     clientAccManager,
   } = projectInputData;
 
+  useEffect(() => {
+    if (projectFormIsValid) {
+      dispatch(SET_ActiveCode(code));
+    } else {
+      alert("please fill in all data");
+    }
+  }, [projectFormIsValid]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProjectInputData((prevState) => ({ ...prevState, [name]: value }));
@@ -46,7 +55,11 @@ const ProjectLog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("project=>", projectInputData);
-    dispatch(SET_ActiveCode(code));
+    setProjectFormIsValid(
+      !Object.values(projectInputData).some(
+        (value) => value === null || value === ""
+      )
+    );
   };
 
   return (
@@ -126,7 +139,7 @@ const ProjectLog = () => {
             onChange={handleChange}
           />
         </GroupContainer>
-        <ProjectResults>
+        <ProjectResults validForm={projectFormIsValid}>
           <PLList data={projectInputData} />
           <SaveButton type='submit' text='Save and continue' />
         </ProjectResults>
