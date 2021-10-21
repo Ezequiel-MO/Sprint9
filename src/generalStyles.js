@@ -5,37 +5,22 @@ export const Container = styled.div`
 `;
 
 export const Table = styled.table`
-  width: fit-content;
-  height: fit-content;
-  margin: 0 auto;
-
-  & tbody tr {
-    cursor: pointer;
-    :nth-of-type(odd) {
-      background-color: #f1bfb1;
-    }
-    :nth-of-type(even) {
-      background-color: #efefef;
-    }
-    :hover {
-      background-color: #c2b280;
-    }
-  }
-
-  & tbody tr:first-child {
-    cursor: default;
-  }
-
-  & tbody tr th {
-    background-color: #ea5933;
-    color: #333;
-  }
-
-  & tbody tr th,
-  & tbody tr td {
-    height: 2rem;
-    width: fit-content;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  min-width: 30rem;
+  margin: 1rem auto;
+  & tbody tr,
+  & tbody th {
+    text-align: left;
     padding: 0.5rem;
+  }
+  & tbody td {
+    padding: 0.5rem;
+    height: 2rem;
+  }
+  & tbody tr:nth-child(even) {
+    background-color: #efefef;
   }
 `;
 
@@ -54,6 +39,7 @@ export const StyledButton = styled.button`
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   cursor: pointer;
+  min-width: ${({ large }) => large && `18rem`};
   &:hover {
     background-color: #ea5933;
     color: #fff;

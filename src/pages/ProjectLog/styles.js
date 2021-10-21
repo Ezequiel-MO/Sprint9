@@ -7,10 +7,24 @@ export const ProjectLogContainer = styled.form`
   align-items: flex-start;
   padding: 3rem;
 `;
-export const ProjectConfiguration = styled.div``;
-export const ProjectDetails = styled.div``;
-export const GroupDetails = styled.div``;
+export const ProjectConfiguration = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 10px;
+`;
+export const GroupContainer = styled.div`
+  border: 3px solid #a9ba9d;
+  border-radius: 1rem;
+  & h3 {
+    padding-left: 1rem;
+  }
+`;
+
 export const GroupDates = styled.div``;
 export const GroupLocation = styled.div``;
-export const ClientDetails = styled.div``;
-export const ProjectResults = styled.div``;
+
+export const ProjectResults = styled.div`
+  border: 3px solid #a9ba9d;
+  border-radius: 1rem;
+  padding: 1rem;
+`;

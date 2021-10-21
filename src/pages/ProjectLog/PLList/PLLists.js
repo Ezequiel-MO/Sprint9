@@ -8,6 +8,7 @@ const PLList = ({
     groupLocation,
     arrivalDay,
     departureDay,
+    nrPax,
     clientCo,
     clientAccManager,
   },
@@ -40,6 +41,10 @@ const PLList = ({
         {
           header: "Departure Day",
           data: departureDay,
+        },
+        {
+          header: "Number of Pax",
+          data: nrPax,
         },
       ],
     },

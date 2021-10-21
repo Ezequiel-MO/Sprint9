@@ -2,13 +2,15 @@ import styled from "styled-components";
 
 export const PMContainer = styled.div`
   border: 1px solid #ccc;
-  width: 50rem;
-  height: 36rem;
+  width: fit-content;
+  min-width: 35rem;
+  height: fit-content;
+  min-height: 35rem;
   margin: auto;
   z-index: 1;
   position: absolute;
   top: 4%;
-  left: 20%;
+  left: 30%;
   border-radius: 0.5rem;
   background-color: #fff;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
@@ -25,11 +27,12 @@ export const PMHeader = styled.div`
   padding: 1rem;
 `;
 export const PMSearchForm = styled.form`
-  margin: 1rem;
+  margin-left: 1.8rem;
   height: 2.5rem;
   border-radius: 0.5rem;
   display: flex;
   position: relative;
+  width: 20rem;
   & button {
     display: none;
   }
@@ -54,12 +57,6 @@ export const StyledIcon = styled.span`
   position: absolute;
   top: 0.1rem;
   left: 0.1rem;
-`;
-
-export const PMFilters = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin: 1rem;
 `;
 
 export const OpenCancelButtons = styled.div`

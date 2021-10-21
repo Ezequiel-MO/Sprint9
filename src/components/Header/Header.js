@@ -13,10 +13,12 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "../../features/UserIsSearchingProjectSlice";
+import { selectActiveCode } from "../../features/ActiveCodeSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
+  const activeCode = useSelector(selectActiveCode);
   return (
     <HeaderContainer>
       <HeaderLeft>
@@ -27,10 +29,11 @@ const Header = () => {
           <img src={logo} alt='company-logo' />
         </Link>
         <Button
+          large
           onClick={() => dispatch(SET_UserIsSearchingProject(true))}
           disabled={userIsSearchingProject}
         >
-          BEM20210047
+          {activeCode}
           <span>
             <Icon icon='mdi:chevron-down' color='#ea5933' width='24' />
           </span>

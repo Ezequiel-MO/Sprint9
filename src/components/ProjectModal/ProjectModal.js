@@ -4,7 +4,6 @@ import {
   PMSearchForm,
   Input,
   StyledIcon,
-  PMFilters,
   OpenCancelButtons,
 } from "./styles.js";
 import { useState } from "react";
@@ -64,30 +63,6 @@ const ProjectModal = () => {
           Search
         </button>
       </PMSearchForm>
-      <PMFilters>
-        <Button>
-          <span>
-            <Icon
-              icon='mdi:sort-calendar-ascending'
-              color='black'
-              width='24'
-              inline={true}
-            />
-          </span>
-          Sort by Date
-        </Button>
-        <Button>
-          <span>
-            <Icon
-              icon='ant-design:sort-ascending-outlined'
-              color='#000'
-              width='24'
-              inline={true}
-            />
-          </span>
-          Sort by User
-        </Button>
-      </PMFilters>
       <PMProjectList />
       <OpenCancelButtons>
         <Button onClick={() => dispatch(SET_UserIsSearchingProject(false))}>

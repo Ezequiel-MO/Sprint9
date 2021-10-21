@@ -2,18 +2,18 @@ import Input from "../../uicomponents/Input/Input";
 import {
   ProjectLogContainer,
   ProjectConfiguration,
-  ProjectDetails,
-  GroupDetails,
   GroupDates,
-  GroupLocation,
-  ClientDetails,
+  GroupContainer,
   ProjectResults,
 } from "./styles";
 import { useState } from "react";
-import { StyledButton } from "../../generalStyles";
 import PLList from "./PLList/PLLists";
+import SaveButton from "../../uicomponents/SaveButton/SaveButton";
+import { useDispatch } from "react-redux";
+import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
 
 const ProjectLog = () => {
+  const dispatch = useDispatch();
   const [projectInputData, setProjectInputData] = useState({
     code: "",
     accountManager: "",
@@ -21,6 +21,7 @@ const ProjectLog = () => {
     groupLocation: "",
     arrivalDay: "",
     departureDay: "",
+    nrPax: 0,
     clientCo: "",
     clientAccManager: "",
   });
@@ -32,6 +33,7 @@ const ProjectLog = () => {
     groupLocation,
     arrivalDay,
     departureDay,
+    nrPax,
     clientCo,
     clientAccManager,
   } = projectInputData;
@@ -44,12 +46,14 @@ const ProjectLog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("project=>", projectInputData);
+    dispatch(SET_ActiveCode(code));
   };
 
   return (
     <ProjectLogContainer onSubmit={handleSubmit}>
       <ProjectConfiguration>
-        <ProjectDetails>
+        <GroupContainer>
+          <h3>About the Project</h3>
           <Input
             type='text'
             placeholder='Write Project Code'
@@ -64,16 +68,6 @@ const ProjectLog = () => {
             value={accountManager}
             onChange={handleChange}
           />
-        </ProjectDetails>
-        <GroupDetails>
-          <Input
-            type='text'
-            placeholder='Group Name'
-            name='groupName'
-            value={groupName}
-            onChange={handleChange}
-          />
-
           <Input
             type='text'
             placeholder='Location'
@@ -81,8 +75,10 @@ const ProjectLog = () => {
             value={groupLocation}
             onChange={handleChange}
           />
-
+        </GroupContainer>
+        <GroupContainer>
           <GroupDates>
+            <h3>Dates and Pax expected</h3>
             <Input
               type='date'
               placeholder='Arrival date'
@@ -97,9 +93,24 @@ const ProjectLog = () => {
               value={departureDay}
               onChange={handleChange}
             />
+            <Input
+              type='number'
+              placeholder='Number of Pax'
+              name='nrPax'
+              value={nrPax}
+              onChange={handleChange}
+            />
           </GroupDates>
-        </GroupDetails>
-        <ClientDetails>
+        </GroupContainer>
+        <GroupContainer>
+          <h3>Client Details</h3>
+          <Input
+            type='text'
+            placeholder='Group Name'
+            name='groupName'
+            value={groupName}
+            onChange={handleChange}
+          />
           <Input
             type='text'
             placeholder='Client company'
@@ -114,12 +125,12 @@ const ProjectLog = () => {
             value={clientAccManager}
             onChange={handleChange}
           />
-        </ClientDetails>
+        </GroupContainer>
+        <ProjectResults>
+          <PLList data={projectInputData} />
+          <SaveButton type='submit' text='Save and continue' />
+        </ProjectResults>
       </ProjectConfiguration>
-      <ProjectResults>
-        <PLList data={projectInputData} />
-        <StyledButton type='submit'>Save</StyledButton>
-      </ProjectResults>
     </ProjectLogContainer>
   );
 };
