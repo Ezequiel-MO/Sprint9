@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const ProjectLogContainer = styled.form`
   height: fit-content;
@@ -26,6 +26,7 @@ export const GroupLocation = styled.div``;
 export const ProjectResults = styled.div`
   border: ${({ validForm }) =>
     validForm ? `3px solid green` : `3px solid #a9ba9d;`};
+  background-color: ${({ validForm }) => validForm && `lightgreen`};
   border-radius: 1rem;
   padding: 1rem;
 `;
