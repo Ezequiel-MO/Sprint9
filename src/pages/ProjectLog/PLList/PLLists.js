@@ -73,12 +73,14 @@ const PLList = ({
         <tbody key={unit.id}>
           <tr>
             {unit.tableElements.map((tableElement) => (
-              <th align='left'>{tableElement.header} </th>
+              <th key={tableElement.header} align='left'>
+                {tableElement.header}
+              </th>
             ))}
           </tr>
           <tr>
             {unit.tableElements.map((tableElement) => (
-              <td>{tableElement.data} </td>
+              <td key={tableElement.header}>{tableElement.data} </td>
             ))}
           </tr>
         </tbody>

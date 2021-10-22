@@ -11,9 +11,12 @@ import PLList from "./PLList/PLLists";
 import SaveButton from "../../uicomponents/SaveButton/SaveButton";
 import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
+import { useHistory } from "react-router";
+import axios from "axios";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [projectFormIsValid, setProjectFormIsValid] = useState(false);
   const [projectInputData, setProjectInputData] = useState({
     code: "",
@@ -42,6 +45,17 @@ const ProjectLog = () => {
   useEffect(() => {
     if (projectFormIsValid) {
       dispatch(SET_ActiveCode(code));
+      const projectURL =
+        "https://warm-sea-39187.herokuapp.com/api/project-details";
+      const projectInputDataArr = new Array(projectInputData);
+      const postProjectData = () => {
+        axios
+          .post(projectURL, projectInputDataArr)
+          .then((res) => console.log("res=>", res))
+          .catch((err) => console.log(err));
+      };
+      postProjectData();
+      setTimeout(() => history.push("/"), 500);
     } else {
       alert("please fill in all data");
     }
