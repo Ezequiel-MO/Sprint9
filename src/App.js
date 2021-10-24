@@ -10,6 +10,7 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
+import ProjectConfig from "./pages/ProjectConfig/ProjectConfig";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -21,6 +22,7 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-form' component={ProjectLog} />
+          <Route path='/project-configuration' component={ProjectConfig} />
           <Route path='/' component={Welcome} />
         </Switch>
       </Container>

@@ -28,6 +28,8 @@ If you don't have **yarn** installed, proceed to delete the yarn.lock file, and 
 npm install
 ```
 
+# Sprint-1
+
 ## Main objectives during the Sprint-1
 
 - Learn the TDD methodology
@@ -45,6 +47,14 @@ npm install
 ## Sprint-1 Mock-up design-2
 
 ![Project form](/mockup-screenshots/sprint1-mockup2.png?raw=true "Page where basic Project data is fed")
+
+# Sprint-2
+
+## Sprint-2 Mock-up design-1 Mood board
+
+![Hotel form](/mockup-screenshots/sprint2-mockup1.png?raw=true "Mood board sample of what the Hotel form may end looking like")
+
+[re-create at ](https://codepen.io/arefeh_htmi/pen/mdPYZKJ)
 
 ## Built with 🛠️
 

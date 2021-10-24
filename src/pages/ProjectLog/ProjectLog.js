@@ -55,7 +55,7 @@ const ProjectLog = () => {
           .catch((err) => console.log(err));
       };
       postProjectData();
-      setTimeout(() => history.push("/"), 500);
+      setTimeout(() => history.push("/project-configuration"), 500);
     } else {
       alert("please fill in all data");
     }

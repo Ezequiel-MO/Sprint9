@@ -15,7 +15,7 @@ export const StyledSaveButton = styled.button`
     left: 0;
     display: block;
     border-radius: 28px;
-    background: #ea5933;
+    background: #ddbcb0;
     width: 56px;
     height: 56px;
     transition: all 0.3s ease;
@@ -43,7 +43,7 @@ export const StyledSaveButton = styled.button`
   }
   &:hover::before {
     width: 100%;
-    background: #ffab9d;
+    background: #ddbcb0;
   }
   &:hover svg {
     transform: translateX(0);
