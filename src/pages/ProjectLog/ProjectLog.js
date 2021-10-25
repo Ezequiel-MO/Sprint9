@@ -12,7 +12,7 @@ import SaveButton from "../../uicomponents/SaveButton/SaveButton";
 import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
-import axios from "axios";
+import { baseAPI } from "../../api/axios";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();
@@ -28,6 +28,8 @@ const ProjectLog = () => {
     nrPax: 0,
     clientCo: "",
     clientAccManager: "",
+    hotels: [],
+    schedule: [],
   });
 
   const {
@@ -40,17 +42,21 @@ const ProjectLog = () => {
     nrPax,
     clientCo,
     clientAccManager,
+    hotels,
+    schedule,
   } = projectInputData;
 
   useEffect(() => {
     if (projectFormIsValid) {
       dispatch(SET_ActiveCode(code));
-      const projectURL =
-        "https://warm-sea-39187.herokuapp.com/api/project-details";
-      const projectInputDataArr = new Array(projectInputData);
+      const projectFormData = new FormData();
+      for (const [key, value] of Object.entries(projectInputData)) {
+        projectFormData.append(key, value);
+      }
+
       const postProjectData = () => {
-        axios
-          .post(projectURL, projectInputDataArr)
+        baseAPI
+          .post("/projects", projectFormData)
           .then((res) => console.log("res=>", res))
           .catch((err) => console.log(err));
       };

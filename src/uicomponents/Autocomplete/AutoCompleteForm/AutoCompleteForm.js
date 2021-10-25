@@ -1,7 +1,7 @@
 import { StyledAutoCompleteForm } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { baseAPI } from "../../../api/axios";
 
 const AutoCompleteForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
@@ -9,12 +9,26 @@ const AutoCompleteForm = ({ icon, iconWidth, placeholder }) => {
   const [selectedHotel, setSelectedHotel] = useState("");
 
   useEffect(() => {
-    const hotelsURL = "https://cutt-events.herokuapp.com/hotels";
+    console.log("hotels=>", hotels);
+  }, [hotels]);
+
+  useEffect(() => {
+    /* try {
+      const pushHotel = () => {
+        baseAPI.post(`/addHotels/${hotels[0]._id}`);
+      };
+      pushHotel();
+    } catch (err) {
+      console.warn(err);
+    } */
+  }, [selectedHotel]);
+
+  useEffect(() => {
     try {
       const loadHotels = async () => {
         const {
           data: { hotels },
-        } = await axios.get(hotelsURL);
+        } = await baseAPI.get("/hotels");
         setHotels(hotels);
       };
       loadHotels();
@@ -22,12 +36,6 @@ const AutoCompleteForm = ({ icon, iconWidth, placeholder }) => {
       console.warn(err);
     }
   }, []);
-
-  useEffect(() => {
-    console.log("hotel match=>", hotelMatch);
-  }, [hotelMatch]);
-
-  console.log("hotels here =>", hotels);
 
   const searchHotels = (text) => {
     if (!text) {
@@ -41,10 +49,6 @@ const AutoCompleteForm = ({ icon, iconWidth, placeholder }) => {
       setSelectedHotel(text);
       setHotelMatch(matches);
     }
-  };
-
-  const handleClick = (string) => {
-    setSelectedHotel(string);
   };
 
   const handleSubmit = (e) => {
@@ -68,7 +72,7 @@ const AutoCompleteForm = ({ icon, iconWidth, placeholder }) => {
       {hotelMatch &&
         hotelMatch.map((v, i) => (
           <ul key={i}>
-            <li onClick={() => handleClick(v.name)}>{v.name}</li>
+            <li onClick={() => setSelectedHotel(v.name)}>{v.name}</li>
           </ul>
         ))}
     </>
