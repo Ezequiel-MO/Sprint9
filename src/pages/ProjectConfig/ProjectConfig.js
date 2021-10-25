@@ -6,7 +6,6 @@ const ProjectConfig = () => {
       icon='bx:bx-hotel'
       iconWidth='36'
       placeholder='Search Hotel from Data base'
-      value='Search'
     />
   );
 };
