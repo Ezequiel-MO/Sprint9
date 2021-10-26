@@ -1,28 +1,22 @@
 import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
-import { baseAPI } from "../../api/axios";
 import AddHotelsToProject from "../AddHotelsToProject/AddHotelsToProject";
+import { useAxiosFetch } from "../../hooks/useAxiosFetch";
+import { baseAPI } from "../../api/axios";
 
 const VendorForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
   const [hotelMatch, setHotelMatch] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState("");
   const [hotelToAdd, setHotelToAdd] = useState([]);
+  const {
+    data: { hotels: hotelData },
+  } = useAxiosFetch("https://cutt-events.herokuapp.com/hotels");
 
   useEffect(() => {
-    try {
-      const loadHotels = async () => {
-        const {
-          data: { hotels },
-        } = await baseAPI.get("/hotels");
-        setHotels(hotels);
-      };
-      loadHotels();
-    } catch (err) {
-      console.warn(err);
-    }
-  }, []);
+    setHotels(hotelData);
+  }, [hotelData]);
 
   const searchHotels = (text) => {
     if (!text) {
