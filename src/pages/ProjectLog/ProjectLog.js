@@ -48,18 +48,17 @@ const ProjectLog = () => {
 
   useEffect(() => {
     if (projectFormIsValid) {
-      dispatch(SET_ActiveCode(code));
       const projectFormData = new FormData();
       for (const [key, value] of Object.entries(projectInputData)) {
         projectFormData.append(key, value);
       }
-
       const postProjectData = () => {
         baseAPI
           .post("/projects", projectFormData)
           .then((res) => console.log("res=>", res))
           .catch((err) => console.log(err));
       };
+      dispatch(SET_ActiveCode(code));
       postProjectData();
       setTimeout(() => history.push("/project-configuration"), 500);
     } else {

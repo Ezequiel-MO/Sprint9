@@ -15,3 +15,40 @@ export const projectData = [
     date: "30/11/21",
   },
 ];
+
+export const mockHotels = [
+  {
+    name: "NN Jazz",
+    city: "Barcelona",
+    hotelInfo: {
+      direction: "C/Pelai",
+      numberStars: 3,
+      numberRooms: 90,
+      checkin_out: "15.00/12.00",
+      meetingRooms: "6",
+      wheelChairAccesible: true,
+      wifiSpeed: "yes",
+      swimmingPool: "outdoor",
+      restaurants: "2 x restaurants",
+    },
+    textContent: ["bla bla "],
+    imageContentUrl: [""],
+  },
+  {
+    name: "Hilton Diagonal Mar",
+    city: "Barcelona",
+    hotelInfo: {
+      direction: "C/Diagonal",
+      numberStars: 4,
+      numberRooms: 200,
+      checkin_out: "15.00/12.00",
+      meetingRooms: "10",
+      wheelChairAccesible: true,
+      wifiSpeed: "yes",
+      swimmingPool: "outdoor",
+      restaurants: "2 x restaurants and a bar",
+    },
+    textContent: ["bla bla "],
+    imageContentUrl: [""],
+  },
+];

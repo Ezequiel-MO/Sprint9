@@ -1,8 +1,8 @@
-import AutoCompleteForm from "../../uicomponents/Autocomplete/AutoCompleteForm/AutoCompleteForm";
+import VendorForm from "../../components/VendorForm/VendorForm";
 
 const ProjectConfig = () => {
   return (
-    <AutoCompleteForm
+    <VendorForm
       icon='bx:bx-hotel'
       iconWidth='36'
       placeholder='Search Hotel from Data base'
