@@ -6,6 +6,16 @@ export const AddHotelsToProjectContainer = styled.div`
   height: fit-content;
   justify-content: space-around;
   margin-top: 0.7rem;
+  & button {
+    background-color: transparent;
+    border: none;
+  }
+  & button span {
+    cursor: pointer;
+  }
+  & button:active {
+    transform: scale(1.1);
+  }
 `;
 
 export const AddHotelContainer = styled.div`

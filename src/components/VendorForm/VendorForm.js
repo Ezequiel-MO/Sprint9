@@ -58,6 +58,13 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
     console.log("hotels to add array =>", hotelsToAddArr);
   };
 
+  const removeHotelFromArray = (hotel) => {
+    console.log("hotel=>", hotel);
+    setHotelToAdd((prevState) =>
+      prevState.filter((elements) => elements !== hotel)
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setHotelToAdd((prevState) => [...prevState, selectedHotel]);
@@ -88,7 +95,8 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
         </div>
         <AddHotelsToProject
           hotels={hotelToAdd}
-          handleClick={pushHotelsToServer}
+          pushHotelsToServer={pushHotelsToServer}
+          removeHotelFromArray={removeHotelFromArray}
         />
       </VendorFormContainer>
     </>
