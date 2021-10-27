@@ -1,4 +1,4 @@
-import SaveButton from "../../uicomponents/SaveButton/SaveButton";
+import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
 import {
   AddHotelsToProjectContainer,
   AddHotelContainer,
@@ -6,7 +6,7 @@ import {
 } from "./styles";
 import { Icon } from "@iconify/react";
 
-const AddHotelsToProject = ({
+const AddScheduleToProject = ({
   hotels,
   pushHotelsToServer,
   removeHotelFromArray,
@@ -37,4 +37,4 @@ const AddHotelsToProject = ({
   );
 };
 
-export default AddHotelsToProject;
+export default AddScheduleToProject;

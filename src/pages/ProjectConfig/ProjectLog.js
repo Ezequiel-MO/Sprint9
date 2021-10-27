@@ -65,7 +65,7 @@ const ProjectLog = () => {
       };
       dispatch(SET_ActiveCode(code));
       postProjectData();
-      setTimeout(() => history.push("/project-configuration"), 500);
+      setTimeout(() => history.push("/hotel-config"), 500);
     } else {
       alert("please fill in all data");
     }

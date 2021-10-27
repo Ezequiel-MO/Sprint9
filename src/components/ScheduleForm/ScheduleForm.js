@@ -1,13 +1,13 @@
 import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
-import AddHotelsToProject from "../AddHotelsToProject/AddHotelsToProject";
+import AddHotelsToProject from "./AddScheduleToProject/AddScheduleToProject";
 import { useAxiosFetch } from "../../hooks/useAxiosFetch";
 import { baseAPI } from "../../api/axios";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../features/ActiveCodeSlice";
 
-const VendorForm = ({ icon, iconWidth, placeholder }) => {
+const ScheduleForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
   const [hotelMatch, setHotelMatch] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState("");
@@ -111,4 +111,4 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
   );
 };
 
-export default VendorForm;
+export default ScheduleForm;

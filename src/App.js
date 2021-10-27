@@ -1,7 +1,7 @@
 import Header from "./components/Header/Header";
 import ProjectModal from "./components/ProjectModal/ProjectModal";
 import Login from "./pages/Login/Login";
-import ProjectLog from "./pages/ProjectLog/ProjectLog";
+import ProjectLog from "./pages/ProjectConfig/ProjectLog";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Welcome from "./pages/Welcome/Welcome";
@@ -10,7 +10,9 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
-import ProjectConfig from "./pages/ProjectConfig/ProjectConfig";
+import HotelConfig from "./pages/HotelConfig/HotelConfig";
+import { mockSchedule } from "./data/projects-data";
+import ScheduleConfig from "./pages/ScheduleConfig/ScheduleConfig";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -22,7 +24,8 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-form' component={ProjectLog} />
-          <Route path='/project-configuration' component={ProjectConfig} />
+          <Route path='/hotel-config' component={HotelConfig} />
+          <Route path='/schedule-config' component={ScheduleConfig} />
           <Route path='/' component={Welcome} />
         </Switch>
       </Container>

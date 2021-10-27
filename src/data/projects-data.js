@@ -52,3 +52,21 @@ export const mockHotels = [
     imageContentUrl: [""],
   },
 ];
+
+export const mockSchedule = [
+  {
+    date: "Monday Nov 3rd, 2021",
+    events: [
+      {
+        name: "city tour",
+        city: "Barcelona",
+        titleSideBar: "city tour",
+        title: "City tour",
+        textContent: ["bla bla"],
+        imageContentUrl: [],
+      },
+    ],
+    lunch: [],
+    dinner: [],
+  },
+];
