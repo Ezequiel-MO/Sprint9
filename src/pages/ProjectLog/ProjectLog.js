@@ -13,10 +13,15 @@ import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../api/axios";
+import { useAxiosFetch } from "../../hooks/useAxiosFetch";
+import { checkForDuplicates } from "../../utils/utils";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {
+    data: { projects },
+  } = useAxiosFetch("https://cutt-events.herokuapp.com/projects");
   const [projectFormIsValid, setProjectFormIsValid] = useState(false);
   const [projectInputData, setProjectInputData] = useState({
     code: "",
@@ -73,13 +78,23 @@ const ProjectLog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let isValid = false;
     console.log("project=>", projectInputData);
-    setProjectFormIsValid(
-      !Object.values(projectInputData).some(
-        (value) => value === null || value === ""
-      )
+    const allInputsAreNonEmpty = !Object.values(projectInputData).some(
+      (value) => value === null || value === ""
     );
+    if (allInputsAreNonEmpty) {
+      const codeArr = projects.map((project) => project.code);
+      const { codeIsNew } = checkForDuplicates(code, codeArr);
+      isValid = codeIsNew;
+    }
+
+    setProjectFormIsValid(isValid);
   };
+
+  useEffect(() => {
+    console.log("projects", projects);
+  }, [projects]);
 
   return (
     <ProjectLogContainer onSubmit={handleSubmit}>

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import AddHotelsToProject from "../AddHotelsToProject/AddHotelsToProject";
 import { useAxiosFetch } from "../../hooks/useAxiosFetch";
 import { baseAPI } from "../../api/axios";
+import { useSelector } from "react-redux";
+import { selectActiveCode } from "../../features/ActiveCodeSlice";
 
 const VendorForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
@@ -13,6 +15,13 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
   const {
     data: { hotels: hotelData },
   } = useAxiosFetch("https://cutt-events.herokuapp.com/hotels");
+  const activeCode = useSelector(selectActiveCode);
+
+  const {
+    data: { project: projectByCode },
+  } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`);
+
+  console.log("project by code =>", projectByCode);
 
   useEffect(() => {
     setHotels(hotelData);
@@ -42,7 +51,7 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
       }
       try {
         const pushHotel = () => {
-          baseAPI.post("/addHotels/6177b0a9d3cae34ada99a284", hotelsToAddArr);
+          baseAPI.post(`/addHotels/${projectByCode._id}`, hotelsToAddArr);
         };
         pushHotel();
       } catch (err) {
@@ -61,7 +70,12 @@ const VendorForm = ({ icon, iconWidth, placeholder }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setHotelToAdd((prevState) => [...prevState, selectedHotel]);
+    const isEmpty = (str) => str.length === 0;
+    if (!isEmpty(selectedHotel)) {
+      setHotelToAdd((prevState) => [...prevState, selectedHotel]);
+      setSelectedHotel([]);
+      setHotelMatch([]);
+    }
   };
 
   return (

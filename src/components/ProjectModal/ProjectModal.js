@@ -18,6 +18,7 @@ const ProjectModal = () => {
   const [project, setProject] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setProject("");

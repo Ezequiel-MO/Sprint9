@@ -7,7 +7,7 @@ export const PMContainer = styled.div`
   height: fit-content;
   min-height: 35rem;
   margin: auto;
-  z-index: 1;
+  z-index: 10;
   position: absolute;
   top: 4%;
   left: 30%;
