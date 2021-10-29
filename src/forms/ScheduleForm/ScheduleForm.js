@@ -7,7 +7,7 @@ import { selectActiveCode } from "../../features/ActiveCodeSlice";
 import { baseAPI } from "../../api/axios";
 import { useHistory } from "react-router";
 import SaveButton from "../../uicomponents/SaveButton/SaveButton";
-import AddLunchOptions from "./AddLunchOptions";
+import AddLunchOptions from "./LunchForm";
 
 const ScheduleForm = () => {
   const [schedule, setSchedule] = useState([]);
