@@ -1,4 +1,4 @@
-import HotelForm from "../../components/HotelForm/HotelForm";
+import HotelForm from "../../forms/HotelForm/HotelForm";
 
 const HotelConfig = () => {
   return (

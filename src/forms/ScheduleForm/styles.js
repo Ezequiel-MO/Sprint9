@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const VendorFormContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 `;
@@ -30,7 +31,8 @@ export const StyledAutoCompleteForm = styled.form`
     outline: 0;
     -webkit-appearance: none;
   }
-  & input[type="submit"] {
+  & input[type="submit"],
+  input[type="button"] {
     background: #a9ba9d;
     border: 1px solid #a9ba9d;
     color: #fff;
@@ -41,7 +43,8 @@ export const StyledAutoCompleteForm = styled.form`
     -moz-transition: all 0.2s;
     transition: all 0.2s;
   }
-  & input[type="submit"]:hover {
+  & input[type="submit"]:hover,
+  input[type="button"]:hover {
     background: #ddbcb0;
     border: 1px solid #ddbcb0;
   }
@@ -49,3 +52,7 @@ export const StyledAutoCompleteForm = styled.form`
     flex-basis: 500px;
   }
 `;
+
+export const AutoCompleteDiv = styled(StyledAutoCompleteForm).attrs({
+  as: "div",
+})``;

@@ -1,13 +1,7 @@
-import ScheduleForm from "../../components/ScheduleForm/ScheduleForm";
+import ScheduleForm from "../../forms/ScheduleForm/ScheduleForm";
 
 const ScheduleConfig = () => {
-  return (
-    <ScheduleForm
-      icon='bx:bx-hotel'
-      iconWidth='36'
-      placeholder='Create Schedule'
-    />
-  );
+  return <ScheduleForm />;
 };
 
 export default ScheduleConfig;

@@ -1,13 +1,14 @@
 import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
-import AddHotelsToProject from "./AddScheduleToProject/AddScheduleToProject";
+import AddHotelsToProject from "./AddHotelsToProject/AddHotelsToProject";
 import { useAxiosFetch } from "../../hooks/useAxiosFetch";
 import { baseAPI } from "../../api/axios";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../features/ActiveCodeSlice";
+import { useHistory } from "react-router";
 
-const ScheduleForm = ({ icon, iconWidth, placeholder }) => {
+const HotelForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
   const [hotelMatch, setHotelMatch] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState("");
@@ -16,7 +17,7 @@ const ScheduleForm = ({ icon, iconWidth, placeholder }) => {
     data: { hotels: hotelData },
   } = useAxiosFetch("https://cutt-events.herokuapp.com/hotels");
   const activeCode = useSelector(selectActiveCode);
-
+  const history = useHistory();
   const {
     data: { project: projectByCode },
   } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`);
@@ -54,6 +55,7 @@ const ScheduleForm = ({ icon, iconWidth, placeholder }) => {
           baseAPI.post(`/addHotels/${projectByCode._id}`, hotelsToAddArr);
         };
         pushHotel();
+        setTimeout(() => history.push("/schedule-config"), 500);
       } catch (err) {
         console.warn(err);
       }
@@ -111,4 +113,4 @@ const ScheduleForm = ({ icon, iconWidth, placeholder }) => {
   );
 };
 
-export default ScheduleForm;
+export default HotelForm;

@@ -11,8 +11,11 @@ import {
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
 import HotelConfig from "./pages/HotelConfig/HotelConfig";
-import { mockSchedule } from "./data/projects-data";
 import ScheduleConfig from "./pages/ScheduleConfig/ScheduleConfig";
+import VendorMaster from "./pages/VendorMaster/VendorMaster";
+import HotelMaster from "./pages/Master/HotelMaster";
+import RestaurantMaster from "./pages/Master/RestaurantMaster";
+import EventMaster from "./pages/Master/EventMaster";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -26,7 +29,11 @@ function App() {
           <Route path='/project-form' component={ProjectLog} />
           <Route path='/hotel-config' component={HotelConfig} />
           <Route path='/schedule-config' component={ScheduleConfig} />
-          <Route path='/' component={Welcome} />
+          <Route path='/Hotels-master' component={HotelMaster} />
+          <Route path='/Restaurants-master' component={RestaurantMaster} />
+          <Route path='/Events-master' component={EventMaster} />
+          <Route path='/vendor-master' component={VendorMaster} />
+          <Route path='/' exact component={Welcome} />
         </Switch>
       </Container>
       {userIsSearchingProject && <ProjectModal />}
