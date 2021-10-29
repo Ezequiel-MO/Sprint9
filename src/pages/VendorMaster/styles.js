@@ -5,4 +5,7 @@ export const VendorMasterContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 1rem;
+  & a {
+    text-decoration: none;
+  }
 `;

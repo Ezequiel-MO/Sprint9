@@ -10,12 +10,11 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
-import HotelConfig from "./pages/HotelConfig/HotelConfig";
-import ScheduleConfig from "./pages/ScheduleConfig/ScheduleConfig";
 import VendorMaster from "./pages/VendorMaster/VendorMaster";
-import HotelMaster from "./pages/Master/HotelMaster";
-import RestaurantMaster from "./pages/Master/RestaurantMaster";
-import EventMaster from "./pages/Master/EventMaster";
+import ScheduleConfig from "./pages/VendorConfiguration/ScheduleConfig";
+import HotelConfig from "./pages/VendorConfiguration/HotelConfig";
+import RestaurantConfig from "./pages/VendorConfiguration/RestaurantConfig";
+import EventConfig from "./pages/VendorConfiguration/EventConfig";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -27,11 +26,10 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-form' component={ProjectLog} />
-          <Route path='/hotel-config' component={HotelConfig} />
           <Route path='/schedule-config' component={ScheduleConfig} />
-          <Route path='/Hotels-master' component={HotelMaster} />
-          <Route path='/Restaurants-master' component={RestaurantMaster} />
-          <Route path='/Events-master' component={EventMaster} />
+          <Route path='/Hotels-master' component={HotelConfig} />
+          <Route path='/Restaurants-master' component={RestaurantConfig} />
+          <Route path='/Events-master' component={EventConfig} />
           <Route path='/vendor-master' component={VendorMaster} />
           <Route path='/' exact component={Welcome} />
         </Switch>
