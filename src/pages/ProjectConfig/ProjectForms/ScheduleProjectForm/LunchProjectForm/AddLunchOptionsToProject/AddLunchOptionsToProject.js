@@ -2,9 +2,8 @@ import {
   AddOptionsToProjectContainer,
   AddOptionsContainer,
   StyledAddOption,
-} from "../../styles";
+} from "../../../styles";
 import { Icon } from "@iconify/react";
-import SaveButton from "../../../../../../uicomponents/SaveButton/SaveButton";
 
 const AddLunchOptionsToProject = ({
   lunchOptions,

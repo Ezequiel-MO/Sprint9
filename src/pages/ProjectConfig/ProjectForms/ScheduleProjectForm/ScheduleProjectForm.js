@@ -1,5 +1,3 @@
-import { AutoCompleteDiv, ScheduleProjectFormContainer } from "./styles";
-import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
@@ -10,6 +8,7 @@ import LunchProjectForm from "./LunchProjectForm/LunchProjectForm";
 import EventProjectForm from "./EventProjectForm/EventProjectForm";
 import DinnerProjectForm from "./DinnerProjectForm/DinnerProjectForm";
 import DateProjectForm from "./DateProjectForm/DateProjectForm";
+import { ScheduleProjectFormContainer } from "../styles";
 
 const ScheduleProjectForm = () => {
   const [schedule, setSchedule] = useState([]);

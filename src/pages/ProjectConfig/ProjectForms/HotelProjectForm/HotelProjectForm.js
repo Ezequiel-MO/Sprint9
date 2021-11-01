@@ -1,4 +1,3 @@
-import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import AddHotelsToProject from "./AddHotelsToProject/AddHotelsToProject";
@@ -7,6 +6,7 @@ import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../api/axios";
+import { HotelFormContainer, StyledAutoCompleteForm } from "../styles";
 
 const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
@@ -82,7 +82,7 @@ const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
 
   return (
     <>
-      <VendorFormContainer>
+      <HotelFormContainer>
         <div>
           <StyledAutoCompleteForm onSubmit={handleSubmit}>
             <label>
@@ -108,7 +108,7 @@ const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
           pushHotelsToServer={pushHotelsToServer}
           removeHotelFromArray={removeHotelFromArray}
         />
-      </VendorFormContainer>
+      </HotelFormContainer>
     </>
   );
 };

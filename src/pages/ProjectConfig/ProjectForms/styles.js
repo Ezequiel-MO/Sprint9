@@ -7,6 +7,12 @@ export const ScheduleProjectFormContainer = styled.div`
   align-items: flex-start;
 `;
 
+export const HotelFormContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
 export const StyledAutoCompleteForm = styled.form`
   margin: 1rem;
   display: -webkit-box;

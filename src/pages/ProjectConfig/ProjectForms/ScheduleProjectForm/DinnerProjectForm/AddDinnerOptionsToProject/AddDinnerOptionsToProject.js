@@ -2,7 +2,7 @@ import {
   AddOptionsToProjectContainer,
   AddOptionsContainer,
   StyledAddOption,
-} from "../../styles";
+} from "../../../styles";
 import { Icon } from "@iconify/react";
 
 const AddDinnerOptionsToProject = ({

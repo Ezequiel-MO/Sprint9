@@ -1,10 +1,10 @@
-import {
-  AddHotelsToProjectContainer,
-  AddOptionsContainer,
-  StyledAddOption,
-} from "./styles";
 import { Icon } from "@iconify/react";
 import SaveButton from "../../../../../uicomponents/SaveButton/SaveButton";
+import {
+  AddOptionsContainer,
+  AddOptionsToProjectContainer,
+  StyledAddOption,
+} from "../../styles";
 
 const AddHotelsToProject = ({
   hotels,
@@ -14,7 +14,7 @@ const AddHotelsToProject = ({
   console.log("hotels to add =>", hotels);
 
   return (
-    <AddHotelsToProjectContainer>
+    <AddOptionsToProjectContainer>
       <AddOptionsContainer>
         {hotels.map((hotel) => (
           <StyledAddOption key={hotel}>
@@ -33,7 +33,7 @@ const AddHotelsToProject = ({
         ))}
       </AddOptionsContainer>
       <SaveButton text='Add Hotels to Project' onClick={pushHotelsToServer} />
-    </AddHotelsToProjectContainer>
+    </AddOptionsToProjectContainer>
   );
 };
 

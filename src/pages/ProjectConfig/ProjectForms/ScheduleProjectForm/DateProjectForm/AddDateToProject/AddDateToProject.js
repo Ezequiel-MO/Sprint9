@@ -1,9 +1,9 @@
-import {
-  AddOptionsToProjectContainer,
-  AddOptionsContainer,
-  StyledAddOption,
-} from "../../styles";
 import { Icon } from "@iconify/react";
+import {
+  AddOptionsContainer,
+  AddOptionsToProjectContainer,
+  StyledAddOption,
+} from "../../../styles";
 
 const AddDateToProject = ({
   lunchOptions,

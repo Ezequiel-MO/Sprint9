@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { StyledAutoCompleteForm, VendorFormContainer } from "../styles";
+import { StyledAutoCompleteForm } from "../../styles";
 import { useState, useEffect } from "react";
 import { useAxiosFetch } from "../../../../../hooks/useAxiosFetch";
 import AddDinnerOptionsToProject from "../DinnerProjectForm/AddDinnerOptionsToProject/AddDinnerOptionsToProject";
