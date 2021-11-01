@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
-import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
+import { StyledAutoCompleteForm } from "../styles";
 import { useState, useEffect } from "react";
-import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
+import { useAxiosFetch } from "../../../../../hooks/useAxiosFetch";
 import AddLunchOptionsToProject from "./AddLunchOptionsToProject/AddLlunchOptionsToProject";
 
-const LunchForm = () => {
+const LunchProjectForm = () => {
   const [lunchOptions, setLunchOptions] = useState([]);
   const [restaurantMatch, setRestaurantMatch] = useState([]);
   const [selectedLunchOption, setSelectedLunchOption] = useState("");
@@ -43,36 +43,34 @@ const LunchForm = () => {
 
   return (
     <>
-      <VendorFormContainer>
-        <div>
-          <StyledAutoCompleteForm onSubmit={handleSubmit}>
-            <label>
-              <Icon icon='carbon:restaurant' width='28' />
-            </label>
-            <input
-              type='search'
-              placeholder='ex : Add Lunch Options'
-              name='lunch'
-              onChange={(e) => searchRestaurants(e.target.value)}
-              value={selectedLunchOption}
-            />
-            <input type='submit' value='Add to your Day' />
-          </StyledAutoCompleteForm>
-          {restaurantMatch &&
-            restaurantMatch.map((v, i) => (
-              <ul key={i}>
-                <li onClick={() => setSelectedLunchOption(v.name)}>{v.name}</li>
-              </ul>
-            ))}
-        </div>
-        <AddLunchOptionsToProject
-          lunchOptions={lunchOptionsToAdd}
-          pushLunchOptionsToServer={pushLunchOptionsToServer}
-          removeLunchOptionFromArray={removeLunchOptionFromArray}
-        />
-      </VendorFormContainer>
+      <div>
+        <StyledAutoCompleteForm onSubmit={handleSubmit}>
+          <label>
+            <Icon icon='carbon:restaurant' width='28' />
+          </label>
+          <input
+            type='search'
+            placeholder='ex : Add Lunch Options'
+            name='lunch'
+            onChange={(e) => searchRestaurants(e.target.value)}
+            value={selectedLunchOption}
+          />
+          <input type='submit' value='Add to your Day' />
+        </StyledAutoCompleteForm>
+        {restaurantMatch &&
+          restaurantMatch.map((v, i) => (
+            <ul key={i}>
+              <li onClick={() => setSelectedLunchOption(v.name)}>{v.name}</li>
+            </ul>
+          ))}
+      </div>
+      <AddLunchOptionsToProject
+        lunchOptions={lunchOptionsToAdd}
+        pushLunchOptionsToServer={pushLunchOptionsToServer}
+        removeLunchOptionFromArray={removeLunchOptionFromArray}
+      />
     </>
   );
 };
 
-export default LunchForm;
+export default LunchProjectForm;

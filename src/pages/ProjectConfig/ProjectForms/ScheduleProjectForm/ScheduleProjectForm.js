@@ -1,12 +1,15 @@
-import { AutoCompleteDiv, VendorFormContainer } from "./styles";
+import { AutoCompleteDiv, ScheduleProjectFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
-import AddLunchOptions from "./LunchForm";
 import { baseAPI } from "../../../../api/axios";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
+import LunchProjectForm from "./LunchProjectForm/LunchProjectForm";
+import EventProjectForm from "./EventProjectForm/EventProjectForm";
+import DinnerProjectForm from "./DinnerProjectForm/DinnerProjectForm";
+import DateProjectForm from "./DateProjectForm/DateProjectForm";
 
 const ScheduleProjectForm = () => {
   const [schedule, setSchedule] = useState([]);
@@ -79,55 +82,13 @@ const ScheduleProjectForm = () => {
 
   return (
     <>
-      <VendorFormContainer>
-        <AutoCompleteDiv>
-          <label>
-            <Icon icon='bx:bx-calendar' width='28' />
-          </label>
-          <input
-            type='search'
-            placeholder='ex : Arrival Day - Nov 3rd 2021'
-            name='date'
-            onChange={handleChange}
-            value={date}
-          />
-        </AutoCompleteDiv>
-        <AutoCompleteDiv>
-          <label>
-            <Icon icon='carbon:events' width='28' />
-          </label>
-          <input
-            type='search'
-            placeholder='ex : Add Events One by One'
-            name='events'
-            onChange={handleChange}
-            value={events}
-          />
-          <input type='button' value='Add to your Day' />
-        </AutoCompleteDiv>
-        <AddLunchOptions />
-        <AutoCompleteDiv>
-          <label>
-            <Icon icon='cil:dinner' width='28' />
-          </label>
-          <input
-            type='search'
-            placeholder='ex : Add Dinner Options'
-            name='dinner'
-            onChange={handleChange}
-            value={dinner}
-          />
-          <input type='button' value='Add to your Day' />
-        </AutoCompleteDiv>
-        {/* {hotelMatch &&
-            hotelMatch.map((v, i) => (
-              <ul key={i}>
-                <li onClick={() => setSelectedHotel(v.name)}>{v.name}</li>
-              </ul>
-            ))} */}
-
-        <SaveButton type='button' text='Add Day to Schedule' />
-      </VendorFormContainer>
+      <ScheduleProjectFormContainer>
+        <DateProjectForm />
+        <EventProjectForm />
+        <LunchProjectForm />
+        <DinnerProjectForm />
+        <SaveButton text='Add day to schedule' onClick={addDayToSchedule} />
+      </ScheduleProjectFormContainer>
     </>
   );
 };

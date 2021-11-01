@@ -2,9 +2,9 @@ import {
   AddHotelsToProjectContainer,
   AddHotelContainer,
   StyledAddHotel,
-} from "./styles";
+} from "../../styles";
 import { Icon } from "@iconify/react";
-import SaveButton from "../../../../../uicomponents/SaveButton/SaveButton";
+import SaveButton from "../../../../../../uicomponents/SaveButton/SaveButton";
 
 const AddLunchOptionsToProject = ({
   lunchOptions,
@@ -32,10 +32,9 @@ const AddLunchOptionsToProject = ({
           </StyledAddHotel>
         ))}
       </AddHotelContainer>
-      <SaveButton
-        text='Add Lunch options to Project'
-        onClick={pushLunchOptionsToServer}
-      />
+      <button onClick={pushLunchOptionsToServer}>
+        Add Lunch options to Project
+      </button>
     </AddHotelsToProjectContainer>
   );
 };
