@@ -18,13 +18,13 @@ export const AddHotelsToProjectContainer = styled.div`
   }
 `;
 
-export const AddHotelContainer = styled.div`
+export const AddOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-export const StyledAddHotel = styled.div`
+export const StyledAddOption = styled.div`
   flex-grow: 1;
   display: inline-flex;
   align-items: center;

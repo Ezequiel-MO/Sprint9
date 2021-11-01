@@ -1,7 +1,7 @@
 import {
-  AddHotelsToProjectContainer,
-  AddHotelContainer,
-  StyledAddHotel,
+  AddOptionsToProjectContainer,
+  AddOptionsContainer,
+  StyledAddOption,
 } from "../../styles";
 import { Icon } from "@iconify/react";
 import SaveButton from "../../../../../../uicomponents/SaveButton/SaveButton";
@@ -14,10 +14,10 @@ const AddEventsOptionsToProject = ({
   console.log("lunch options to add =>", lunchOptions);
 
   return (
-    <AddHotelsToProjectContainer>
-      <AddHotelContainer>
+    <AddOptionsToProjectContainer>
+      <AddOptionsContainer>
         {lunchOptions?.map((lunch) => (
-          <StyledAddHotel key={lunch}>
+          <StyledAddOption key={lunch}>
             <button onClick={() => removeLunchOptionFromArray(lunch)}>
               <span>
                 <Icon
@@ -29,13 +29,13 @@ const AddEventsOptionsToProject = ({
             </button>
 
             <h4>{lunch}</h4>
-          </StyledAddHotel>
+          </StyledAddOption>
         ))}
-      </AddHotelContainer>
+      </AddOptionsContainer>
       <button onClick={pushLunchOptionsToServer}>
         Add Event options to Project
       </button>
-    </AddHotelsToProjectContainer>
+    </AddOptionsToProjectContainer>
   );
 };
 

@@ -1,7 +1,7 @@
 import {
   AddHotelsToProjectContainer,
-  AddHotelContainer,
-  StyledAddHotel,
+  AddOptionsContainer,
+  StyledAddOption,
 } from "./styles";
 import { Icon } from "@iconify/react";
 import SaveButton from "../../../../../uicomponents/SaveButton/SaveButton";
@@ -15,9 +15,9 @@ const AddHotelsToProject = ({
 
   return (
     <AddHotelsToProjectContainer>
-      <AddHotelContainer>
+      <AddOptionsContainer>
         {hotels.map((hotel) => (
-          <StyledAddHotel key={hotel}>
+          <StyledAddOption key={hotel}>
             <button onClick={() => removeHotelFromArray(hotel)}>
               <span>
                 <Icon
@@ -29,9 +29,9 @@ const AddHotelsToProject = ({
             </button>
 
             <h4>{hotel}</h4>
-          </StyledAddHotel>
+          </StyledAddOption>
         ))}
-      </AddHotelContainer>
+      </AddOptionsContainer>
       <SaveButton text='Add Hotels to Project' onClick={pushHotelsToServer} />
     </AddHotelsToProjectContainer>
   );

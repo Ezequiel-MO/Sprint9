@@ -57,7 +57,7 @@ export const AutoCompleteDiv = styled(StyledAutoCompleteForm).attrs({
   as: "div",
 })``;
 
-export const AddHotelsToProjectContainer = styled.div`
+export const AddOptionsToProjectContainer = styled.div`
   display: flex;
   flex-grow: 1;
   height: fit-content;
@@ -75,13 +75,13 @@ export const AddHotelsToProjectContainer = styled.div`
   }
 `;
 
-export const AddHotelContainer = styled.div`
+export const AddOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-export const StyledAddHotel = styled.div`
+export const StyledAddOption = styled.div`
   flex-grow: 1;
   display: inline-flex;
   align-items: center;
