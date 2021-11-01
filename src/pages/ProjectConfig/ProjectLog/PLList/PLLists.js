@@ -1,4 +1,4 @@
-import { Table } from "../../../generalStyles";
+import { Table } from "../../../../generalStyles";
 
 const PLList = ({
   data: {

@@ -1,22 +1,21 @@
 import { AutoCompleteDiv, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
-import { useAxiosFetch } from "../../hooks/useAxiosFetch";
 import { useSelector } from "react-redux";
-import { selectActiveCode } from "../../features/ActiveCodeSlice";
-import { baseAPI } from "../../api/axios";
-import { useHistory } from "react-router";
-import SaveButton from "../../uicomponents/SaveButton/SaveButton";
+import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
+import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import AddLunchOptions from "./LunchForm";
+import { baseAPI } from "../../../../api/axios";
+import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 
-const ScheduleForm = () => {
+const ScheduleProjectForm = () => {
   const [schedule, setSchedule] = useState([]);
   const [scheduleInputData, setScheduleInputData] = useState({
     date: "Arrival Day - Nov 23rd 2021",
     events: [],
     dinner: [],
   });
-  const history = useHistory();
+
   const { date, events, dinner } = scheduleInputData;
   const activeCode = useSelector(selectActiveCode);
 
@@ -133,4 +132,4 @@ const ScheduleForm = () => {
   );
 };
 
-export default ScheduleForm;
+export default ScheduleProjectForm;

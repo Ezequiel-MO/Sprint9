@@ -1,7 +1,6 @@
 import Header from "./components/Header/Header";
 import ProjectModal from "./components/ProjectModal/ProjectModal";
 import Login from "./pages/Login/Login";
-import ProjectLog from "./pages/ProjectConfig/ProjectLog";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Welcome from "./pages/Welcome/Welcome";
@@ -10,11 +9,13 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
-import VendorMaster from "./pages/VendorMaster/VendorMaster";
-import ScheduleConfig from "./pages/VendorConfiguration/ScheduleConfig";
-import HotelConfig from "./pages/VendorConfiguration/HotelConfig";
-import RestaurantConfig from "./pages/VendorConfiguration/RestaurantConfig";
-import EventConfig from "./pages/VendorConfiguration/EventConfig";
+import ProjectLog from "./pages/ProjectConfig/ProjectLog/ProjectLog";
+import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
+import ScheduleProjectForm from "./pages/ProjectConfig/ProjectForms/ScheduleProjectForm/ScheduleProjectForm";
+import MasterLog from "./pages/VendorMaster/MasterLog/MasterLog";
+import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm/HotelMasterForm";
+import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm/RestaurantMasterForm";
+import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm/EventMasterForm";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -25,12 +26,19 @@ function App() {
       <Container onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
         <Switch>
           <Route path='/login' component={Login} />
-          <Route path='/project-form' component={ProjectLog} />
-          <Route path='/schedule-config' component={ScheduleConfig} />
-          <Route path='/Hotels-master' component={HotelConfig} />
-          <Route path='/Restaurants-master' component={RestaurantConfig} />
-          <Route path='/Events-master' component={EventConfig} />
-          <Route path='/vendor-master' component={VendorMaster} />
+          <Route path='/project-log' component={ProjectLog} />
+          <Route path='/hotel-project-form' component={HotelProjectForm} />
+          <Route
+            path='/schedule-project-form'
+            component={ScheduleProjectForm}
+          />
+          <Route path='/hotel-master-form' component={HotelMasterForm} />
+          <Route
+            path='/restaurant-master-form'
+            component={RestaurantMasterForm}
+          />
+          <Route path='/event-master-form' component={EventMasterForm} />
+          <Route path='/master-log' component={MasterLog} />
           <Route path='/' exact component={Welcome} />
         </Switch>
       </Container>

@@ -1,10 +1,10 @@
-import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
 import {
   AddHotelsToProjectContainer,
   AddHotelContainer,
   StyledAddHotel,
 } from "./styles";
 import { Icon } from "@iconify/react";
+import SaveButton from "../../../../../uicomponents/SaveButton/SaveButton";
 
 const AddHotelsToProject = ({
   hotels,

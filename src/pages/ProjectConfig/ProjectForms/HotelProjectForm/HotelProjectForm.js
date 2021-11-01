@@ -2,13 +2,13 @@ import { StyledAutoCompleteForm, VendorFormContainer } from "./styles";
 import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import AddHotelsToProject from "./AddHotelsToProject/AddHotelsToProject";
-import { useAxiosFetch } from "../../hooks/useAxiosFetch";
-import { baseAPI } from "../../api/axios";
+import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { useSelector } from "react-redux";
-import { selectActiveCode } from "../../features/ActiveCodeSlice";
+import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
+import { baseAPI } from "../../../../api/axios";
 
-const HotelForm = ({ icon, iconWidth, placeholder }) => {
+const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
   const [hotelMatch, setHotelMatch] = useState([]);
   const [selectedHotel, setSelectedHotel] = useState("");
@@ -113,4 +113,4 @@ const HotelForm = ({ icon, iconWidth, placeholder }) => {
   );
 };
 
-export default HotelForm;
+export default HotelProjectForm;

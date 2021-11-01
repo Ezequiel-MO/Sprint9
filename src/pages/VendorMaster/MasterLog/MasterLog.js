@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { VendorMasterContainer } from "./styles";
 import VendorCard from "./VendorCard/VendorCard";
 
-const VendorMaster = () => {
+const MasterLog = () => {
   return (
     <VendorMasterContainer>
       <h2>Upload New vendors</h2>
@@ -15,4 +15,4 @@ const VendorMaster = () => {
   );
 };
 
-export default VendorMaster;
+export default MasterLog;

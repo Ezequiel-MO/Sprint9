@@ -1,4 +1,4 @@
-import Input from "../../uicomponents/Input/Input";
+import Input from "../../../uicomponents/Input/Input";
 import {
   ProjectLogContainer,
   ProjectConfiguration,
@@ -8,13 +8,13 @@ import {
 } from "./styles";
 import { useState, useEffect } from "react";
 import PLList from "./PLList/PLLists";
-import SaveButton from "../../uicomponents/SaveButton/SaveButton";
+import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
 import { useDispatch } from "react-redux";
-import { SET_ActiveCode } from "../../features/ActiveCodeSlice";
+import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
-import { baseAPI } from "../../api/axios";
-import { useAxiosFetch } from "../../hooks/useAxiosFetch";
-import { checkForDuplicates } from "../../utils/utils";
+import { baseAPI } from "../../../api/axios";
+import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
+import { checkForDuplicates } from "../../../utils/utils";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();
@@ -65,7 +65,7 @@ const ProjectLog = () => {
       };
       dispatch(SET_ActiveCode(code));
       postProjectData();
-      setTimeout(() => history.push("/hotel-config"), 500);
+      setTimeout(() => history.push("/hotel-project-form"), 500);
     } else {
       alert("please fill in all data");
     }
@@ -84,7 +84,7 @@ const ProjectLog = () => {
       (value) => value === null || value === ""
     );
     if (allInputsAreNonEmpty) {
-      const codeArr = projects.map((project) => project.code);
+      const codeArr = projects?.map((project) => project.code);
       const { codeIsNew } = checkForDuplicates(code, codeArr);
       isValid = codeIsNew;
     }

@@ -27,7 +27,7 @@ const ProjectModal = () => {
 
   const handleClick = () => {
     dispatch(SET_UserIsSearchingProject(false));
-    history.push("/project-form");
+    history.push("/project-log");
   };
   return (
     <PMContainer>
