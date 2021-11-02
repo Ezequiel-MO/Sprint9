@@ -6,8 +6,8 @@ const DailyEventsProjectForm = ({
   placeholder,
   name,
   value,
-  searchRestaurants,
-  restaurantMatch,
+  matchOptions,
+  match,
   setSelectedOption,
 }) => {
   const handleSubmit = (e) => {
@@ -25,12 +25,12 @@ const DailyEventsProjectForm = ({
           placeholder={placeholder}
           name={name}
           value={value}
-          onChange={(e) => searchRestaurants(e.target.value, cat)}
+          onChange={(e) => matchOptions(e.target.value, cat)}
         />
         <input type='submit' value='Add to your Day' />
       </StyledAutoCompleteForm>
-      {restaurantMatch &&
-        restaurantMatch.map((v, i) => (
+      {match &&
+        match.map((v, i) => (
           <ul key={i}>
             <li onClick={() => setSelectedOption(v.name)}>{v.name}</li>
           </ul>
