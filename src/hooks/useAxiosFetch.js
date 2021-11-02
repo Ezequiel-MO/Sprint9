@@ -15,6 +15,10 @@ export const useAxiosFetch = (dataURL) => {
       try {
         const response = await axios.get(url, {
           cancelToken: source.token,
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MTdkMjgxMTY5NTA2ZjhkOTkzNDg0YzMiLCJpYXQiOjE2MzU4NDA5MzEsImV4cCI6MTYzNTkyNzMzMX0.ckXq0DNf5viXGc4ev_kDBDvvtT1bFqdPul3gsvgXIhQ",
+          },
         });
         if (isMounted) {
           setData(response.data);
