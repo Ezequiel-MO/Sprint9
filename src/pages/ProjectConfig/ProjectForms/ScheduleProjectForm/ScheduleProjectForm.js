@@ -4,10 +4,8 @@ import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseAPI } from "../../../../api/axios";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
-import DateProjectForm from "./DateProjectForm/DateProjectForm";
 import { ScheduleProjectFormContainer } from "../styles";
 import DailyEventsProjectForm from "./DailyEventsProjectForm/DailyEventsProjectForm";
-import { dailyEvents } from "../data";
 
 const ScheduleProjectForm = () => {
   const [schedule, setSchedule] = useState([]);
@@ -18,15 +16,13 @@ const ScheduleProjectForm = () => {
     dinner: [],
   });
 
-  const [lunchMatch, setLunchMatch] = useState([]);
-  const [dinnerMatch, setDinnerMatch] = useState([]);
-  const [eventMatch, setEventMatch] = useState([]);
   const [lunchOptions, setLunchOptions] = useState([]);
   const [dinnerOptions, setDinnerOptions] = useState([]);
   const [eventOptions, setEventOptions] = useState([]);
-  const [lunchSelectedOption, setLunchSelectedOption] = useState("");
-  const [dinnerSelectedOption, setDinnerSelectedOption] = useState("");
-  const [eventSelectedOption, setEventSelectedOption] = useState("");
+  const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
+  const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
+  const [selectedEventOptions, setSelectedEventOptions] = useState([]);
+
   const activeCode = useSelector(selectActiveCode);
 
   // fetch project by code
@@ -69,93 +65,100 @@ const ScheduleProjectForm = () => {
     setSchedule((prevState) => [...prevState, scheduleInputData]);
   };
 
-  const regexMatch = (arr, text) => {
-    let matches = arr.filter((el) => {
-      const regex = new RegExp(`${text}`, "gi");
-      return el.name.match(regex);
-    });
-    return matches;
+  const dailyEvents = [
+    {
+      name: "event",
+      icon: "akar-icons:people-group",
+      placeholder: "ex :  Event Options",
+      options: eventOptions,
+    },
+    {
+      name: "lunch",
+      icon: "carbon:restaurant",
+      placeholder: "ex : Lunch Options",
+      options: lunchOptions,
+    },
+    {
+      name: "dinner",
+      icon: "cil:dinner",
+      placeholder: "ex : Dinner Options",
+      options: dinnerOptions,
+    },
+  ];
+
+  const updateSchedule = (e) => {
+    e.preventDefault();
+    const { date, events, lunch, dinner } = scheduleInputData;
+    const newSchedule = {
+      date,
+      events,
+      lunch,
+      dinner,
+    };
   };
 
-  const matchOptions = (text, cat) => {
-    if (cat === "lunch") {
-      if (!text) {
-        setLunchMatch([]);
-        setLunchSelectedOption(text);
-      } else {
-        let matches = regexMatch(lunchOptions, text);
-        setLunchSelectedOption(text);
-        setLunchMatch(matches);
+  useEffect(() => {
+    console.log(
+      "lunch options=>",
+      selectedLunchOptions,
+      "dinner options=>",
+      selectedDinnerOptions,
+      "event options=>",
+      selectedEventOptions
+    );
+  }, [selectedLunchOptions, selectedDinnerOptions, selectedEventOptions]);
+
+  const storeSelectedValues = (array, action) => {
+    console.log("array=>", array, "action=>", action);
+    //in case an option is added
+    if (action.action === "select-option") {
+      //determine if it is lunch or dinner or event
+      //update the state accordingly with array
+      if (action.name === "lunch") {
+        setSelectedLunchOptions(array);
+      } else if (action.name === "dinner") {
+        setSelectedDinnerOptions(array);
+      } else if (action.name === "event") {
+        setSelectedEventOptions(array);
       }
-    } else if (cat === "dinner") {
-      if (!text) {
-        setDinnerMatch([]);
-        setDinnerSelectedOption(text);
-      } else {
-        let matches = regexMatch(dinnerOptions, text);
-        setDinnerSelectedOption(text);
-        setDinnerMatch(matches);
+    }
+    //if option is removed
+    else if (action.action === "remove-value") {
+      //determine if it is lunch or dinner or event
+      //update the state accordingly with array
+      if (action.name === "lunch") {
+        setSelectedLunchOptions(array);
+      } else if (action.name === "dinner") {
+        setSelectedDinnerOptions(array);
+      } else if (action.name === "event") {
+        setSelectedEventOptions(array);
       }
-    } else if (cat === "event") {
-      if (!text) {
-        setEventMatch([]);
-        setEventSelectedOption(text);
-      } else {
-        let matches = regexMatch(eventOptions, text);
-        setEventSelectedOption(text);
-        setEventMatch(matches);
+    }
+    //if the whole select is cleared
+    else if (action.action === "clear") {
+      //determine if it is lunch or dinner or event
+
+      if (action.name === "lunch") {
+        setSelectedLunchOptions([]);
+      } else if (action.name === "dinner") {
+        setSelectedDinnerOptions([]);
+      } else if (action.name === "event") {
+        setSelectedEventOptions([]);
       }
     }
   };
 
-  const dailyEvents = [
-    {
-      cat: "event",
-      name: "event",
-      icon: "akar-icons:people-group",
-      placeholder: "ex :  Event Options",
-      value: eventSelectedOption,
-      matchOptions,
-      match: eventMatch,
-      setSelectedOption: setEventSelectedOption,
-    },
-    {
-      cat: "lunch",
-      name: "restaurant",
-      icon: "carbon:restaurant",
-      placeholder: "ex : Lunch Options",
-      value: lunchSelectedOption,
-      matchOptions,
-      match: lunchMatch,
-      setSelectedOption: setLunchSelectedOption,
-    },
-    {
-      cat: "dinner",
-      name: "restaurant",
-      icon: "cil:dinner",
-      placeholder: "ex : Dinner Options",
-      value: dinnerSelectedOption,
-      matchOptions,
-      match: dinnerMatch,
-      setSelectedOption: setDinnerSelectedOption,
-    },
-  ];
-
   return (
     <>
       <ScheduleProjectFormContainer>
-        <DateProjectForm />
         {dailyEvents.map((event) => (
           <DailyEventsProjectForm
-            key={event.cat}
-            cat={event.cat}
+            key={event.name}
             name={event.name}
             icon={event.icon}
+            options={event.options}
             placeholder={event.placeholder}
-            value={event.value}
-            matchOptions={event.matchOptions}
-            match={event.match}
-            setSelectedOption={event.setSelectedOption}
+            storeSelectedValues={storeSelectedValues}
           />
         ))}
 

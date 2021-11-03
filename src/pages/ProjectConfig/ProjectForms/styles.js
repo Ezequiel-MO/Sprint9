@@ -13,20 +13,15 @@ export const HotelFormContainer = styled.div`
   align-items: flex-start;
 `;
 
-export const StyledAutoCompleteForm = styled.form`
+export const AutoCompleteForm = styled.form`
+  min-width: 500px;
   margin: 1rem;
-  display: -webkit-box;
   display: flex;
-  z-index: 10;
-  position: relative;
-  width: 500px;
+  align-items: center;
+  justify-content: space-between;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
     rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-  & label {
-    display: flex;
-    align-items: center;
-  }
   & > * {
     border: 0;
     padding: 0 0 0 10px;
@@ -37,29 +32,32 @@ export const StyledAutoCompleteForm = styled.form`
     outline: 0;
     -webkit-appearance: none;
   }
-  & input[type="submit"],
-  input[type="button"] {
+  & label {
+    display: flex;
+    align-items: center;
+  }
+
+  & select {
+    flex-wrap: wrap;
+  }
+  & input[type="submit"] {
     background: #a9ba9d;
     border: 1px solid #a9ba9d;
     color: #fff;
     font-weight: 800;
-    padding: 0 30px;
+    padding: 0 10px;
     cursor: pointer;
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     transition: all 0.2s;
-  }
-  & input[type="submit"]:hover,
-  input[type="button"]:hover {
-    background: #ddbcb0;
-    border: 1px solid #ddbcb0;
-  }
-  & input[type="search"] {
-    flex-basis: 500px;
+    &:hover {
+      background: #ddbcb0;
+      border: 1px solid #ddbcb0;
+    }
   }
 `;
 
-export const AutoCompleteDiv = styled(StyledAutoCompleteForm).attrs({
+export const AutoCompleteDiv = styled(AutoCompleteForm).attrs({
   as: "div",
 })``;
 

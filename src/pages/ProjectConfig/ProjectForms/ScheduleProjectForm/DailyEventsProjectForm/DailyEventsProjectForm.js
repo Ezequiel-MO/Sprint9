@@ -1,41 +1,48 @@
+import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react";
-import { StyledAutoCompleteForm } from "../../styles";
+import { AutoCompleteForm } from "../../styles";
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
+
 const DailyEventsProjectForm = ({
-  cat,
   icon,
-  placeholder,
   name,
-  value,
-  matchOptions,
-  match,
-  setSelectedOption,
+  placeholder,
+  options,
+  storeSelectedValues,
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  let valueLabelpairs = [];
+  useEffect(() => {
+    for (let i = 0; i < options?.length; i++) {
+      valueLabelpairs.push({
+        value: options[i].name,
+        label: options[i].name,
+      });
+    }
+    console.log("value label pairs=>", valueLabelpairs);
+  }, [options, valueLabelpairs]);
 
   return (
-    <div>
-      <StyledAutoCompleteForm onSubmit={handleSubmit}>
-        <label>
-          <Icon icon={icon} width='28' />
-        </label>
-        <input
-          type='search'
-          placeholder={placeholder}
-          name={name}
-          value={value}
-          onChange={(e) => matchOptions(e.target.value, cat)}
-        />
-        <input type='submit' value='Add to your Day' />
-      </StyledAutoCompleteForm>
-      {match &&
-        match.map((v, i) => (
-          <ul key={i}>
-            <li onClick={() => setSelectedOption(v.name)}>{v.name}</li>
-          </ul>
-        ))}
-    </div>
+    <AutoCompleteForm onSubmit={handleSubmit}>
+      <label>
+        <Icon icon={icon} width='28' />
+      </label>
+      <Select
+        components={makeAnimated()}
+        name={name}
+        options={valueLabelpairs}
+        noOptionsMessage={() => "No options selected :("}
+        placeholder={placeholder}
+        isSearchable
+        isClearable
+        isMulti
+        onChange={storeSelectedValues}
+      />
+      <input type='submit' value='Add to your Day' />
+    </AutoCompleteForm>
   );
 };
 

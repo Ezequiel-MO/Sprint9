@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../api/axios";
-import { HotelFormContainer, StyledAutoCompleteForm } from "../styles";
+import { HotelFormContainer, AutoCompleteForm } from "../styles";
 
 const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
   const [hotels, setHotels] = useState([]);
@@ -84,7 +84,7 @@ const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
     <>
       <HotelFormContainer>
         <div>
-          <StyledAutoCompleteForm onSubmit={handleSubmit}>
+          <AutoCompleteForm onSubmit={handleSubmit}>
             <label>
               <Icon icon={icon} width={iconWidth} />
             </label>
@@ -95,7 +95,7 @@ const HotelProjectForm = ({ icon, iconWidth, placeholder }) => {
               value={selectedHotel}
             />
             <input type='submit' value='Add Hotel' />
-          </StyledAutoCompleteForm>
+          </AutoCompleteForm>
           {hotelMatch &&
             hotelMatch.map((v, i) => (
               <ul key={i}>
