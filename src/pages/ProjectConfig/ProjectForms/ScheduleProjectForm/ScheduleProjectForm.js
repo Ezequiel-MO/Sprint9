@@ -2,28 +2,26 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
-import { baseAPI } from "../../../../api/axios";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { ScheduleProjectFormContainer } from "../styles";
 import DailyEventsProjectForm from "./DailyEventsProjectForm/DailyEventsProjectForm";
+import { baseAPI } from "../../../../api/axios";
 
 const ScheduleProjectForm = () => {
   const [schedule, setSchedule] = useState([]);
-  const [scheduleInputData, setScheduleInputData] = useState({
-    date: "",
-    events: [],
-    lunch: [],
-    dinner: [],
-  });
-
+  const [scheduleInputData, setScheduleInputData] = useState({});
   const [lunchOptions, setLunchOptions] = useState([]);
   const [dinnerOptions, setDinnerOptions] = useState([]);
   const [eventOptions, setEventOptions] = useState([]);
   const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [counter, setCounter] = useState(1);
+  const [daydifference, setDayDifference] = useState(0);
 
-  const activeCode = useSelector(selectActiveCode);
+  const activeCode = "test-8"; /* useSelector(selectActiveCode) */
 
   // fetch project by code
   const {
@@ -47,22 +45,15 @@ const ScheduleProjectForm = () => {
     setDinnerOptions(restaurantData);
   }, [restaurantData]);
 
+  const scheduleDayToAddArr = [];
+
   useEffect(() => {
-    try {
-      const pushScheduleToServer = () => {
-        baseAPI.post(`/addSchedule/${projectByCode._id}`, scheduleInputData);
-      };
-      pushScheduleToServer();
-    } catch (err) {
-      console.warn(err);
-    }
+    console.log("schedule=>", schedule);
   }, [schedule]);
 
-  const addDayToSchedule = (e) => {
-    e.preventDefault();
-    //updateSchedule
+  const addDayToSchedule = () => {
     //add day to Schedule
-    setSchedule((prevState) => [...prevState, scheduleInputData]);
+    console.log("addDayToSchedule");
   };
 
   const dailyEvents = [
@@ -86,26 +77,13 @@ const ScheduleProjectForm = () => {
     },
   ];
 
-  const updateSchedule = (e) => {
-    e.preventDefault();
-    const { date, events, lunch, dinner } = scheduleInputData;
-    const newSchedule = {
-      date,
-      events,
-      lunch,
-      dinner,
-    };
-  };
-
   useEffect(() => {
-    console.log(
-      "lunch options=>",
-      selectedLunchOptions,
-      "dinner options=>",
-      selectedDinnerOptions,
-      "event options=>",
-      selectedEventOptions
-    );
+    setScheduleInputData({
+      date: whichDay(counter),
+      events: selectedEventOptions,
+      lunch: selectedLunchOptions,
+      dinner: selectedDinnerOptions,
+    });
   }, [selectedLunchOptions, selectedDinnerOptions, selectedEventOptions]);
 
   const storeSelectedValues = (array, action) => {
@@ -148,9 +126,38 @@ const ScheduleProjectForm = () => {
     }
   };
 
+  useEffect(() => {
+    //update the state with the data extracted from the database
+    if (projectByCode) {
+      setStartDate(projectByCode.arrivalDay);
+      setEndDate(projectByCode.departureDay);
+    }
+  }, [projectByCode]);
+
+  useEffect(() => {
+    //compute days between start and end date
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    setDayDifference(diffDays);
+    console.log("diff days=>", diffDays);
+  }, [startDate, endDate]);
+
+  const whichDay = (counter) => {
+    if (counter === 1) {
+      return "Arrival Day";
+    } else if (counter === daydifference) {
+      return "Departure Day";
+    } else {
+      return "Day " + counter;
+    }
+  };
+
   return (
     <>
       <ScheduleProjectFormContainer>
+        {projectByCode && <p>Date: {startDate}</p>}
         {dailyEvents.map((event) => (
           <DailyEventsProjectForm
             key={event.name}
@@ -161,8 +168,10 @@ const ScheduleProjectForm = () => {
             storeSelectedValues={storeSelectedValues}
           />
         ))}
-
-        <SaveButton text='Add day to schedule' onClick={addDayToSchedule} />
+        <SaveButton
+          text={`Add ${whichDay(counter)} to schedule`}
+          onClick={addDayToSchedule}
+        />
       </ScheduleProjectFormContainer>
     </>
   );

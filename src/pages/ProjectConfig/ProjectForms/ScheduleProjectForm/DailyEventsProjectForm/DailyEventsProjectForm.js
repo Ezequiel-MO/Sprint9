@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { AutoCompleteForm } from "../../styles";
 import Select from "react-select";
@@ -22,7 +22,7 @@ const DailyEventsProjectForm = ({
         label: options[i].name,
       });
     }
-    console.log("value label pairs=>", valueLabelpairs);
+    console.log(valueLabelpairs);
   }, [options, valueLabelpairs]);
 
   return (
