@@ -118,10 +118,16 @@ const ScheduleProjectForm = () => {
 
   const pushScheduleToServer = () => {
     console.log("push data=>");
-
-    setTimeout(() => {
-      history.push("/");
-    }, 2000);
+    //try catch post schedule to baseURL/addSchedule/:id
+    try {
+      baseAPI.post(`/addSchedule/${projectByCode._id}`, schedule);
+      setTimeout(() => {
+        history.push("/");
+      }, 1000);
+    } catch (err) {
+      console.warn(err);
+    }
+    //if successful, redirect to project page
   };
 
   useEffect(() => {
