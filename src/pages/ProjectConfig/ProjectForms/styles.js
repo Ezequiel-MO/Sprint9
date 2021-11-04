@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ScheduleProjectFormContainer = styled.div`
+export const ScheduleProjectFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

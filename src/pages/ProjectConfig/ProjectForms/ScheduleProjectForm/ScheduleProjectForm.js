@@ -6,27 +6,34 @@ import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { ScheduleProjectFormContainer } from "../styles";
 import DailyEventsProjectForm from "./DailyEventsProjectForm/DailyEventsProjectForm";
 import { baseAPI } from "../../../../api/axios";
+import { useHistory } from "react-router";
 
 const ScheduleProjectForm = () => {
+  const history = useHistory();
   const [schedule, setSchedule] = useState([]);
-  const [scheduleInputData, setScheduleInputData] = useState({});
+
+  const [dayProgram, setDayProgram] = useState({});
+
   const [lunchOptions, setLunchOptions] = useState([]);
   const [dinnerOptions, setDinnerOptions] = useState([]);
   const [eventOptions, setEventOptions] = useState([]);
+
   const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
+
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
   const [counter, setCounter] = useState(1);
   const [daydifference, setDayDifference] = useState(0);
 
   const activeCode = "test-8"; /* useSelector(selectActiveCode) */
 
   // fetch project by code
-  const {
+  /* const {
     data: { project: projectByCode },
-  } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`);
+  } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`); */
 
   const {
     data: { restaurants: restaurantData },
@@ -45,16 +52,9 @@ const ScheduleProjectForm = () => {
     setDinnerOptions(restaurantData);
   }, [restaurantData]);
 
-  const scheduleDayToAddArr = [];
-
   useEffect(() => {
     console.log("schedule=>", schedule);
   }, [schedule]);
-
-  const addDayToSchedule = () => {
-    //add day to Schedule
-    console.log("addDayToSchedule");
-  };
 
   const dailyEvents = [
     {
@@ -76,15 +76,6 @@ const ScheduleProjectForm = () => {
       options: dinnerOptions,
     },
   ];
-
-  useEffect(() => {
-    setScheduleInputData({
-      date: whichDay(counter),
-      events: selectedEventOptions,
-      lunch: selectedLunchOptions,
-      dinner: selectedDinnerOptions,
-    });
-  }, [selectedLunchOptions, selectedDinnerOptions, selectedEventOptions]);
 
   const storeSelectedValues = (array, action) => {
     console.log("array=>", array, "action=>", action);
@@ -154,9 +145,74 @@ const ScheduleProjectForm = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("schedule", schedule);
+    //add schedule input data to schedule array
+  }, [schedule]);
+
+  useEffect(() => {
+    setSchedule([...schedule, dayProgram]);
+    //add schedule input data to schedule array
+  }, [dayProgram]);
+
+  const pushScheduleToServer = () => {
+    console.log("push data=>");
+    setTimeout(() => {
+      history.push("/");
+    }, 2000);
+  };
+
+  useEffect(() => {
+    setSchedule([...schedule, dayProgram]);
+  }, [dayProgram]);
+
+  const updateSchedule = () => {
+    //if counter < daydifference, update schedule
+    if (counter < daydifference) {
+      setCounter((prevState) => prevState + 1);
+    } else if (counter === daydifference) {
+      //if counter === daydifference, update schedule and redirect to next page
+      pushScheduleToServer();
+    }
+  };
+
+  const findSelectedOptions = (array, fullArray) => {
+    //find the selected options in the array and return them
+    let selectedOptionsFullObject = [];
+    let flatArray = array.map((item) => item.value);
+    //iterate through the lunch options array
+    fullArray.forEach((item) => {
+      //find the selected lunch options
+      if (flatArray.includes(item.name)) {
+        selectedOptionsFullObject.push(item);
+      }
+    });
+    return selectedOptionsFullObject;
+  };
+
+  const updateInputData = () => {
+    setDayProgram({
+      ...dayProgram,
+      date: whichDay(counter),
+      lunch: findSelectedOptions(selectedLunchOptions, lunchOptions),
+      dinner: findSelectedOptions(selectedDinnerOptions, dinnerOptions),
+      event: findSelectedOptions(selectedEventOptions, eventOptions),
+    });
+    updateSchedule();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //find selectedInputOptions in lunchOptions
+    updateInputData();
+    setSelectedLunchOptions([]);
+    setSelectedDinnerOptions([]);
+    setSelectedEventOptions([]);
+  };
+
   return (
     <>
-      <ScheduleProjectFormContainer>
+      <ScheduleProjectFormContainer onSubmit={handleSubmit}>
         {projectByCode && <p>Date: {startDate}</p>}
         {dailyEvents.map((event) => (
           <DailyEventsProjectForm
@@ -170,7 +226,7 @@ const ScheduleProjectForm = () => {
         ))}
         <SaveButton
           text={`Add ${whichDay(counter)} to schedule`}
-          onClick={addDayToSchedule}
+          type='submit'
         />
       </ScheduleProjectFormContainer>
     </>

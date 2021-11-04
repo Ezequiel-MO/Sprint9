@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Icon } from "@iconify/react";
-import { AutoCompleteForm } from "../../styles";
+import { AutoCompleteDiv } from "../../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -26,7 +26,7 @@ const DailyEventsProjectForm = ({
   }, [options, valueLabelpairs]);
 
   return (
-    <AutoCompleteForm onSubmit={handleSubmit}>
+    <AutoCompleteDiv>
       <label>
         <Icon icon={icon} width='28' />
       </label>
@@ -41,8 +41,7 @@ const DailyEventsProjectForm = ({
         isMulti
         onChange={storeSelectedValues}
       />
-      <input type='submit' value='Add to your Day' />
-    </AutoCompleteForm>
+    </AutoCompleteDiv>
   );
 };
 
