@@ -2,11 +2,15 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
+import { baseURL } from "../../../../api/axios";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { ScheduleProjectFormContainer } from "../styles";
-import DailyEventsProjectForm from "./DailyEventsProjectForm/DailyEventsProjectForm";
+
 import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
+import useGetRestaurants from "../../../../hooks/useGetRestaurants";
+import useGetEvents from "../../../../hooks/useGetEvents";
+import DailyEventsProjectSelector from "./DailyEventsProjectSelector/DailyEventsProjectSelector";
 
 const ScheduleProjectForm = () => {
   const history = useHistory();
@@ -14,11 +18,10 @@ const ScheduleProjectForm = () => {
 
   const [dayProgram, setDayProgram] = useState({});
 
-  const [lunchOptions, setLunchOptions] = useState([]);
-  const [dinnerOptions, setDinnerOptions] = useState([]);
-  const [eventOptions, setEventOptions] = useState([]);
+  const { restaurantOptions } = useGetRestaurants();
+  const { eventOptions } = useGetEvents();
 
-  const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
+  const [selectedLunchOptions, setselectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
 
@@ -31,51 +34,9 @@ const ScheduleProjectForm = () => {
   const activeCode = "test-8"; /* useSelector(selectActiveCode) */
 
   // fetch project by code
-  /* const {
+  const {
     data: { project: projectByCode },
-  } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`); */
-
-  const {
-    data: { restaurants: restaurantData },
-  } = useAxiosFetch("https://cutt-events.herokuapp.com/restaurants");
-
-  const {
-    data: { events: eventData },
-  } = useAxiosFetch("https://cutt-events.herokuapp.com/events");
-
-  useEffect(() => {
-    setEventOptions(eventData);
-  }, [eventData]);
-
-  useEffect(() => {
-    setLunchOptions(restaurantData);
-    setDinnerOptions(restaurantData);
-  }, [restaurantData]);
-
-  useEffect(() => {
-    console.log("schedule=>", schedule);
-  }, [schedule]);
-
-  const dailyEvents = [
-    {
-      name: "event",
-      icon: "akar-icons:people-group",
-      placeholder: "ex :  Event Options",
-      options: eventOptions,
-    },
-    {
-      name: "lunch",
-      icon: "carbon:restaurant",
-      placeholder: "ex : Lunch Options",
-      options: lunchOptions,
-    },
-    {
-      name: "dinner",
-      icon: "cil:dinner",
-      placeholder: "ex : Dinner Options",
-      options: dinnerOptions,
-    },
-  ];
+  } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   const storeSelectedValues = (array, action) => {
     console.log("array=>", array, "action=>", action);
@@ -84,7 +45,7 @@ const ScheduleProjectForm = () => {
       //determine if it is lunch or dinner or event
       //update the state accordingly with array
       if (action.name === "lunch") {
-        setSelectedLunchOptions(array);
+        setselectedLunchOptions(array);
       } else if (action.name === "dinner") {
         setSelectedDinnerOptions(array);
       } else if (action.name === "event") {
@@ -96,7 +57,7 @@ const ScheduleProjectForm = () => {
       //determine if it is lunch or dinner or event
       //update the state accordingly with array
       if (action.name === "lunch") {
-        setSelectedLunchOptions(array);
+        setselectedLunchOptions(array);
       } else if (action.name === "dinner") {
         setSelectedDinnerOptions(array);
       } else if (action.name === "event") {
@@ -108,7 +69,7 @@ const ScheduleProjectForm = () => {
       //determine if it is lunch or dinner or event
 
       if (action.name === "lunch") {
-        setSelectedLunchOptions([]);
+        setselectedLunchOptions([]);
       } else if (action.name === "dinner") {
         setSelectedDinnerOptions([]);
       } else if (action.name === "event") {
@@ -157,6 +118,7 @@ const ScheduleProjectForm = () => {
 
   const pushScheduleToServer = () => {
     console.log("push data=>");
+
     setTimeout(() => {
       history.push("/");
     }, 2000);
@@ -194,8 +156,8 @@ const ScheduleProjectForm = () => {
     setDayProgram({
       ...dayProgram,
       date: whichDay(counter),
-      lunch: findSelectedOptions(selectedLunchOptions, lunchOptions),
-      dinner: findSelectedOptions(selectedDinnerOptions, dinnerOptions),
+      lunch: findSelectedOptions(selectedLunchOptions, restaurantOptions),
+      dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
       event: findSelectedOptions(selectedEventOptions, eventOptions),
     });
     updateSchedule();
@@ -203,9 +165,9 @@ const ScheduleProjectForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //find selectedInputOptions in lunchOptions
+    //find selectedInputOptions in restaurantOptions
     updateInputData();
-    setSelectedLunchOptions([]);
+    setselectedLunchOptions([]);
     setSelectedDinnerOptions([]);
     setSelectedEventOptions([]);
   };
@@ -214,16 +176,29 @@ const ScheduleProjectForm = () => {
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
         {projectByCode && <p>Date: {startDate}</p>}
-        {dailyEvents.map((event) => (
-          <DailyEventsProjectForm
-            key={event.name}
-            name={event.name}
-            icon={event.icon}
-            options={event.options}
-            placeholder={event.placeholder}
-            storeSelectedValues={storeSelectedValues}
-          />
-        ))}
+
+        <DailyEventsProjectSelector
+          name='event'
+          icon='akar-icons:people-group'
+          options={eventOptions}
+          placeholder='ex :  Event Options'
+          storeSelectedValues={storeSelectedValues}
+        />
+        <DailyEventsProjectSelector
+          name='lunch'
+          icon='carbon:restaurant'
+          options={restaurantOptions}
+          placeholder='ex : Lunch Options'
+          storeSelectedValues={storeSelectedValues}
+        />
+        <DailyEventsProjectSelector
+          name='dinner'
+          icon='cil:dinner'
+          options={restaurantOptions}
+          placeholder='ex : Dinner Options'
+          storeSelectedValues={storeSelectedValues}
+        />
+
         <SaveButton
           text={`Add ${whichDay(counter)} to schedule`}
           type='submit'
