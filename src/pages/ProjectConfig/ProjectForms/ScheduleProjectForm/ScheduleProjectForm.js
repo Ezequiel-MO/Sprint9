@@ -10,17 +10,22 @@ import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetRestaurants from "../../../../hooks/useGetRestaurants";
 import useGetEvents from "../../../../hooks/useGetEvents";
-import DailyEventsProjectSelector from "./DailyEventsProjectSelector/DailyEventsProjectSelector";
+import useGetHotels from "../../../../hooks/useGetHotels";
+import ProjectSelector from "./ProjectSelector/ProjectSelector";
+import axios from "axios";
 
 const ScheduleProjectForm = () => {
   const history = useHistory();
   const [schedule, setSchedule] = useState([]);
 
   const [dayProgram, setDayProgram] = useState({});
+  const [projectHotels, setProjectHotels] = useState([]);
 
   const { restaurantOptions } = useGetRestaurants();
   const { eventOptions } = useGetEvents();
+  const { hotelOptions } = useGetHotels();
 
+  const [selectedHotelOptions, setSelectedHotelOptions] = useState([]);
   const [selectedLunchOptions, setselectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
@@ -31,7 +36,7 @@ const ScheduleProjectForm = () => {
   const [counter, setCounter] = useState(1);
   const [daydifference, setDayDifference] = useState(0);
 
-  const activeCode = "test-8"; /* useSelector(selectActiveCode) */
+  const activeCode = useSelector(selectActiveCode);
 
   // fetch project by code
   const {
@@ -39,7 +44,6 @@ const ScheduleProjectForm = () => {
   } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   const storeSelectedValues = (array, action) => {
-    console.log("array=>", array, "action=>", action);
     //in case an option is added
     if (action.action === "select-option") {
       //determine if it is lunch or dinner or event
@@ -50,30 +54,36 @@ const ScheduleProjectForm = () => {
         setSelectedDinnerOptions(array);
       } else if (action.name === "event") {
         setSelectedEventOptions(array);
+      } else if (action.name === "hotel") {
+        setSelectedHotelOptions(array);
       }
-    }
-    //if option is removed
-    else if (action.action === "remove-value") {
-      //determine if it is lunch or dinner or event
-      //update the state accordingly with array
-      if (action.name === "lunch") {
-        setselectedLunchOptions(array);
-      } else if (action.name === "dinner") {
-        setSelectedDinnerOptions(array);
-      } else if (action.name === "event") {
-        setSelectedEventOptions(array);
+      //if option is removed
+      else if (action.action === "remove-value") {
+        //determine if it is lunch or dinner or event
+        //update the state accordingly with array
+        if (action.name === "lunch") {
+          setselectedLunchOptions(array);
+        } else if (action.name === "dinner") {
+          setSelectedDinnerOptions(array);
+        } else if (action.name === "event") {
+          setSelectedEventOptions(array);
+        } else if (action.name === "hotel") {
+          setSelectedHotelOptions(array);
+        }
       }
-    }
-    //if the whole select is cleared
-    else if (action.action === "clear") {
-      //determine if it is lunch or dinner or event
+      //if the whole select is cleared
+      else if (action.action === "clear") {
+        //determine if it is lunch or dinner or event
 
-      if (action.name === "lunch") {
-        setselectedLunchOptions([]);
-      } else if (action.name === "dinner") {
-        setSelectedDinnerOptions([]);
-      } else if (action.name === "event") {
-        setSelectedEventOptions([]);
+        if (action.name === "lunch") {
+          setselectedLunchOptions([]);
+        } else if (action.name === "dinner") {
+          setSelectedDinnerOptions([]);
+        } else if (action.name === "event") {
+          setSelectedEventOptions([]);
+        } else if (action.name === "hotel") {
+          setSelectedHotelOptions([]);
+        }
       }
     }
   };
@@ -106,41 +116,40 @@ const ScheduleProjectForm = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("schedule", schedule);
-    //add schedule input data to schedule array
-  }, [schedule]);
-
-  useEffect(() => {
-    setSchedule([...schedule, dayProgram]);
-    //add schedule input data to schedule array
-  }, [dayProgram]);
-
   const pushScheduleToServer = () => {
-    console.log("push data=>");
-    //try catch post schedule to baseURL/addSchedule/:id
     try {
-      baseAPI.post(`/addSchedule/${projectByCode._id}`, schedule);
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
+      baseAPI
+        .post(`/addSchedule/${projectByCode._id}`, schedule)
+        .then((response) => {
+          history.push("/");
+        });
     } catch (err) {
       console.warn(err);
     }
     //if successful, redirect to project page
   };
 
-  useEffect(() => {
-    setSchedule([...schedule, dayProgram]);
-  }, [dayProgram]);
+  const pushHotelsToServer = () => {
+    console.log("hotels pushed now to server :)=>", projectHotels);
+    try {
+      baseAPI
+        .post(`/addHotels/${projectByCode._id}`, projectHotels)
+        .then((response) => {
+          console.log("response=>", response);
+          pushScheduleToServer();
+        });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
-  const updateSchedule = () => {
+  const updateProgram = () => {
     //if counter < daydifference, update schedule
     if (counter < daydifference) {
       setCounter((prevState) => prevState + 1);
     } else if (counter === daydifference) {
       //if counter === daydifference, update schedule and redirect to next page
-      pushScheduleToServer();
+      pushHotelsToServer();
     }
   };
 
@@ -158,6 +167,15 @@ const ScheduleProjectForm = () => {
     return selectedOptionsFullObject;
   };
 
+  useEffect(() => {
+    console.log("updated schedule =>", schedule);
+  }, [schedule]);
+
+  useEffect(() => {
+    setSchedule([...schedule, dayProgram]);
+    console.log("program elements =>", dayProgram, projectHotels);
+  }, [dayProgram, projectHotels]);
+
   const updateInputData = () => {
     setDayProgram({
       ...dayProgram,
@@ -166,7 +184,8 @@ const ScheduleProjectForm = () => {
       dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
       event: findSelectedOptions(selectedEventOptions, eventOptions),
     });
-    updateSchedule();
+    setProjectHotels(findSelectedOptions(selectedHotelOptions, hotelOptions));
+    updateProgram();
   };
 
   const handleSubmit = (e) => {
@@ -176,28 +195,35 @@ const ScheduleProjectForm = () => {
     setselectedLunchOptions([]);
     setSelectedDinnerOptions([]);
     setSelectedEventOptions([]);
+    setSelectedHotelOptions([]);
   };
 
   return (
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
+        <ProjectSelector
+          name='hotel'
+          icon='bx:bx-hotel'
+          options={hotelOptions}
+          placeholder='ex :  Hotel Options'
+          storeSelectedValues={storeSelectedValues}
+        />
         {projectByCode && <p>Date: {startDate}</p>}
-
-        <DailyEventsProjectSelector
+        <ProjectSelector
           name='event'
           icon='akar-icons:people-group'
           options={eventOptions}
           placeholder='ex :  Event Options'
           storeSelectedValues={storeSelectedValues}
         />
-        <DailyEventsProjectSelector
+        <ProjectSelector
           name='lunch'
           icon='carbon:restaurant'
           options={restaurantOptions}
           placeholder='ex : Lunch Options'
           storeSelectedValues={storeSelectedValues}
         />
-        <DailyEventsProjectSelector
+        <ProjectSelector
           name='dinner'
           icon='cil:dinner'
           options={restaurantOptions}

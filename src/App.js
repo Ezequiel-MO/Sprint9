@@ -10,7 +10,6 @@ import {
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
 import ProjectLog from "./pages/ProjectConfig/ProjectLog/ProjectLog";
-import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
 import ScheduleProjectForm from "./pages/ProjectConfig/ProjectForms/ScheduleProjectForm/ScheduleProjectForm";
 import MasterLog from "./pages/VendorMaster/MasterLog/MasterLog";
 import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm/HotelMasterForm";
@@ -27,7 +26,7 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-log' component={ProjectLog} />
-          <Route path='/hotel-project-form' component={HotelProjectForm} />
+
           <Route
             path='/schedule-project-form'
             component={ScheduleProjectForm}

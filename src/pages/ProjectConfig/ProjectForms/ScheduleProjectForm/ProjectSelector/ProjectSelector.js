@@ -4,7 +4,7 @@ import { AutoCompleteDiv } from "../../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
-const DailyEventsProjectSelector = ({
+const ProjectSelector = ({
   icon,
   name,
   placeholder,
@@ -45,4 +45,4 @@ const DailyEventsProjectSelector = ({
   );
 };
 
-export default DailyEventsProjectSelector;
+export default ProjectSelector;
