@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MasterFormContainer = styled.div`
+export const MasterFormContainer = styled.form`
   margin: 1rem;
   height: 28rem;
   width: 60rem;
@@ -19,12 +19,12 @@ export const Left = styled.div`
   justify-content: space-between;
   height: 100%;
 `;
-export const HotelNameAndAddress = styled.div`
+export const VendorNameAndAddress = styled.div`
   padding: 0.5rem;
 `;
 
-export const HotelGrid = styled.div``;
-export const Hotel = styled.div`
+export const VendorGrid = styled.div``;
+export const Vendor = styled.div`
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   & > input {
@@ -32,13 +32,19 @@ export const Hotel = styled.div`
     height: 2rem;
   }
 `;
-export const Address = styled(Hotel)``;
+export const Address = styled(Vendor)``;
 
 export const GeneralInfo = styled.div`
   padding: 0.5rem;
   flex: 1;
 `;
 export const GeneralInfoGrid = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+`;
+
+export const RestaurantInfoGrid = styled.div`
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);

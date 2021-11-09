@@ -47,8 +47,6 @@ const ProjectLog = () => {
     nrPax,
     clientCo,
     clientAccManager,
-    hotels,
-    schedule,
   } = projectInputData;
 
   useEffect(() => {
@@ -65,7 +63,7 @@ const ProjectLog = () => {
       };
       dispatch(SET_ActiveCode(code));
       postProjectData();
-      setTimeout(() => history.push("/schedule-project-form"), 500);
+      setTimeout(() => history.push("/hotel-project-form"), 500);
     } else {
       alert("please fill in all data");
     }
@@ -73,28 +71,21 @@ const ProjectLog = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProjectInputData((prevState) => ({ ...prevState, [name]: value }));
+    setProjectInputData(...projectInputData, { [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let isValid = false;
-    console.log("project=>", projectInputData);
     const allInputsAreNonEmpty = !Object.values(projectInputData).some(
       (value) => value === null || value === ""
     );
     if (allInputsAreNonEmpty) {
       const codeArr = projects?.map((project) => project.code);
       const { codeIsNew } = checkForDuplicates(code, codeArr);
-      isValid = codeIsNew;
+      setProjectFormIsValid(codeIsNew);
     }
-
-    setProjectFormIsValid(isValid);
   };
-
-  useEffect(() => {
-    console.log("projects", projects);
-  }, [projects]);
 
   return (
     <ProjectLogContainer onSubmit={handleSubmit}>
