@@ -49,6 +49,8 @@ export const RestaurantInfoGrid = styled.div`
   grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
 `;
+
+export const EventInfoGrid = styled(RestaurantInfoGrid)``;
 export const Box = styled.div``;
 export const Right = styled(Left)`
   flex: 0.5;
