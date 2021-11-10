@@ -11,6 +11,7 @@ import makeAnimated from "react-select/animated";
 import useGetHotels from "../../../../hooks/useGetHotels";
 import ProjectSelector from "../ScheduleProjectForm/ProjectSelector/ProjectSelector";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
+import { findSelectedOptions } from "../../utils/utils";
 
 const HotelProjectForm = () => {
   const activeCode = useSelector(selectActiveCode);
@@ -38,20 +39,6 @@ const HotelProjectForm = () => {
       }
     }
   }, [formIsValid]);
-
-  const findSelectedOptions = (array, fullArray) => {
-    //find the selected options in the array and return them
-    let selectedOptionsFullObject = [];
-    let flatArray = array.map((item) => item.value);
-    //iterate through the lunch options array
-    fullArray.forEach((item) => {
-      //find the selected lunch options
-      if (flatArray.includes(item.name)) {
-        selectedOptionsFullObject.push(item);
-      }
-    });
-    return selectedOptionsFullObject;
-  };
 
   const storeSelectedValues = (array, action) => {
     if (action.action === "select-option" || action.action === "remove-value") {

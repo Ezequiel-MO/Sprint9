@@ -10,6 +10,7 @@ import { useHistory } from "react-router";
 import useGetRestaurants from "../../../../hooks/useGetRestaurants";
 import useGetEvents from "../../../../hooks/useGetEvents";
 import ProjectSelector from "./ProjectSelector/ProjectSelector";
+import { findSelectedOptions } from "../../utils/utils";
 
 const ScheduleProjectForm = () => {
   const history = useHistory();
@@ -117,20 +118,6 @@ const ScheduleProjectForm = () => {
       //if counter === daydifference, update schedule and redirect to next page
       setFormIsValid(true);
     }
-  };
-
-  const findSelectedOptions = (array, fullArray) => {
-    //find the selected options in the array and return them
-    let selectedOptionsFullObject = [];
-    let flatArray = array.map((item) => item.value);
-    //iterate through the lunch options array
-    fullArray.forEach((item) => {
-      //find the selected lunch options
-      if (flatArray.includes(item.name)) {
-        selectedOptionsFullObject.push(item);
-      }
-    });
-    return selectedOptionsFullObject;
   };
 
   useEffect(() => {

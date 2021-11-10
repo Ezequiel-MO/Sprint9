@@ -14,7 +14,7 @@ import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../api/axios";
 import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
-import { checkForDuplicates } from "../../../utils/utils";
+import { checkForDuplicates } from "../utils/utils";
 
 const ProjectLog = () => {
   const dispatch = useDispatch();

@@ -11,3 +11,15 @@ export const checkForDuplicates = (string, array) => {
   const codeIsNew = duplicateArr.length === 0;
   return { codeIsDuplicated, codeIsUnique, codeIsNew };
 };
+
+export const findSelectedOptions = (array, fullArray) => {
+  //find the selected options in the array and return them
+  let selectedOptionsFullObject = [];
+  let flatArray = array.map((item) => item.value);
+  fullArray.forEach((item) => {
+    if (flatArray.includes(item.name)) {
+      selectedOptionsFullObject.push(item);
+    }
+  });
+  return selectedOptionsFullObject;
+};
