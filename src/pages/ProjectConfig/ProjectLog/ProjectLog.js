@@ -71,7 +71,7 @@ const ProjectLog = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProjectInputData(...projectInputData, { [name]: value });
+    setProjectInputData({ ...projectInputData, [name]: value });
   };
 
   const handleSubmit = (e) => {

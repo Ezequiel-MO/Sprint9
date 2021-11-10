@@ -31,6 +31,7 @@ const HotelProjectForm = () => {
       try {
         baseAPI.post(`/addHotels/${projectByCode._id}`, hotels).then((res) => {
           console.log(res);
+          setTimeout(() => history.push("/schedule-project-form"), 1000);
         });
       } catch (err) {
         console.warn(err);
@@ -53,7 +54,7 @@ const HotelProjectForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateInputData();
-    setTimeout(() => history.push("/schedule-project-form"), 500);
+    setFormIsValid(true);
   };
 
   return (

@@ -38,7 +38,7 @@ const ScheduleProjectForm = () => {
   } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   // use useComputeTotalDays hook to compute total days
-  const totalDays = useComputeTotalDays(projectByCode);
+  const { totalDays } = useComputeTotalDays(projectByCode);
 
   const storeSelectedValues = (array, action) => {
     //in case an option is added or removed
@@ -82,19 +82,13 @@ const ScheduleProjectForm = () => {
     }
   }, [formIsValid]);
 
-  const updateProgram = () => {
-    //if counter < totalDays, update schedule
+  useEffect(() => {
     if (counter < totalDays) {
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
       //if counter === daydifference, update schedule and redirect to next page
       setFormIsValid(true);
     }
-  };
-
-  useEffect(() => {
-    console.log("updated schedule =>", schedule);
-    updateProgram();
   }, [schedule]);
 
   useEffect(() => {
@@ -106,9 +100,9 @@ const ScheduleProjectForm = () => {
     setDayProgram({
       ...dayProgram,
       date: whichDay(counter, totalDays),
+      events: findSelectedOptions(selectedEventOptions, eventOptions),
       lunch: findSelectedOptions(selectedLunchOptions, restaurantOptions),
       dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
-      event: findSelectedOptions(selectedEventOptions, eventOptions),
     });
   };
 
@@ -124,7 +118,7 @@ const ScheduleProjectForm = () => {
   return (
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
-        {projectByCode && <p>Date: {projectByCode.startDate}</p>}
+        {projectByCode && <p>Date: {projectByCode.arrivalDay}</p>}
         <ProjectSelector
           name='event'
           icon='akar-icons:people-group'
