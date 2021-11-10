@@ -8,77 +8,67 @@ import { baseAPI } from "../../../../api/axios";
 import { HotelFormContainer, AutoCompleteForm } from "../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import useGetHotels from "../../../../hooks/useGetHotels";
+import ProjectSelector from "../ScheduleProjectForm/ProjectSelector/ProjectSelector";
+import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 
 const HotelProjectForm = () => {
-  const [hotels, setHotels] = useState([]);
-
-  const [hotelToAdd, setHotelToAdd] = useState([]);
-  const {
-    data: { hotels: hotelData },
-  } = useAxiosFetch("https://cutt-events.herokuapp.com/hotels");
   const activeCode = useSelector(selectActiveCode);
   const history = useHistory();
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  const [hotels, setHotels] = useState([]);
+
+  const { hotelOptions } = useGetHotels();
+
+  const [selectedHotelOptions, setSelectedHotelOptions] = useState([]);
 
   const {
     data: { project: projectByCode },
   } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`);
 
-  console.log("project by code =>", projectByCode);
-
   useEffect(() => {
-    setHotels(hotelData);
-  }, [hotelData]);
-
-  console.log("hotel to add =>", hotelToAdd, "hotels =>", hotels);
-
-  const hotelsToAddArr = [];
-  const pushHotelsToServer = () => {
-    for (let i = 0; i < hotelToAdd.length; i++) {
-      for (let j = 0; j < hotels.length; j++) {
-        if (hotels[j].name === hotelToAdd[i].label) {
-          hotelsToAddArr.push(hotels[j]);
-        }
-      }
+    if (formIsValid) {
       try {
-        const pushHotel = () => {
-          if (projectByCode._id) {
-            baseAPI.post(`/addHotels/${projectByCode._id}`, hotelsToAddArr);
-            pushHotel();
-          }
-        };
+        baseAPI.post(`/addHotels/${projectByCode._id}`, hotels).then((res) => {
+          console.log(res);
+        });
       } catch (err) {
         console.warn(err);
       }
     }
+  }, [formIsValid]);
+
+  const findSelectedOptions = (array, fullArray) => {
+    //find the selected options in the array and return them
+    let selectedOptionsFullObject = [];
+    let flatArray = array.map((item) => item.value);
+    //iterate through the lunch options array
+    fullArray.forEach((item) => {
+      //find the selected lunch options
+      if (flatArray.includes(item.name)) {
+        selectedOptionsFullObject.push(item);
+      }
+    });
+    return selectedOptionsFullObject;
+  };
+
+  const storeSelectedValues = (array, action) => {
+    if (action.action === "select-option" || action.action === "remove-value") {
+      setSelectedHotelOptions(array);
+    } else if (action.action === "clear") {
+      setSelectedHotelOptions([]);
+    }
+  };
+
+  const updateInputData = () => {
+    setHotels(findSelectedOptions(selectedHotelOptions, hotelOptions));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    pushHotelsToServer();
+    updateInputData();
     setTimeout(() => history.push("/schedule-project-form"), 500);
-  };
-
-  let valueLabelpairs = [];
-  useEffect(() => {
-    for (let i = 0; i < hotels?.length; i++) {
-      valueLabelpairs.push({
-        value: hotels[i].name,
-        label: hotels[i].name,
-      });
-    }
-    console.log("value label pairs=>", valueLabelpairs);
-  }, [hotels, valueLabelpairs]);
-
-  useEffect(() => {
-    console.log("hotel to add =>", hotelToAdd);
-  }, [hotelToAdd]);
-
-  const storeSelectedValues = (array, action) => {
-    if (action.action === "select-option" || action.action === "remove-value") {
-      setHotelToAdd(array);
-    } else if (action.action === "clear") {
-      setHotelToAdd([]);
-    }
   };
 
   return (
@@ -86,21 +76,15 @@ const HotelProjectForm = () => {
       <HotelFormContainer>
         <div>
           <AutoCompleteForm onSubmit={handleSubmit}>
-            <label>
-              <Icon icon='bx:bx-hotel' width='28' />
-            </label>
-            <Select
-              components={makeAnimated()}
+            <ProjectSelector
               name='hotel'
-              options={valueLabelpairs}
-              noOptionsMessage={() => "No options selected :("}
-              placeholder='Add your hotels'
-              isSearchable
-              isClearable
-              isMulti
-              onChange={storeSelectedValues}
+              icon='bx:bx-hotel'
+              options={hotelOptions}
+              placeholder='ex : Hotel Options'
+              storeSelectedValues={storeSelectedValues}
             />
-            <input type='submit' value='Add Hotels to Project' />
+
+            <SaveButton text={"Add Hotels to project"} type='submit' />
           </AutoCompleteForm>
         </div>
       </HotelFormContainer>

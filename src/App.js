@@ -15,6 +15,7 @@ import MasterLog from "./pages/VendorMaster/MasterLog/MasterLog";
 import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm/HotelMasterForm";
 import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm/RestaurantMasterForm";
 import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm/EventMasterForm";
+import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -26,7 +27,7 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-log' component={ProjectLog} />
-
+          <Route path='/hotel-project-form' component={HotelProjectForm} />
           <Route
             path='/schedule-project-form'
             component={ScheduleProjectForm}

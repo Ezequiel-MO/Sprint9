@@ -62,17 +62,18 @@ const HotelMasterForm = () => {
   useEffect(() => {
     //all data from form in a formData variable
     const hotelFormData = new FormData();
-    hotelFormData.append("name", name);
+    //iterate over the Event object and add the values to the formData object
+    for (const key in hotel) {
+      hotelFormData.append(key, hotel[key]);
+    }
+    //append textContent to formData
+    hotelFormData.append("textContent", JSON.stringify(textContent));
+
     //append fileInput.current.files to hotelFormData
     for (let i = 0; i < fileInput.current.files.length; i++) {
       hotelFormData.append("images", fileInput.current.files[i]);
     }
-    //append textContent to hotelFormData
-    hotelFormData.append("textContent", JSON.stringify(textContent));
-    //append hotel to hotelFormData
-    for (const [key, value] of Object.entries(hotel)) {
-      hotelFormData.append(key, value);
-    }
+
     //if form is valid send hotelFormData to api
     if (formIsValid) {
       //send hotelFormData to api

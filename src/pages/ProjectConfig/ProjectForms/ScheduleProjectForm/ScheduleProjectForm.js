@@ -5,28 +5,22 @@ import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseURL } from "../../../../api/axios";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { ScheduleProjectFormContainer } from "../styles";
-
 import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetRestaurants from "../../../../hooks/useGetRestaurants";
 import useGetEvents from "../../../../hooks/useGetEvents";
-import useGetHotels from "../../../../hooks/useGetHotels";
 import ProjectSelector from "./ProjectSelector/ProjectSelector";
-import axios from "axios";
 
 const ScheduleProjectForm = () => {
   const history = useHistory();
   const [schedule, setSchedule] = useState([]);
 
   const [dayProgram, setDayProgram] = useState({});
-  const [projectHotels, setProjectHotels] = useState([]);
 
   const { restaurantOptions } = useGetRestaurants();
   const { eventOptions } = useGetEvents();
-  const { hotelOptions } = useGetHotels();
 
-  const [selectedHotelOptions, setSelectedHotelOptions] = useState([]);
-  const [selectedLunchOptions, setselectedLunchOptions] = useState([]);
+  const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
 
@@ -36,6 +30,8 @@ const ScheduleProjectForm = () => {
   const [counter, setCounter] = useState(1);
   const [daydifference, setDayDifference] = useState(0);
 
+  const [formIsValid, setFormIsValid] = useState(false);
+
   const activeCode = useSelector(selectActiveCode);
 
   // fetch project by code
@@ -44,45 +40,26 @@ const ScheduleProjectForm = () => {
   } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   const storeSelectedValues = (array, action) => {
-    //in case an option is added
-    if (action.action === "select-option") {
+    //in case an option is added or removed
+    if (action.action === "select-option" || action.action === "remove-value") {
       //determine if it is lunch or dinner or event
       //update the state accordingly with array
       if (action.name === "lunch") {
-        setselectedLunchOptions(array);
+        setSelectedLunchOptions(array);
       } else if (action.name === "dinner") {
         setSelectedDinnerOptions(array);
       } else if (action.name === "event") {
         setSelectedEventOptions(array);
-      } else if (action.name === "hotel") {
-        setSelectedHotelOptions(array);
-      }
-      //if option is removed
-      else if (action.action === "remove-value") {
-        //determine if it is lunch or dinner or event
-        //update the state accordingly with array
-        if (action.name === "lunch") {
-          setselectedLunchOptions(array);
-        } else if (action.name === "dinner") {
-          setSelectedDinnerOptions(array);
-        } else if (action.name === "event") {
-          setSelectedEventOptions(array);
-        } else if (action.name === "hotel") {
-          setSelectedHotelOptions(array);
-        }
       }
       //if the whole select is cleared
       else if (action.action === "clear") {
         //determine if it is lunch or dinner or event
-
         if (action.name === "lunch") {
-          setselectedLunchOptions([]);
+          setSelectedLunchOptions([]);
         } else if (action.name === "dinner") {
           setSelectedDinnerOptions([]);
         } else if (action.name === "event") {
           setSelectedEventOptions([]);
-        } else if (action.name === "hotel") {
-          setSelectedHotelOptions([]);
         }
       }
     }
@@ -116,32 +93,21 @@ const ScheduleProjectForm = () => {
     }
   };
 
-  const pushScheduleToServer = () => {
-    try {
-      baseAPI
-        .post(`/addSchedule/${projectByCode._id}`, schedule)
-        .then((response) => {
-          history.push("/");
-        });
-    } catch (err) {
-      console.warn(err);
+  //useEffect to post schedule to database when formIsValid is true
+  useEffect(() => {
+    if (formIsValid) {
+      try {
+        baseAPI
+          .post(`/addSchedule/${projectByCode._id}`, schedule)
+          .then((response) => {
+            console.log("response=>", response);
+            history.push("/");
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
-    //if successful, redirect to project page
-  };
-
-  const pushHotelsToServer = () => {
-    console.log("hotels pushed now to server :)=>", projectHotels);
-    try {
-      baseAPI
-        .post(`/addHotels/${projectByCode._id}`, projectHotels)
-        .then((response) => {
-          console.log("response=>", response);
-          pushScheduleToServer();
-        });
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+  }, [formIsValid]);
 
   const updateProgram = () => {
     //if counter < daydifference, update schedule
@@ -149,7 +115,7 @@ const ScheduleProjectForm = () => {
       setCounter((prevState) => prevState + 1);
     } else if (counter === daydifference) {
       //if counter === daydifference, update schedule and redirect to next page
-      pushHotelsToServer();
+      setFormIsValid(true);
     }
   };
 
@@ -169,12 +135,13 @@ const ScheduleProjectForm = () => {
 
   useEffect(() => {
     console.log("updated schedule =>", schedule);
+    updateProgram();
   }, [schedule]);
 
   useEffect(() => {
     setSchedule([...schedule, dayProgram]);
-    console.log("program elements =>", dayProgram, projectHotels);
-  }, [dayProgram, projectHotels]);
+    console.log("program elements =>", dayProgram);
+  }, [dayProgram]);
 
   const updateInputData = () => {
     setDayProgram({
@@ -184,30 +151,20 @@ const ScheduleProjectForm = () => {
       dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
       event: findSelectedOptions(selectedEventOptions, eventOptions),
     });
-    setProjectHotels(findSelectedOptions(selectedHotelOptions, hotelOptions));
-    updateProgram();
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //find selectedInputOptions in restaurantOptions
     updateInputData();
-    setselectedLunchOptions([]);
+    setSelectedLunchOptions([]);
     setSelectedDinnerOptions([]);
     setSelectedEventOptions([]);
-    setSelectedHotelOptions([]);
   };
 
   return (
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
-        <ProjectSelector
-          name='hotel'
-          icon='bx:bx-hotel'
-          options={hotelOptions}
-          placeholder='ex :  Hotel Options'
-          storeSelectedValues={storeSelectedValues}
-        />
         {projectByCode && <p>Date: {startDate}</p>}
         <ProjectSelector
           name='event'
