@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Icon } from "@iconify/react";
-import { AutoCompleteDiv } from "../../styles";
+import { AutoCompleteDiv } from "../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -11,19 +11,16 @@ const ProjectSelector = ({
   options,
   storeSelectedValues,
 }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-  let valueLabelpairs = [];
+  let valueLabels = [];
   useEffect(() => {
     for (let i = 0; i < options?.length; i++) {
-      valueLabelpairs.push({
+      valueLabels.push({
         value: options[i].name,
         label: options[i].name,
       });
     }
-    console.log(valueLabelpairs);
-  }, [options, valueLabelpairs]);
+    console.log(valueLabels);
+  }, [options, valueLabels]);
 
   return (
     <AutoCompleteDiv>
@@ -33,8 +30,8 @@ const ProjectSelector = ({
       <Select
         components={makeAnimated()}
         name={name}
-        options={valueLabelpairs}
-        noOptionsMessage={() => "No options selected :("}
+        options={valueLabels}
+        noOptionsMessage={() => "No options left to select :("}
         placeholder={placeholder}
         isSearchable
         isClearable

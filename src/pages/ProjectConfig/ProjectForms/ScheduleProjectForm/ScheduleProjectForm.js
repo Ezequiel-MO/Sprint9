@@ -9,8 +9,9 @@ import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetRestaurants from "../../../../hooks/useGetRestaurants";
 import useGetEvents from "../../../../hooks/useGetEvents";
-import ProjectSelector from "./ProjectSelector/ProjectSelector";
-import { findSelectedOptions } from "../../utils/utils";
+import ProjectSelector from "../ProjectSelector/ProjectSelector";
+import { findSelectedOptions, whichDay } from "../../utils/utils";
+import useComputeTotalDays from "../../../../hooks/useComputeTotalDays";
 
 const ScheduleProjectForm = () => {
   const history = useHistory();
@@ -25,11 +26,7 @@ const ScheduleProjectForm = () => {
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
   const [selectedEventOptions, setSelectedEventOptions] = useState([]);
 
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
   const [counter, setCounter] = useState(1);
-  const [daydifference, setDayDifference] = useState(0);
 
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -39,6 +36,9 @@ const ScheduleProjectForm = () => {
   const {
     data: { project: projectByCode },
   } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
+
+  // use useComputeTotalDays hook to compute total days
+  const totalDays = useComputeTotalDays(projectByCode);
 
   const storeSelectedValues = (array, action) => {
     //in case an option is added or removed
@@ -66,34 +66,6 @@ const ScheduleProjectForm = () => {
     }
   };
 
-  useEffect(() => {
-    //update the state with the data extracted from the database
-    if (projectByCode) {
-      setStartDate(projectByCode.arrivalDay);
-      setEndDate(projectByCode.departureDay);
-    }
-  }, [projectByCode]);
-
-  useEffect(() => {
-    //compute days between start and end date
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = Math.abs(end - start);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-    setDayDifference(diffDays);
-    console.log("diff days=>", diffDays);
-  }, [startDate, endDate]);
-
-  const whichDay = (counter) => {
-    if (counter === 1) {
-      return "Arrival Day";
-    } else if (counter === daydifference) {
-      return "Departure Day";
-    } else {
-      return "Day " + counter;
-    }
-  };
-
   //useEffect to post schedule to database when formIsValid is true
   useEffect(() => {
     if (formIsValid) {
@@ -111,10 +83,10 @@ const ScheduleProjectForm = () => {
   }, [formIsValid]);
 
   const updateProgram = () => {
-    //if counter < daydifference, update schedule
-    if (counter < daydifference) {
+    //if counter < totalDays, update schedule
+    if (counter < totalDays) {
       setCounter((prevState) => prevState + 1);
-    } else if (counter === daydifference) {
+    } else if (counter === totalDays) {
       //if counter === daydifference, update schedule and redirect to next page
       setFormIsValid(true);
     }
@@ -133,7 +105,7 @@ const ScheduleProjectForm = () => {
   const updateInputData = () => {
     setDayProgram({
       ...dayProgram,
-      date: whichDay(counter),
+      date: whichDay(counter, totalDays),
       lunch: findSelectedOptions(selectedLunchOptions, restaurantOptions),
       dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
       event: findSelectedOptions(selectedEventOptions, eventOptions),
@@ -152,7 +124,7 @@ const ScheduleProjectForm = () => {
   return (
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
-        {projectByCode && <p>Date: {startDate}</p>}
+        {projectByCode && <p>Date: {projectByCode.startDate}</p>}
         <ProjectSelector
           name='event'
           icon='akar-icons:people-group'

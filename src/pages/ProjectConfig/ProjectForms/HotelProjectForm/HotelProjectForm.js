@@ -6,12 +6,10 @@ import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../api/axios";
 import { HotelFormContainer, AutoCompleteForm } from "../styles";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
 import useGetHotels from "../../../../hooks/useGetHotels";
-import ProjectSelector from "../ScheduleProjectForm/ProjectSelector/ProjectSelector";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { findSelectedOptions } from "../../utils/utils";
+import ProjectSelector from "../ProjectSelector/ProjectSelector";
 
 const HotelProjectForm = () => {
   const activeCode = useSelector(selectActiveCode);

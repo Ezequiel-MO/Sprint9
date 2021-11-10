@@ -12,6 +12,7 @@ export const checkForDuplicates = (string, array) => {
   return { codeIsDuplicated, codeIsUnique, codeIsNew };
 };
 
+//HotelProjectForm.js & ScheduleProjectForm.js
 export const findSelectedOptions = (array, fullArray) => {
   //find the selected options in the array and return them
   let selectedOptionsFullObject = [];
@@ -22,4 +23,15 @@ export const findSelectedOptions = (array, fullArray) => {
     }
   });
   return selectedOptionsFullObject;
+};
+
+//ScheduleProjectForm.js
+export const whichDay = (counter, daydifference) => {
+  if (counter === 1) {
+    return "Arrival Day";
+  } else if (counter === daydifference) {
+    return "Departure Day";
+  } else {
+    return "Day " + counter;
+  }
 };
