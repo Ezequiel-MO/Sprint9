@@ -28,14 +28,18 @@ const HotelProjectForm = () => {
 
   useEffect(() => {
     if (formIsValid) {
-      try {
-        baseAPI.post(`/addHotels/${projectByCode._id}`, hotels).then((res) => {
-          console.log(res);
-          setTimeout(() => history.push("/schedule-project-form"), 1000);
-        });
-      } catch (err) {
-        console.warn(err);
-      }
+      if (projectByCode) {
+        try {
+          baseAPI
+            .post(`/addHotels/${projectByCode._id}`, hotels)
+            .then((res) => {
+              console.log(res);
+              setTimeout(() => history.push("/schedule-project-form"), 1000);
+            });
+        } catch (err) {
+          console.warn(err);
+        }
+      } else alert("Loading project ...");
     }
   }, [formIsValid]);
 

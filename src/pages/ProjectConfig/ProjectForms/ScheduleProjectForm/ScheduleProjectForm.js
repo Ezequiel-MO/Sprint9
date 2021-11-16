@@ -84,19 +84,17 @@ const ScheduleProjectForm = () => {
 
   useEffect(() => {
     if (counter < totalDays) {
+      setSchedule([...schedule, dayProgram]);
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
       //if counter === daydifference, update schedule and redirect to next page
+      setSchedule([...schedule, dayProgram]);
       setFormIsValid(true);
     }
-  }, [schedule]);
-
-  useEffect(() => {
-    setSchedule([...schedule, dayProgram]);
-    console.log("program elements =>", dayProgram);
   }, [dayProgram]);
 
   const updateInputData = () => {
+    //update dayProgram
     setDayProgram({
       ...dayProgram,
       date: whichDay(counter, totalDays),
