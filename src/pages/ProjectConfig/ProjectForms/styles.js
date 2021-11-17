@@ -8,14 +8,15 @@ export const ScheduleProjectFormContainer = styled.form`
 `;
 
 export const HotelFormContainer = styled.div`
+  border: 1px solid red;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 `;
 
 export const AutoCompleteForm = styled.form`
-  min-width: 500px;
-  margin: 1rem;
+  min-width: 60vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -100,3 +101,28 @@ export const StyledAddOption = styled.div`
     padding-right: 1rem;
   }
 `;
+
+export const HotelRatesCard = styled.div`
+  display: flex;
+`;
+
+export const HotelRatesTabsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 20rem;
+  border: 2px solid pink;
+`;
+
+export const Tabs = styled.div`
+  border: 2px solid green;
+  max-width: 15rem;
+`;
+
+export const HotelRatesFormContainer = styled.div`
+  border: 1px solid blue;
+  margin: 1rem;
+`;
+
+export const TabPanel = styled.div``;

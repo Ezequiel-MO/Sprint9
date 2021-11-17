@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { useState, useEffect } from "react";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import useGetHotels from "../../../../hooks/useGetHotels";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { findSelectedOptions } from "../../utils/utils";
 import ProjectSelector from "../ProjectSelector/ProjectSelector";
+import HotelRatesTabs from "./HotelRatesTabs/HotelRatesTabs";
 
 const HotelProjectForm = () => {
   const activeCode = useSelector(selectActiveCode);
@@ -58,25 +58,30 @@ const HotelProjectForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateInputData();
-    setFormIsValid(true);
+    /*  setFormIsValid(true); */
   };
 
   return (
     <>
       <HotelFormContainer>
-        <div>
-          <AutoCompleteForm onSubmit={handleSubmit}>
-            <ProjectSelector
-              name='hotel'
-              icon='bx:bx-hotel'
-              options={hotelOptions}
-              placeholder='ex : Hotel Options'
-              storeSelectedValues={storeSelectedValues}
-            />
-
-            <SaveButton text={"Add Hotels to project"} type='submit' />
-          </AutoCompleteForm>
-        </div>
+        <AutoCompleteForm onSubmit={handleSubmit}>
+          <ProjectSelector
+            name='hotel'
+            icon='bx:bx-hotel'
+            options={hotelOptions}
+            placeholder='ex : Hotel Options'
+            storeSelectedValues={storeSelectedValues}
+          />
+        </AutoCompleteForm>
+        {!formIsValid && (
+          <>
+            <HotelRatesTabs selectedHotelOptions={selectedHotelOptions} />
+            <SaveButton text='Save hotel rates' />
+          </>
+        )}
+        {formIsValid && (
+          <SaveButton text={"Add Hotels to project"} type='submit' />
+        )}
       </HotelFormContainer>
     </>
   );

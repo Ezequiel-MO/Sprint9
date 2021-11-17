@@ -19,7 +19,6 @@ const ProjectSelector = ({
         label: options[i].name,
       });
     }
-    console.log(valueLabels);
   }, [options, valueLabels]);
 
   return (
