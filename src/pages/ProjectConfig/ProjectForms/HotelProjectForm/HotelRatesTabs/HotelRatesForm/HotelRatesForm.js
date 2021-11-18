@@ -1,18 +1,21 @@
-import { TabPanel } from "../../../styles";
+import NumberInput from "../../../../../../uicomponents/Input/NumberInput";
+import SaveButton from "../../../../../../uicomponents/SaveButton/SaveButton";
+import { HotelRatesFormContainer, ScForm, Row1, Row2 } from "../../../styles";
 
 const HotelRatesForm = ({ hotelOption }) => {
   return (
-    <TabPanel>
+    <HotelRatesFormContainer>
       <h2>{`${hotelOption.value}`} </h2>
-      <form>
-        <input type='number' placeholder='Number of DUIs rooms' />
-        <input type='number' placeholder='DUI room rate' />
-        <input type='number' placeholder='Number of Double/Twin rooms' />
-        <input type='number' placeholder='Double/Twin room rate' />
-        <input type='number' placeholder='Breakfast cost if not included' />
-        <input type='number' placeholder='Daily city tax' />
-      </form>
-    </TabPanel>
+      <ScForm>
+        <NumberInput placeholder='Number of DUIs rooms' />
+        <NumberInput placeholder='DUI room rate' />
+        <NumberInput placeholder='Breakfast cost if not included' />
+        <NumberInput placeholder='Number of Double/Twin rooms' />
+        <NumberInput placeholder='Double/Twin room rate' />
+        <NumberInput placeholder='Daily city tax' />
+        <SaveButton text='Save hotel rates' type='submit' />
+      </ScForm>
+    </HotelRatesFormContainer>
   );
 };
 

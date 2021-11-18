@@ -13,3 +13,14 @@ export const StyledInput = styled.input`
     color: #a9ba9d;
   }
 `;
+
+export const ScNumberInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+`;
+
+export const ScNumberInput = styled.input`
+  min-height: 2.5rem;
+  max-width: 15rem;
+`;

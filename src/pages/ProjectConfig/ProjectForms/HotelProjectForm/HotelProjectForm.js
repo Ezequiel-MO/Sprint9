@@ -4,7 +4,11 @@ import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../api/axios";
-import { HotelFormContainer, AutoCompleteForm } from "../styles";
+import {
+  HotelProjectFormContainer,
+  HotelFormContainer,
+  AutoCompleteForm,
+} from "../styles";
 import useGetHotels from "../../../../hooks/useGetHotels";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { findSelectedOptions } from "../../utils/utils";
@@ -74,10 +78,9 @@ const HotelProjectForm = () => {
           />
         </AutoCompleteForm>
         {!formIsValid && (
-          <>
+          <HotelProjectFormContainer>
             <HotelRatesTabs selectedHotelOptions={selectedHotelOptions} />
-            <SaveButton text='Save hotel rates' />
-          </>
+          </HotelProjectFormContainer>
         )}
         {formIsValid && (
           <SaveButton text={"Add Hotels to project"} type='submit' />

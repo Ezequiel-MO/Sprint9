@@ -8,11 +8,17 @@ export const ScheduleProjectFormContainer = styled.form`
 `;
 
 export const HotelFormContainer = styled.div`
-  border: 1px solid red;
+  min-height: 25rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+`;
+
+export const HotelProjectFormContainer = styled.div`
+  display: flex;
+  padding: 1rem;
+  margin: 1rem 1rem 1rem 0;
 `;
 
 export const AutoCompleteForm = styled.form`
@@ -104,25 +110,31 @@ export const StyledAddOption = styled.div`
 
 export const HotelRatesCard = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
-export const HotelRatesTabsContainer = styled.div`
+export const ScHotelRatesTabs = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  min-width: 20rem;
-  border: 2px solid pink;
+  width: fit-content;
+  margin-top: 1rem;
 `;
 
 export const Tabs = styled.div`
-  border: 2px solid green;
-  max-width: 15rem;
-`;
-
-export const HotelRatesFormContainer = styled.div`
-  border: 1px solid blue;
-  margin: 1rem;
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  border-radius: 5px;
 `;
 
 export const TabPanel = styled.div``;
+
+export const HotelRatesFormContainer = styled.div`
+  min-width: 50rem;
+`;
+
+export const ScForm = styled.form`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+`;

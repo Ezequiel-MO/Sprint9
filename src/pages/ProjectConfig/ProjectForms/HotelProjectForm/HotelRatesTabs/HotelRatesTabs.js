@@ -1,9 +1,4 @@
-import {
-  HotelRatesTabsContainer,
-  Tabs,
-  TabPanel,
-  HotelRatesCard,
-} from "../../styles";
+import { ScHotelRatesTabs, Tabs, TabPanel, HotelRatesCard } from "../../styles";
 import HotelRatesForm from "./HotelRatesForm/HotelRatesForm";
 import { useState } from "react";
 
@@ -22,13 +17,18 @@ const HotelRatesTabs = ({ selectedHotelOptions }) => {
 
   return (
     <HotelRatesCard>
-      {selectedHotelOptions?.map((hotelOption, index) => (
-        <HotelRatesTabsContainer key={hotelOption.value}>
-          <Tabs onClick={() => changeSelectedTab(index)}>
+      <ScHotelRatesTabs>
+        {selectedHotelOptions?.map((hotelOption, index) => (
+          <Tabs
+            key={hotelOption.value}
+            onClick={() => changeSelectedTab(index)}
+          >
             {hotelOption.value}
           </Tabs>
-          <TabPanel>{renderTabContent(index, hotelOption)}</TabPanel>
-        </HotelRatesTabsContainer>
+        ))}
+      </ScHotelRatesTabs>
+      {selectedHotelOptions?.map((hotelOption, index) => (
+        <TabPanel>{renderTabContent(index, hotelOption)}</TabPanel>
       ))}
     </HotelRatesCard>
   );
