@@ -17,7 +17,6 @@ export const HotelFormContainer = styled.div`
 
 export const HotelProjectFormContainer = styled.div`
   display: flex;
-  padding: 1rem;
   margin: 1rem 1rem 1rem 0;
 `;
 

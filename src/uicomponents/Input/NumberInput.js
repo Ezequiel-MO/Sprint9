@@ -3,7 +3,6 @@ import { ScNumberInputContainer, ScNumberInput } from "./styles";
 const NumberInput = ({ value, name, onChange, placeholder }) => {
   return (
     <ScNumberInputContainer>
-      <label>{placeholder}</label>
       <ScNumberInput
         data-testid='number-input'
         name={name}
@@ -11,6 +10,7 @@ const NumberInput = ({ value, name, onChange, placeholder }) => {
         type='number'
         onChange={onChange}
       />
+      <label htmlFor={name}>{placeholder}</label>
     </ScNumberInputContainer>
   );
 };

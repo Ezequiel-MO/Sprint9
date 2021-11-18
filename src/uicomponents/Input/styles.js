@@ -16,11 +16,15 @@ export const StyledInput = styled.input`
 
 export const ScNumberInputContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   margin-bottom: 1rem;
+  margin-right: 1rem;
+  & label {
+    margin-left: 1rem;
+  }
 `;
 
 export const ScNumberInput = styled.input`
   min-height: 2.5rem;
-  max-width: 15rem;
+  max-width: 5rem;
 `;
