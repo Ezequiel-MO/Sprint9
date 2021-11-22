@@ -2,6 +2,7 @@ import { ScHotelRatesTabs, Tabs, TabPanel, HotelRatesCard } from "../../styles";
 import HotelRatesForm from "./HotelRatesForm/HotelRatesForm";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { baseAPI } from "../../../../../api/axios";
 
 const HotelRatesTabs = ({
   selectedHotelOptions,
@@ -19,43 +20,53 @@ const HotelRatesTabs = ({
     DailyTax: 0,
   });
   const [hotelPrice, setHotelPrice] = useState({});
-  const [hotelPrices, setHotelPrices] = useState([]);
   const [hotelMatch, setHotelMatch] = useState({});
-  const [formIsValid, setFormIsValid] = useState(true);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setHotelRates({ ...hotelRates, [name]: value });
-  };
+  const [hotelMatchWithPrice, setHotelMatchWithPrice] = useState({});
 
   useEffect(() => {
-    console.log("hotel Prices", hotelPrices);
-  }, [hotelPrices]);
+    console.log("hotel match with price", hotelMatchWithPrice);
+    try {
+      baseAPI
+        .post(`/addHotels/${projectByCode._id}`, [hotelMatchWithPrice])
+        .then((response) => {
+          console.log("response=>", response);
+          if (selectedTab === selectedHotelOptions.length - 1) {
+            history.push("/schedule-project-form");
+          }
+        });
+    } catch (e) {
+      console.log("error", e);
+    }
+  }, [hotelMatchWithPrice]);
 
   useEffect(() => {
-    console.log("hotel match with price", hotelMatch);
-    console.log("hotel Prices", hotelPrices);
-    setHotelPrices([...hotelPrices, hotelMatch]);
+    console.log("hotel match", hotelMatch);
+    setHotelMatchWithPrice({ ...hotelMatch, price: [hotelRates] });
   }, [hotelMatch]);
 
   useEffect(() => {
-    //find object in hotelOptions array that has the same name key as hotelPrice key
+    console.log("hotel price", hotelPrice);
     const hotelMatch = hotelOptions.find(
       (hotel) => hotel.name === Object.keys(hotelPrice)[0]
     );
-    //add key price to hotelMatch object with value of hotelPrice value
-    hotelMatch &&
-      setHotelMatch({ ...hotelMatch, price: [Object.values(hotelPrice)[0]] });
+    setHotelMatch(hotelMatch);
   }, [hotelPrice]);
 
-  const updateHotelPrice = (hotelOption) => {
+  const updateHotelRates = (hotelOption) => {
     setHotelPrice({ ...hotelPrice, [hotelOption.value]: hotelRates });
   };
 
   const handleSubmit = (e, hotelOption) => {
     e.preventDefault();
-    updateHotelPrice(hotelOption);
+    console.log("hotelOption", hotelOption);
+    console.log("hotel rates", hotelRates);
+    updateHotelRates(hotelOption);
     setSelectedTab(selectedTab + 1);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setHotelRates({ ...hotelRates, [name]: value });
   };
 
   const renderTabContent = (index, hotelOption) => {
