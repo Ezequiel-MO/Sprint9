@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import NumberInput from "../../../../../../uicomponents/Input/NumberInput";
 import SaveButton from "../../../../../../uicomponents/SaveButton/SaveButton";
 import { HotelRatesFormContainer, ScForm } from "../../../styles";

@@ -1,9 +1,14 @@
 import { ScHotelRatesTabs, Tabs, TabPanel, HotelRatesCard } from "../../styles";
 import HotelRatesForm from "./HotelRatesForm/HotelRatesForm";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
-const HotelRatesTabs = ({ selectedHotelOptions }) => {
+const HotelRatesTabs = ({
+  selectedHotelOptions,
+  projectByCode,
+  hotelOptions,
+}) => {
+  const history = useHistory();
   const [selectedTab, setSelectedTab] = useState(0);
   const [hotelRates, setHotelRates] = useState({
     DUInr: 0,
@@ -14,10 +19,9 @@ const HotelRatesTabs = ({ selectedHotelOptions }) => {
     DailyTax: 0,
   });
   const [hotelPrice, setHotelPrice] = useState({});
-
-  const changeSelectedTab = (index) => {
-    setSelectedTab(index);
-  };
+  const [hotelPrices, setHotelPrices] = useState([]);
+  const [hotelMatch, setHotelMatch] = useState({});
+  const [formIsValid, setFormIsValid] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +29,33 @@ const HotelRatesTabs = ({ selectedHotelOptions }) => {
   };
 
   useEffect(() => {
-    console.log("hotel price", hotelPrice);
+    console.log("hotel Prices", hotelPrices);
+  }, [hotelPrices]);
+
+  useEffect(() => {
+    console.log("hotel match with price", hotelMatch);
+    console.log("hotel Prices", hotelPrices);
+    setHotelPrices([...hotelPrices, hotelMatch]);
+  }, [hotelMatch]);
+
+  useEffect(() => {
+    //find object in hotelOptions array that has the same name key as hotelPrice key
+    const hotelMatch = hotelOptions.find(
+      (hotel) => hotel.name === Object.keys(hotelPrice)[0]
+    );
+    //add key price to hotelMatch object with value of hotelPrice value
+    hotelMatch &&
+      setHotelMatch({ ...hotelMatch, price: [Object.values(hotelPrice)[0]] });
   }, [hotelPrice]);
+
+  const updateHotelPrice = (hotelOption) => {
+    setHotelPrice({ ...hotelPrice, [hotelOption.value]: hotelRates });
+  };
 
   const handleSubmit = (e, hotelOption) => {
     e.preventDefault();
-    setHotelPrice({ ...hotelPrice, [hotelOption.value]: hotelRates });
+    updateHotelPrice(hotelOption);
+    setSelectedTab(selectedTab + 1);
   };
 
   const renderTabContent = (index, hotelOption) => {
@@ -52,7 +77,8 @@ const HotelRatesTabs = ({ selectedHotelOptions }) => {
         {selectedHotelOptions?.map((hotelOption, index) => (
           <Tabs
             key={hotelOption.value}
-            onClick={() => changeSelectedTab(index)}
+            value={index}
+            disabled={index !== selectedTab ? true : false}
           >
             {hotelOption.value}
           </Tabs>

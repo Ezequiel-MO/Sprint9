@@ -65,7 +65,9 @@ export const AutoCompleteForm = styled.form`
 
 export const AutoCompleteDiv = styled(AutoCompleteForm).attrs({
   as: "div",
-})``;
+})`
+  margin: 1rem;
+`;
 
 export const AddOptionsToProjectContainer = styled.div`
   display: flex;
@@ -118,7 +120,7 @@ export const ScHotelRatesTabs = styled.div`
   margin-top: 1rem;
 `;
 
-export const Tabs = styled.div`
+export const Tabs = styled.button`
   border: 1px solid black;
   padding: 1rem;
   margin: 0.5rem;

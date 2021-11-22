@@ -79,7 +79,11 @@ const HotelProjectForm = () => {
         </AutoCompleteForm>
         {!formIsValid && (
           <HotelProjectFormContainer>
-            <HotelRatesTabs selectedHotelOptions={selectedHotelOptions} />
+            <HotelRatesTabs
+              hotelOptions={hotelOptions}
+              selectedHotelOptions={selectedHotelOptions}
+              projectByCode={projectByCode}
+            />
           </HotelProjectFormContainer>
         )}
         {formIsValid && (

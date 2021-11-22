@@ -28,3 +28,9 @@ export const ScNumberInput = styled.input`
   min-height: 2.5rem;
   max-width: 5rem;
 `;
+
+export const ScFileInput = styled.input`
+  height: 0;
+  overflow: hidden;
+  width: 0;
+`;

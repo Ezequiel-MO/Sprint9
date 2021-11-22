@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { baseAPI } from "../../../../api/axios";
+import NumberInput from "../../../../uicomponents/Input/NumberInput";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import {
   MasterFormContainer,
@@ -196,7 +197,7 @@ const HotelMasterForm = () => {
             </Box>
             <Box>
               <input
-                type='string'
+                type='text'
                 name='restaurants'
                 placeholder='Number of Restaurants'
                 value={restaurants}
@@ -226,6 +227,7 @@ const HotelMasterForm = () => {
               name='imageContentUrl'
               multiple
               ref={fileInput}
+              placeholder='Upload pictures'
             />
           </Images>
         </DescriptionGrid>
