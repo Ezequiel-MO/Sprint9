@@ -11,6 +11,7 @@ const HotelRatesTabs = ({
 }) => {
   const history = useHistory();
   const [selectedTab, setSelectedTab] = useState(0);
+
   const [hotelRates, setHotelRates] = useState({
     DUInr: 0,
     DUIprice: 0,
@@ -19,48 +20,24 @@ const HotelRatesTabs = ({
     breakfast: 0,
     DailyTax: 0,
   });
-  const [hotelPrice, setHotelPrice] = useState({});
-  const [hotelMatch, setHotelMatch] = useState({});
-  const [hotelMatchWithPrice, setHotelMatchWithPrice] = useState({});
 
-  useEffect(() => {
-    console.log("hotel match with price", hotelMatchWithPrice);
+  const sendHotelRates = async (hotel) => {
     try {
-      baseAPI
-        .post(`/addHotels/${projectByCode._id}`, [hotelMatchWithPrice])
-        .then((response) => {
-          console.log("response=>", response);
-          if (selectedTab === selectedHotelOptions.length - 1) {
-            history.push("/schedule-project-form");
-          }
-        });
-    } catch (e) {
-      console.log("error", e);
+      const response = await baseAPI.post(`/addHotels/${projectByCode._id}`, [
+        { ...hotel, price: [hotelRates] },
+      ]);
+      console.log(response);
+    } catch (error) {
+      console.log("error", error);
     }
-  }, [hotelMatchWithPrice]);
-
-  useEffect(() => {
-    console.log("hotel match", hotelMatch);
-    setHotelMatchWithPrice({ ...hotelMatch, price: [hotelRates] });
-  }, [hotelMatch]);
-
-  useEffect(() => {
-    console.log("hotel price", hotelPrice);
-    const hotelMatch = hotelOptions.find(
-      (hotel) => hotel.name === Object.keys(hotelPrice)[0]
-    );
-    setHotelMatch(hotelMatch);
-  }, [hotelPrice]);
-
-  const updateHotelRates = (hotelOption) => {
-    setHotelPrice({ ...hotelPrice, [hotelOption.value]: hotelRates });
   };
 
-  const handleSubmit = (e, hotelOption) => {
+  const handleSubmit = (e, selectedHotel) => {
     e.preventDefault();
-    console.log("hotelOption", hotelOption);
-    console.log("hotel rates", hotelRates);
-    updateHotelRates(hotelOption);
+    const hotelMatch = hotelOptions.find(
+      (hotel) => hotel.name === selectedHotel.value
+    );
+    sendHotelRates(hotelMatch);
     setSelectedTab(selectedTab + 1);
   };
 
@@ -69,35 +46,29 @@ const HotelRatesTabs = ({
     setHotelRates({ ...hotelRates, [name]: value });
   };
 
-  const renderTabContent = (index, hotelOption) => {
-    if (index === selectedTab) {
-      return (
-        <HotelRatesForm
-          hotelOption={hotelOption}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          hotelRates={hotelRates}
-        />
-      );
-    }
-  };
-
   return (
     <HotelRatesCard>
       <ScHotelRatesTabs>
-        {selectedHotelOptions?.map((hotelOption, index) => (
+        {selectedHotelOptions?.map((selectedHotel, index) => (
           <Tabs
-            key={hotelOption.value}
+            key={selectedHotel.value}
             value={index}
             disabled={index !== selectedTab ? true : false}
           >
-            {hotelOption.value}
+            {selectedHotel.value}
           </Tabs>
         ))}
       </ScHotelRatesTabs>
-      {selectedHotelOptions?.map((hotelOption, index) => (
-        <TabPanel key={hotelOption.value}>
-          {renderTabContent(index, hotelOption)}
+      {selectedHotelOptions?.map((selectedHotel, index) => (
+        <TabPanel key={selectedHotel.value}>
+          {index === selectedTab && (
+            <HotelRatesForm
+              hotelOption={selectedHotel}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              hotelRates={selectedHotel}
+            />
+          )}
         </TabPanel>
       ))}
     </HotelRatesCard>
