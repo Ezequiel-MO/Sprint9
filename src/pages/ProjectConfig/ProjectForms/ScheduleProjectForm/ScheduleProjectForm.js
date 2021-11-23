@@ -24,7 +24,10 @@ const ScheduleProjectForm = () => {
 
   const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
   const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
-  const [selectedEventOptions, setSelectedEventOptions] = useState([]);
+  const [selectedMorningEventOptions, setSelectedMorningEventOptions] =
+    useState([]);
+  const [selectedAfternoonEventOptions, setSelectedAfternoonEventOptions] =
+    useState([]);
 
   const [counter, setCounter] = useState(1);
 
@@ -49,8 +52,10 @@ const ScheduleProjectForm = () => {
         setSelectedLunchOptions(array);
       } else if (action.name === "dinner") {
         setSelectedDinnerOptions(array);
-      } else if (action.name === "event") {
-        setSelectedEventOptions(array);
+      } else if (action.name === "morning-event") {
+        setSelectedMorningEventOptions(array);
+      } else if (action.name === "afternoon-event") {
+        setSelectedAfternoonEventOptions(array);
       }
       //if the whole select is cleared
       else if (action.action === "clear") {
@@ -59,8 +64,10 @@ const ScheduleProjectForm = () => {
           setSelectedLunchOptions([]);
         } else if (action.name === "dinner") {
           setSelectedDinnerOptions([]);
-        } else if (action.name === "event") {
-          setSelectedEventOptions([]);
+        } else if (action.name === "morning-event") {
+          setSelectedMorningEventOptions([]);
+        } else if (action.name === "afternoon-event") {
+          setSelectedAfternoonEventOptions([]);
         }
       }
     }
@@ -98,8 +105,15 @@ const ScheduleProjectForm = () => {
     setDayProgram({
       ...dayProgram,
       date: whichDay(counter, totalDays),
-      events: findSelectedOptions(selectedEventOptions, eventOptions),
+      morningEvents: findSelectedOptions(
+        selectedMorningEventOptions,
+        eventOptions
+      ),
       lunch: findSelectedOptions(selectedLunchOptions, restaurantOptions),
+      afternoonEvents: findSelectedOptions(
+        selectedAfternoonEventOptions,
+        eventOptions
+      ),
       dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
     });
   };
@@ -110,7 +124,8 @@ const ScheduleProjectForm = () => {
     updateInputData();
     setSelectedLunchOptions([]);
     setSelectedDinnerOptions([]);
-    setSelectedEventOptions([]);
+    setSelectedMorningEventOptions([]);
+    setSelectedAfternoonEventOptions([]);
   };
 
   return (
@@ -118,10 +133,10 @@ const ScheduleProjectForm = () => {
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>
         {projectByCode && <p>Date: {projectByCode.arrivalDay}</p>}
         <ProjectSelector
-          name='event'
-          icon='akar-icons:people-group'
+          name='morning-event'
+          icon='vaadin:morning'
           options={eventOptions}
-          placeholder='ex :  Event Options'
+          placeholder='ex :  Morning Event Options'
           storeSelectedValues={storeSelectedValues}
         />
         <ProjectSelector
@@ -129,6 +144,13 @@ const ScheduleProjectForm = () => {
           icon='carbon:restaurant'
           options={restaurantOptions}
           placeholder='ex : Lunch Options'
+          storeSelectedValues={storeSelectedValues}
+        />
+        <ProjectSelector
+          name='afternoon-event'
+          icon='ph:clock-afternoon-duotone'
+          options={eventOptions}
+          placeholder='ex :  Afternoon Event Options'
           storeSelectedValues={storeSelectedValues}
         />
         <ProjectSelector
