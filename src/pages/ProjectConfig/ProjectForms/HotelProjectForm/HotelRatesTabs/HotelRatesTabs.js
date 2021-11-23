@@ -27,6 +27,14 @@ const HotelRatesTabs = ({
         { ...hotel, price: [hotelRates] },
       ]);
       console.log(response);
+      //if selectedTab equals selectedHotelOptions.length - 1, redirect to next page
+      if (selectedTab === selectedHotelOptions.length - 1) {
+        history.push("/schedule-project-form");
+      }
+      //else set selectedTab to selectedTab + 1
+      else {
+        setSelectedTab(selectedTab + 1);
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -38,7 +46,6 @@ const HotelRatesTabs = ({
       (hotel) => hotel.name === selectedHotel.value
     );
     sendHotelRates(hotelMatch);
-    setSelectedTab(selectedTab + 1);
   };
 
   const handleChange = (e) => {
