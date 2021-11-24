@@ -91,7 +91,9 @@ const ProjectLog = () => {
     <ProjectLogContainer onSubmit={handleSubmit}>
       <ProjectConfiguration>
         <GroupContainer>
-          <h3>About the Project</h3>
+          <legend>
+            <h4>About the Project</h4>
+          </legend>
           <Input
             type='text'
             placeholder='Write Project Code'
@@ -115,33 +117,35 @@ const ProjectLog = () => {
           />
         </GroupContainer>
         <GroupContainer>
-          <GroupDates>
-            <h3>Dates and Pax expected</h3>
-            <Input
-              type='date'
-              placeholder='Arrival date'
-              name='arrivalDay'
-              value={arrivalDay}
-              onChange={handleChange}
-            />
-            <Input
-              type='date'
-              placeholder='Departure date'
-              name='departureDay'
-              value={departureDay}
-              onChange={handleChange}
-            />
-            <Input
-              type='number'
-              placeholder='Number of Pax'
-              name='nrPax'
-              value={nrPax}
-              onChange={handleChange}
-            />
-          </GroupDates>
+          <legend>
+            <h4>Dates and Pax expected</h4>
+          </legend>
+          <Input
+            type='date'
+            placeholder='Arrival date'
+            name='arrivalDay'
+            value={arrivalDay}
+            onChange={handleChange}
+          />
+          <Input
+            type='date'
+            placeholder='Departure date'
+            name='departureDay'
+            value={departureDay}
+            onChange={handleChange}
+          />
+          <Input
+            type='number'
+            placeholder='Number of Pax'
+            name='nrPax'
+            value={nrPax}
+            onChange={handleChange}
+          />
         </GroupContainer>
         <GroupContainer>
-          <h3>Client Details</h3>
+          <legend>
+            <h4>Client Details</h4>
+          </legend>
           <Input
             type='text'
             placeholder='Group Name'
