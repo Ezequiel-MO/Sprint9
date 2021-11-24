@@ -19,11 +19,13 @@ export const Left = styled.div`
   justify-content: space-between;
   height: 100%;
 `;
-export const VendorNameAndAddress = styled.div`
+
+export const Right = styled(Left)``;
+
+export const VendorNameAndAddress = styled.fieldset`
   padding: 0.5rem;
 `;
 
-export const VendorGrid = styled.div``;
 export const Vendor = styled.div`
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
@@ -34,8 +36,9 @@ export const Vendor = styled.div`
 `;
 export const Address = styled(Vendor)``;
 
-export const GeneralInfo = styled.div`
+export const GeneralInfo = styled.fieldset`
   padding: 0.5rem;
+  margin-bottom: 0.5rem;
   flex: 1;
 `;
 export const GeneralInfoGrid = styled.div`
@@ -52,9 +55,34 @@ export const RestaurantInfoGrid = styled.div`
 
 export const EventInfoGrid = styled(RestaurantInfoGrid)``;
 export const Box = styled.div``;
-export const Right = styled(Left)`
-  flex: 0.5;
+
+export const DescriptionGrid = styled.fieldset`
+  padding: 0;
 `;
-export const DescriptionGrid = styled.div``;
-export const Description = styled.div``;
-export const Images = styled.div``;
+export const Description = styled.div`
+  margin: 0 auto;
+  & textarea {
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    height: 16.8rem;
+    width: 95%;
+    font-size: 1rem;
+    padding-left: 1rem;
+    outline: none;
+    &::placeholder {
+      padding-left: 1rem;
+    }
+    &:focus {
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
+`;
+export const Images = styled.div`
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  & input {
+    cursor: pointer;
+  }
+`;

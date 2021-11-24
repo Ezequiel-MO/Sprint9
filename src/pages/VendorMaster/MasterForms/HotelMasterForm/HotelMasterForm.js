@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { baseAPI } from "../../../../api/axios";
-import NumberInput from "../../../../uicomponents/Input/NumberInput";
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import {
   MasterFormContainer,
   Left,
   VendorNameAndAddress,
-  VendorGrid,
   Vendor,
   Address,
   GeneralInfo,
@@ -96,30 +94,33 @@ const HotelMasterForm = () => {
     <MasterFormContainer onSubmit={handleSubmit}>
       <Left>
         <VendorNameAndAddress>
-          <h4>Hotel Name</h4>
-          <VendorGrid>
-            <Vendor>
-              <input
-                type='text'
-                name='name'
-                value={name}
-                placeholder='Full Hotel name w/category'
-                onChange={handleChangeHotel}
-              />
-            </Vendor>
-            <Address>
-              <input
-                type='text'
-                name='direction'
-                placeholder='Hotel Address'
-                value={direction}
-                onChange={handleChangeHotel}
-              />
-            </Address>
-          </VendorGrid>
+          <legend>
+            <h4>Hotel Name</h4>
+          </legend>
+
+          <Vendor>
+            <input
+              type='text'
+              name='name'
+              value={name}
+              placeholder='Full Hotel name w/category'
+              onChange={handleChangeHotel}
+            />
+          </Vendor>
+          <Address>
+            <input
+              type='text'
+              name='direction'
+              placeholder='Hotel Address'
+              value={direction}
+              onChange={handleChangeHotel}
+            />
+          </Address>
         </VendorNameAndAddress>
         <GeneralInfo>
-          <h4>General Info</h4>
+          <legend>
+            <h4>General Info</h4>
+          </legend>
           <GeneralInfoGrid>
             <Box>
               <input
@@ -209,8 +210,10 @@ const HotelMasterForm = () => {
         <SaveButton text='Save Hotel' type='submit' />
       </Left>
       <Right>
-        <h4>Description</h4>
         <DescriptionGrid>
+          <legend>
+            <h4>Description And Images</h4>
+          </legend>
           <Description>
             <textarea
               name='textContent'
@@ -227,7 +230,6 @@ const HotelMasterForm = () => {
               name='imageContentUrl'
               multiple
               ref={fileInput}
-              placeholder='Upload pictures'
             />
           </Images>
         </DescriptionGrid>
