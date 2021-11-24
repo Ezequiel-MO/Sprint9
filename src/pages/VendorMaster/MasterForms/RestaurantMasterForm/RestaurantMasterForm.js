@@ -9,10 +9,9 @@ import {
   Vendor,
   Address,
   GeneralInfo,
-  RestaurantInfoGrid,
+  InfoGrid,
   Box,
   Right,
-  DescriptionGrid,
   Description,
   Images,
 } from "../styles";
@@ -76,13 +75,15 @@ const RestaurantMasterForm = () => {
     <MasterFormContainer onSubmit={handleSubmit}>
       <Left>
         <VendorNameAndAddress>
-          <h4>Restaurant Name</h4>
+          <legend>
+            <h4>Restaurant Name</h4>
+          </legend>
           <Vendor>
             <input
               type='text'
               name='name'
               value={name}
-              placeholder='Enter restaurant name'
+              placeholder='Enter restaurant name ...'
               onChange={handleChange}
             />
           </Vendor>
@@ -90,23 +91,23 @@ const RestaurantMasterForm = () => {
             <input
               type='text'
               name='city'
-              placeholder='City'
+              placeholder='City ...'
               value={city}
               onChange={handleChange}
             />
           </Address>
           <textarea
             name='textContent'
-            cols='80'
-            rows='8'
             placeholder='write any introduction here ...'
             value={introduction}
             onChange={(e) => setIntroduction([e.target.value])}
           ></textarea>
         </VendorNameAndAddress>
         <GeneralInfo>
-          <h4>General Info</h4>
-          <RestaurantInfoGrid>
+          <legend>
+            <h4>General Info</h4>
+          </legend>
+          <InfoGrid>
             <Box>
               <input
                 type='number'
@@ -134,32 +135,27 @@ const RestaurantMasterForm = () => {
                 onChange={handleChange}
               />
             </Box>
-          </RestaurantInfoGrid>
+          </InfoGrid>
         </GeneralInfo>
         <SaveButton text='Save Restaurant' type='submit' />
       </Left>
       <Right>
-        <h4>Description</h4>
-        <DescriptionGrid>
-          <Description>
-            <textarea
-              name='textContent'
-              cols='45'
-              rows='23'
-              placeholder='write your restaurant description here ...'
-              value={textContent}
-              onChange={(e) => setTextContent([e.target.value])}
-            ></textarea>
-          </Description>
-          <Images>
-            <input
-              type='file'
-              name='imageContentUrl'
-              multiple
-              ref={fileInput}
-            />
-          </Images>
-        </DescriptionGrid>
+        <Description>
+          <legend>
+            <h4>Description</h4>
+          </legend>
+          <textarea
+            name='textContent'
+            cols='45'
+            rows='14'
+            placeholder='write your restaurant description here ...'
+            value={textContent}
+            onChange={(e) => setTextContent([e.target.value])}
+          ></textarea>
+        </Description>
+        <Images>
+          <input type='file' name='imageContentUrl' multiple ref={fileInput} />
+        </Images>
       </Right>
     </MasterFormContainer>
   );

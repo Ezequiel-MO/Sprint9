@@ -9,10 +9,9 @@ import {
   Vendor,
   Address,
   GeneralInfo,
-  EventInfoGrid,
+  InfoGrid,
   Box,
   Right,
-  DescriptionGrid,
   Description,
   Images,
 } from "../styles";
@@ -32,16 +31,7 @@ const EventMasterForm = () => {
     longitude: "",
   });
 
-  const {
-    name,
-    city,
-    titleSidebar,
-    title,
-    horario,
-    price,
-    latitude,
-    longitude,
-  } = event;
+  const { name, city, titleSidebar, title, price, latitude, longitude } = event;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,7 +78,9 @@ const EventMasterForm = () => {
     <MasterFormContainer onSubmit={handleSubmit}>
       <Left>
         <VendorNameAndAddress>
-          <h4>Event Name</h4>
+          <legend>
+            <h4>Event Name</h4>
+          </legend>
           <Vendor>
             <input
               type='text'
@@ -109,16 +101,16 @@ const EventMasterForm = () => {
           </Address>
           <textarea
             name='textContent'
-            cols='80'
-            rows='5'
             placeholder='write any introduction here ...'
             value={introduction}
             onChange={(e) => setIntroduction([e.target.value])}
           ></textarea>
         </VendorNameAndAddress>
         <GeneralInfo>
-          <h4>General Info</h4>
-          <EventInfoGrid>
+          <legend>
+            <h4>General Info</h4>
+          </legend>
+          <InfoGrid>
             <Box>
               <input
                 type='text'
@@ -140,9 +132,9 @@ const EventMasterForm = () => {
             <Box>
               <input
                 type='text'
-                name='horario'
-                placeholder='AM or PM'
-                value={horario}
+                name='price'
+                placeholder='min menu price'
+                value={price}
                 onChange={handleChange}
               />
             </Box>
@@ -164,41 +156,27 @@ const EventMasterForm = () => {
                 onChange={handleChange}
               />
             </Box>
-            <Box>
-              <input
-                type='text'
-                name='price'
-                placeholder='min menu price'
-                value={price}
-                onChange={handleChange}
-              />
-            </Box>
-          </EventInfoGrid>
+          </InfoGrid>
         </GeneralInfo>
         <SaveButton text='Save Event' type='submit' />
       </Left>
       <Right>
-        <h4>Description</h4>
-        <DescriptionGrid>
-          <Description>
-            <textarea
-              name='textContent'
-              cols='42'
-              rows='23'
-              placeholder='write your Event description here ...'
-              value={textContent}
-              onChange={(e) => setTextContent([e.target.value])}
-            ></textarea>
-          </Description>
-          <Images>
-            <input
-              type='file'
-              name='imageContentUrl'
-              multiple
-              ref={fileInput}
-            />
-          </Images>
-        </DescriptionGrid>
+        <Description>
+          <legend>
+            <h4>Description</h4>
+          </legend>
+          <textarea
+            name='textContent'
+            placeholder='write your Event description here ...'
+            cols='45'
+            rows='14'
+            value={textContent}
+            onChange={(e) => setTextContent([e.target.value])}
+          ></textarea>
+        </Description>
+        <Images>
+          <input type='file' name='imageContentUrl' multiple ref={fileInput} />
+        </Images>
       </Right>
     </MasterFormContainer>
   );

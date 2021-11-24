@@ -3,9 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   display: flex;
-  justify-content: flex-start;
-  padding: 2rem;
-  align-items: center;
+  padding: 1rem;
 `;
 
 export const Table = styled.table`

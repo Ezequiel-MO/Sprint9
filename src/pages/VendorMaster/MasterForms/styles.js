@@ -1,19 +1,27 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+// create a css template to use in the component
+const InputOnHover = css`
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  box-shadow: #e0e0e0 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+`;
 
 export const MasterFormContainer = styled.form`
   margin: 1rem;
-  height: 28rem;
-  width: 60rem;
+  min-width: 60rem;
   display: flex;
-  justify-content: space-between;
   padding: 1rem;
-  align-items: center;
   box-shadow: #e0e0e0 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 `;
 
 export const Left = styled.div`
-  flex: 0.5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,52 +31,54 @@ export const Left = styled.div`
 export const Right = styled(Left)``;
 
 export const VendorNameAndAddress = styled.fieldset`
-  padding: 0.5rem;
+  & textarea {
+    margin-left: 0.5rem;
+    width: 96.5%;
+
+    ${InputOnHover}
+  }
+
+  & ::placeholder {
+    padding-left: 1rem;
+  }
+  &:focus {
+    border-bottom: 1px solid #e0e0e0;
+  }
 `;
 
 export const Vendor = styled.div`
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
   & > input {
     width: 100%;
-    height: 2rem;
+    ${InputOnHover}
   }
 `;
 export const Address = styled(Vendor)``;
 
 export const GeneralInfo = styled.fieldset`
-  padding: 0.5rem;
   margin-bottom: 0.5rem;
-  flex: 1;
 `;
-export const GeneralInfoGrid = styled.div`
+export const InfoGrid = styled.div`
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
 `;
 
-export const RestaurantInfoGrid = styled.div`
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(3, 1fr);
+export const Box = styled.div`
+  & > input {
+    width: 90%;
+    ${InputOnHover}
+  }
 `;
 
-export const EventInfoGrid = styled(RestaurantInfoGrid)``;
-export const Box = styled.div``;
-
-export const DescriptionGrid = styled.fieldset`
-  padding: 0;
-`;
-export const Description = styled.div`
-  margin: 0 auto;
+export const Description = styled.fieldset`
+  margin-left: 1rem;
+  min-width: 20rem;
   & textarea {
-    border: none;
-    border-bottom: 1px solid #e0e0e0;
-    height: 16.8rem;
+    ${InputOnHover}
     width: 95%;
-    font-size: 1rem;
-    padding-left: 1rem;
-    outline: none;
     &::placeholder {
       padding-left: 1rem;
     }
@@ -82,7 +92,4 @@ export const Images = styled.div`
   display: flex;
   align-items: center;
   padding-left: 1rem;
-  & input {
-    cursor: pointer;
-  }
 `;

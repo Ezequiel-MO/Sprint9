@@ -9,10 +9,9 @@ import {
   Vendor,
   Address,
   GeneralInfo,
-  GeneralInfoGrid,
+  InfoGrid,
   Box,
   Right,
-  DescriptionGrid,
   Description,
   Images,
 } from "../styles";
@@ -29,7 +28,7 @@ const HotelMasterForm = () => {
     numberRooms: 0,
     checkin_out: "",
     meetingRooms: "",
-    wheelChairAccessible: false,
+    wheelChairAccessible: "",
     wifiSpeed: "",
     swimmingPool: "",
     restaurants: "",
@@ -97,7 +96,6 @@ const HotelMasterForm = () => {
           <legend>
             <h4>Hotel Name</h4>
           </legend>
-
           <Vendor>
             <input
               type='text'
@@ -121,7 +119,7 @@ const HotelMasterForm = () => {
           <legend>
             <h4>General Info</h4>
           </legend>
-          <GeneralInfoGrid>
+          <InfoGrid>
             <Box>
               <input
                 type='text'
@@ -150,12 +148,10 @@ const HotelMasterForm = () => {
               />
             </Box>
             <Box>
-              <label htmlFor='wheelchairAccessible'>
-                Wheelchair accessible
-              </label>
               <input
-                type='checkbox'
+                type='text'
                 name='wheelchairAccessible'
+                placeholder='Wheel chair friendly?'
                 value={wheelChairAccessible}
                 onChange={handleChangeHotel}
               />
@@ -205,34 +201,27 @@ const HotelMasterForm = () => {
                 onChange={handleChangeHotel}
               />
             </Box>
-          </GeneralInfoGrid>
+          </InfoGrid>
         </GeneralInfo>
         <SaveButton text='Save Hotel' type='submit' />
       </Left>
       <Right>
-        <DescriptionGrid>
+        <Description>
           <legend>
-            <h4>Description And Images</h4>
+            <h4>Hotel Description</h4>
           </legend>
-          <Description>
-            <textarea
-              name='textContent'
-              cols='45'
-              rows='23'
-              placeholder='write your description of the hotel here ...'
-              value={textContent}
-              onChange={(e) => setTextContent([e.target.value])}
-            ></textarea>
-          </Description>
-          <Images>
-            <input
-              type='file'
-              name='imageContentUrl'
-              multiple
-              ref={fileInput}
-            />
-          </Images>
-        </DescriptionGrid>
+          <textarea
+            name='textContent'
+            placeholder='write your description of the hotel here ...'
+            cols='45'
+            rows='14'
+            value={textContent}
+            onChange={(e) => setTextContent([e.target.value])}
+          ></textarea>
+        </Description>
+        <Images>
+          <input type='file' name='imageContentUrl' multiple ref={fileInput} />
+        </Images>
       </Right>
     </MasterFormContainer>
   );
