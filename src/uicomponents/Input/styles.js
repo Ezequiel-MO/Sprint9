@@ -25,7 +25,6 @@ export const ScNumberInputContainer = styled.div`
 `;
 
 export const ScNumberInput = styled.input`
-  min-height: 2.5rem;
   max-width: 5rem;
 `;
 

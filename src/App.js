@@ -12,9 +12,9 @@ import {
 import ProjectLog from "./pages/ProjectConfig/ProjectLog/ProjectLog";
 import ScheduleProjectForm from "./pages/ProjectConfig/ProjectForms/ScheduleProjectForm/ScheduleProjectForm";
 import MasterLog from "./pages/VendorMaster/MasterLog/MasterLog";
-import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm/HotelMasterForm";
-import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm/RestaurantMasterForm";
-import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm/EventMasterForm";
+import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm";
+import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm";
+import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm";
 import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
 
 function App() {

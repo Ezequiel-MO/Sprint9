@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState, useRef } from "react";
-import { baseAPI } from "../../../../api/axios";
-import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
+import { baseAPI } from "../../../api/axios";
+import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
 import {
   MasterFormContainer,
   Left,
@@ -14,7 +14,7 @@ import {
   Right,
   Description,
   Images,
-} from "../styles";
+} from "./styles";
 
 const HotelMasterForm = () => {
   //capture the state of the form
