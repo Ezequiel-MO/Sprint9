@@ -1,6 +1,6 @@
 import { ScNumberInputContainer, ScNumberInput } from "./styles";
 
-const NumberInput = ({ value, name, onChange, placeholder }) => {
+const NumberInput = ({ value, name, onChange, placeholder, ...rest }) => {
   return (
     <ScNumberInputContainer>
       <ScNumberInput
@@ -9,6 +9,7 @@ const NumberInput = ({ value, name, onChange, placeholder }) => {
         value={value}
         type='number'
         onChange={onChange}
+        {...rest}
       />
       <label htmlFor={name}>{placeholder}</label>
     </ScNumberInputContainer>

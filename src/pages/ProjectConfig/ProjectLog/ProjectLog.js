@@ -30,7 +30,7 @@ const ProjectLog = () => {
     groupLocation: "",
     arrivalDay: "",
     departureDay: "",
-    nrPax: 0,
+    nrPax: null,
     clientCo: "",
     clientAccManager: "",
     hotels: [],

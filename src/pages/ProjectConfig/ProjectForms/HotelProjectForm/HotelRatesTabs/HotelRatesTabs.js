@@ -13,12 +13,12 @@ const HotelRatesTabs = ({
   const [selectedTab, setSelectedTab] = useState(0);
 
   const [hotelRates, setHotelRates] = useState({
-    DUInr: 0,
-    DUIprice: 0,
-    DoubleRoomNr: 0,
-    DoubleRoomPrice: 0,
-    breakfast: 0,
-    DailyTax: 0,
+    DUInr: null,
+    DUIprice: null,
+    DoubleRoomNr: null,
+    DoubleRoomPrice: null,
+    breakfast: null,
+    DailyTax: null,
   });
 
   const sendHotelRates = async (hotel) => {
