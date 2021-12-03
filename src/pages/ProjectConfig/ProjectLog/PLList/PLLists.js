@@ -1,72 +1,8 @@
 import { Table } from "../../../../generalStyles";
+import PLListsLogic from "./PLListsLogic";
 
-const PLList = ({
-  data: {
-    code,
-    accountManager,
-    groupName,
-    groupLocation,
-    arrivalDay,
-    departureDay,
-    nrPax,
-    clientCo,
-    clientAccManager,
-  },
-}) => {
-  const tableData = [
-    {
-      id: 1,
-      tableElements: [
-        {
-          header: "Project Code",
-          data: code,
-        },
-        {
-          header: "Account Manager",
-          data: accountManager,
-        },
-        {
-          header: "Event Location",
-          data: groupLocation,
-        },
-      ],
-    },
-    {
-      id: 2,
-      tableElements: [
-        {
-          header: "Arrival Day",
-          data: arrivalDay,
-        },
-        {
-          header: "Departure Day",
-          data: departureDay,
-        },
-        {
-          header: "Number of Pax",
-          data: nrPax,
-        },
-      ],
-    },
-    {
-      id: 3,
-      tableElements: [
-        {
-          header: "Group Name",
-          data: groupName,
-        },
-        {
-          header: "Company Client",
-          data: clientCo,
-        },
-        {
-          header: "Client Account Mngr",
-          data: clientAccManager,
-        },
-      ],
-    },
-  ];
-
+const PLList = ({ data }) => {
+  const { tableData } = PLListsLogic(data);
   return (
     <Table>
       {tableData.map((unit) => (
