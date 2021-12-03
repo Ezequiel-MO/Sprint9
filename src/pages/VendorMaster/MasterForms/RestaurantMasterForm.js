@@ -13,20 +13,22 @@ import {
   Description,
   Images,
 } from "./styles";
-import RestaurantMFLogic from "./RestaurantMFLogic";
+import MasterFormLogic from "./MasterFormLogic";
 
 const RestaurantMasterForm = () => {
   const fileInput = useRef();
+
   const {
     handleChange,
     handleSubmit,
-    restaurant,
+    typeOfVendor,
     introduction,
     handleTextDescription,
     handleTextIntroduction,
     textContent,
-  } = RestaurantMFLogic(fileInput);
-  const { name, city, longitude, latitude, price } = restaurant;
+  } = MasterFormLogic(fileInput, "restaurants");
+
+  const { name, city, longitude, latitude, price } = typeOfVendor;
 
   return (
     <MasterFormContainer onSubmit={handleSubmit}>

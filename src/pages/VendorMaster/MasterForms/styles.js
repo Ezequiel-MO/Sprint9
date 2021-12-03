@@ -45,15 +45,26 @@ export const VendorNameAndAddress = styled.fieldset`
 `;
 
 export const Vendor = styled.div`
+  display: flex;
   margin-bottom: 0.5rem;
   margin-right: 0.5rem;
   padding: 0 0.5rem 0.5rem 0.5rem;
   & > input {
     width: 100%;
+    margin-left: 0.5rem;
     ${InputOnHover}
   }
 `;
-export const Address = styled(Vendor)``;
+export const Address = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-right: 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  & > input {
+    ${InputOnHover}
+    margin-left: 0.5rem;
+  }
+`;
 
 export const GeneralInfo = styled.fieldset`
   margin-bottom: 0.5rem;

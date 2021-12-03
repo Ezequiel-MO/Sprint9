@@ -1,21 +1,15 @@
 import { useState, useEffect } from "react";
 import { baseAPI } from "../../../api/axios";
 
-const RestaurantMFLogic = (fileInput) => {
+const MasterFormLogic = (fileInput, cat) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [textContent, setTextContent] = useState([]);
   const [introduction, setIntroduction] = useState([]);
-  const [restaurant, setRestaurant] = useState({
-    name: "",
-    city: "",
-    longitude: "",
-    latitude: "",
-    price: 0,
-  });
+  const [typeOfVendor, setTypeOfVendor] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setRestaurant({ ...restaurant, [name]: value });
+    setTypeOfVendor({ ...typeOfVendor, [name]: value });
   };
 
   const handleTextIntroduction = (e) => {
@@ -26,15 +20,10 @@ const RestaurantMFLogic = (fileInput) => {
     setTextContent([e.target.value]);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormIsValid(true);
-  };
-
   useEffect(() => {
     const formData = new FormData();
-    for (const key in restaurant) {
-      formData.append(key, restaurant[key]);
+    for (const key in typeOfVendor) {
+      formData.append(key, typeOfVendor[key]);
     }
     formData.append("textContent", JSON.stringify(textContent));
     formData.append("introduction", JSON.stringify(introduction));
@@ -43,22 +32,28 @@ const RestaurantMFLogic = (fileInput) => {
     }
     if (formIsValid) {
       baseAPI
-        .post("/restaurants", formData)
+        .post(`/${cat}`, formData)
         .then((res) => {
           console.log(res);
         })
         .catch((err) => console.log(err));
     }
   }, [formIsValid]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormIsValid(true);
+  };
+
   return {
     handleChange,
     handleSubmit,
     handleTextIntroduction,
     handleTextDescription,
-    restaurant,
+    typeOfVendor,
     introduction,
     textContent,
   };
 };
 
-export default RestaurantMFLogic;
+export default MasterFormLogic;
