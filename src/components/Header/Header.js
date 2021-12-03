@@ -19,6 +19,9 @@ const Header = () => {
   const dispatch = useDispatch();
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
   const activeCode = useSelector(selectActiveCode);
+  const handleClick = () => {
+    dispatch(SET_UserIsSearchingProject(true));
+  };
   return (
     <HeaderContainer>
       <HeaderLeft>
@@ -28,11 +31,7 @@ const Header = () => {
         <Link to='/'>
           <img src={logo} alt='company-logo' />
         </Link>
-        <Button
-          large
-          onClick={() => dispatch(SET_UserIsSearchingProject(true))}
-          disabled={userIsSearchingProject}
-        >
+        <Button large onClick={handleClick} disabled={userIsSearchingProject}>
           {activeCode}
           <span>
             <Icon icon='mdi:chevron-down' color='#ea5933' width='24' />

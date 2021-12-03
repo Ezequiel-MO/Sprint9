@@ -3,7 +3,7 @@ import ProjectModal from "./components/ProjectModal/ProjectModal";
 import Login from "./pages/Login/Login";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Welcome from "./pages/Welcome/Welcome";
+import Dashboard from "./pages/dashboard/Dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserIsSearchingProject,
@@ -11,7 +11,6 @@ import {
 } from "./features/UserIsSearchingProjectSlice";
 import ProjectLog from "./pages/ProjectConfig/ProjectLog/ProjectLog";
 import ScheduleProjectForm from "./pages/ProjectConfig/ProjectForms/ScheduleProjectForm/ScheduleProjectForm";
-import MasterLog from "./pages/VendorMaster/MasterLog/MasterLog";
 import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm";
 import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm";
 import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm";
@@ -38,8 +37,7 @@ function App() {
             component={RestaurantMasterForm}
           />
           <Route path='/event-master-form' component={EventMasterForm} />
-          <Route path='/master-log' component={MasterLog} />
-          <Route path='/' exact component={Welcome} />
+          <Route path='/' exact component={Dashboard} />
         </Switch>
       </Container>
       {userIsSearchingProject && <ProjectModal />}
