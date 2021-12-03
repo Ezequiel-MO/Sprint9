@@ -2,40 +2,16 @@ import Input from "../../../uicomponents/Input/Input";
 import {
   ProjectLogContainer,
   ProjectConfiguration,
-  GroupDates,
   GroupContainer,
   ProjectResults,
 } from "./styles";
-import { useState, useEffect } from "react";
 import PLList from "./PLList/PLLists";
 import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
-import { useDispatch } from "react-redux";
-import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
-import { useHistory } from "react-router";
-import { baseAPI } from "../../../api/axios";
-import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
-import { checkForDuplicates } from "../utils/utils";
+import ProjectLogLogic from "./ProjectLogLogic";
 
 const ProjectLog = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const {
-    data: { projects },
-  } = useAxiosFetch("https://cutt-events.herokuapp.com/projects");
-  const [projectFormIsValid, setProjectFormIsValid] = useState(false);
-  const [projectInputData, setProjectInputData] = useState({
-    code: "",
-    accountManager: "",
-    groupName: "",
-    groupLocation: "",
-    arrivalDay: "",
-    departureDay: "",
-    nrPax: null,
-    clientCo: "",
-    clientAccManager: "",
-    hotels: [],
-    schedule: [],
-  });
+  const { handleChange, handleSubmit, projectFormIsValid, projectInputData } =
+    ProjectLogLogic();
 
   const {
     code,
@@ -48,44 +24,6 @@ const ProjectLog = () => {
     clientCo,
     clientAccManager,
   } = projectInputData;
-
-  useEffect(() => {
-    if (projectFormIsValid) {
-      const projectFormData = new FormData();
-      for (const [key, value] of Object.entries(projectInputData)) {
-        projectFormData.append(key, value);
-      }
-      const postProjectData = () => {
-        baseAPI
-          .post("/projects", projectFormData)
-          .then((res) => console.log("res=>", res))
-          .catch((err) => console.log(err));
-      };
-      dispatch(SET_ActiveCode(code));
-      postProjectData();
-      setTimeout(() => history.push("/hotel-project-form"), 500);
-    } else {
-      alert("please fill in all data");
-    }
-  }, [projectFormIsValid]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProjectInputData({ ...projectInputData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let isValid = false;
-    const allInputsAreNonEmpty = !Object.values(projectInputData).some(
-      (value) => value === null || value === ""
-    );
-    if (allInputsAreNonEmpty) {
-      const codeArr = projects?.map((project) => project.code);
-      const { codeIsNew } = checkForDuplicates(code, codeArr);
-      setProjectFormIsValid(codeIsNew);
-    }
-  };
 
   return (
     <ProjectLogContainer onSubmit={handleSubmit}>
