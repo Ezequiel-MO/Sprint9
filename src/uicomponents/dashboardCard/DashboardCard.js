@@ -15,6 +15,7 @@ const DashboardCard = ({
     setShowVendorCards,
     title
   );
+
   return (
     <DashboardCardContainer onClick={handleClick}>
       <Icon icon={icon} width='40' />

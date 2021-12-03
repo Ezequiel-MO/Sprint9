@@ -1,6 +1,7 @@
 import DashboardCard from "../../uicomponents/dashboardCard/DashboardCard";
 import DashboardLogic from "./DashboardLogic";
 import { WelcomeContainer, VendorCardsContainer } from "./styles";
+import ProjectModal from "../../components/ProjectModal/ProjectModal";
 
 const Dashboard = () => {
   const { showVendorCards, setShowVendorCards, dashboardData } =
@@ -14,6 +15,7 @@ const Dashboard = () => {
         showVendorCards={showVendorCards}
         setShowVendorCards={setShowVendorCards}
       />
+
       {showVendorCards && (
         <VendorCardsContainer>
           {dashboardData.map((item) => (

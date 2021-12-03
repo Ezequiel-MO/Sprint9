@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const DashboardLogic = () => {
   const [showVendorCards, setShowVendorCards] = useState(false);
+
   const dashboardData = [
     {
       icon: "bx:bx-hotel",
@@ -24,7 +25,11 @@ const DashboardLogic = () => {
       slug: "/restaurant-master-form",
     },
   ];
-  return { showVendorCards, dashboardData, setShowVendorCards };
+  return {
+    showVendorCards,
+    dashboardData,
+    setShowVendorCards,
+  };
 };
 
 export default DashboardLogic;

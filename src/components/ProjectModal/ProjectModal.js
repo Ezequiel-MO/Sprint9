@@ -6,34 +6,24 @@ import {
   StyledIcon,
   OpenCancelButtons,
 } from "./styles.js";
-import { useState } from "react";
 import PMProjectList from "./PMProjectList/PMProjectList.js";
 import { Icon } from "@iconify/react";
-import { SET_UserIsSearchingProject } from "../../features/UserIsSearchingProjectSlice.js";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 import Button from "../../uicomponents/Button/Button.js";
+import ProjectModalLogic from "./ProjectModalLogic.js";
 
 const ProjectModal = () => {
-  const [project, setProject] = useState("");
-  const history = useHistory();
-  const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setProject("");
-    console.log("project=>", project);
-  };
-
-  const handleClick = () => {
-    dispatch(SET_UserIsSearchingProject(false));
-    history.push("/project-log");
-  };
+  const {
+    handleNewProjectClick,
+    handleChange,
+    handleSubmit,
+    handleCancelClick,
+    project,
+  } = ProjectModalLogic();
   return (
     <PMContainer>
       <PMHeader>
         <h3>Select a project</h3>
-        <Button onClick={handleClick}>
+        <Button onClick={handleNewProjectClick}>
           <span>
             <Icon
               icon='fluent:add-12-filled'
@@ -58,7 +48,7 @@ const ProjectModal = () => {
           type='text'
           placeholder='Search project'
           value={project}
-          onChange={(e) => setProject(e.target.value)}
+          onChange={handleChange}
         />
         <button data-testid='search' type='submit'>
           Search
@@ -66,9 +56,7 @@ const ProjectModal = () => {
       </PMSearchForm>
       <PMProjectList />
       <OpenCancelButtons>
-        <Button onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
-          CANCEL
-        </Button>
+        <Button onClick={handleCancelClick}>CANCEL</Button>
         <Button>OPEN</Button>
       </OpenCancelButtons>
     </PMContainer>
