@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import HotelMasterForm from "./HotelMasterForm";
 
 beforeEach(() => {
@@ -6,8 +6,12 @@ beforeEach(() => {
 });
 
 describe("Check inputs are functional", () => {
-  test("Any checkbox should initially be unchecked", () => {
-    const checkbox = screen.getByRole("checkbox");
+  test("Any checkbox should initially be unchecked, and checked when clicked", () => {
+    const checkbox = screen.getByRole("checkbox", {
+      name: "Wheel chair friendly?",
+    });
     expect(checkbox).not.toBeChecked();
+    fireEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
   });
 });
