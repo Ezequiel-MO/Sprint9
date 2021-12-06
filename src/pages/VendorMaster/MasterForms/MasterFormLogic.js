@@ -12,6 +12,12 @@ const MasterFormLogic = (fileInput, cat) => {
     setTypeOfVendor({ ...typeOfVendor, [name]: value });
   };
 
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    const stringifiedChecked = JSON.stringify(checked);
+    setTypeOfVendor({ ...typeOfVendor, [name]: stringifiedChecked });
+  };
+
   const handleTextIntroduction = (e) => {
     setIntroduction([e.target.value]);
   };
@@ -50,6 +56,7 @@ const MasterFormLogic = (fileInput, cat) => {
     handleSubmit,
     handleTextIntroduction,
     handleTextDescription,
+    handleCheckboxChange,
     typeOfVendor,
     introduction,
     textContent,

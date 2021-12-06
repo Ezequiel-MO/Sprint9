@@ -23,6 +23,7 @@ const HotelMasterForm = () => {
     typeOfVendor,
     textContent,
     handleChange,
+    handleCheckboxChange,
     handleTextDescription,
   } = MasterFormLogic(fileInput, "hotels");
 
@@ -118,10 +119,9 @@ const HotelMasterForm = () => {
               <input
                 type='checkbox'
                 id='handicapped'
-                name='wheelchairAccessible'
-                value={wheelChairAccessible}
+                name='wheelChairAccesible'
                 checked={wheelChairAccessible}
-                onChange={handleChange}
+                onChange={handleCheckboxChange}
               />
               <label htmlFor='handicapped'>Wheel chair friendly?</label>
             </Box>
