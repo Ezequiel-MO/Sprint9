@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import ReactDOM from "react-dom";
 import Header from "./Header";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -24,12 +23,27 @@ describe("Menu Icon", () => {
   });
 });
 
-it("should render an image with logo", () => {
-  const imageEl = screen.getByAltText(/company-logo/i);
-  expect(imageEl).toBeInTheDocument();
-});
+describe("Code Button", () => {
+  it("should initially be enabled", () => {
+    const btnEl = screen.getByRole("button", { name: /code/i });
+    expect(btnEl).toBeEnabled();
+  });
+  it("initial text should be: your code here", () => {
+    const btnEl = screen.getByRole("button", { name: /your code here/i });
+    expect(btnEl).toBeInTheDocument();
+  });
+  it("if the button is clicked, userIsSearchingProject should turn true and the button should be disabled", () => {
+    const btnEl = screen.getByRole("button", { name: /your code here/i });
+    fireEvent.click(btnEl);
+    const { userIsSearchingProject } = store.getState().userIsSearchingProject;
+    expect(userIsSearchingProject).toBe(true);
+    expect(btnEl).toBeDisabled();
+  });
 
-it("should render an Avatar that links to the login page", () => {
-  const linkEl = screen.getByTestId(/avatar/i);
-  expect(linkEl).toBeInTheDocument();
+  it("the button textContent should be the active code", () => {
+    const btnEl = screen.getByRole("button", { name: /your code here/i });
+    fireEvent.click(btnEl);
+    const { activeCode } = store.getState().activeCode;
+    expect(btnEl.textContent).toBe(activeCode);
+  });
 });

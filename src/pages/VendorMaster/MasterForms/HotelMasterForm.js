@@ -116,12 +116,14 @@ const HotelMasterForm = () => {
             </Box>
             <Box>
               <input
-                type='text'
+                type='checkbox'
+                id='handicapped'
                 name='wheelchairAccessible'
-                placeholder='Wheel chair friendly?'
                 value={wheelChairAccessible}
+                checked={wheelChairAccessible}
                 onChange={handleChange}
               />
+              <label htmlFor='handicapped'>Wheel chair friendly?</label>
             </Box>
             <Box>
               <input
