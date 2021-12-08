@@ -41,7 +41,6 @@ describe("Code Button", () => {
   });
   it("the button is disabled, it has a grey background color", () => {
     const btnEl = screen.getByRole("button", { name: /your code here/i });
-    //if btnEl is disabled, it should have a grey background color
     const { userIsSearchingProject } = store.getState().userIsSearchingProject;
     expect(userIsSearchingProject).toBe(true);
     expect(btnEl).toHaveStyle("background-color: #808080");

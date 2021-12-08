@@ -6,7 +6,7 @@ beforeEach(() => {
 });
 
 describe("Check inputs are functional", () => {
-  test("Any checkbox should initially be unchecked, and checked when clicked", () => {
+  test("Handicapped checkbox should initially be unchecked, and checked when clicked", () => {
     const checkbox = screen.getByRole("checkbox", {
       name: "Wheel chair friendly?",
     });

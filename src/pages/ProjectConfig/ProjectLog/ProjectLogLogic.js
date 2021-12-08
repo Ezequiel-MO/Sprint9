@@ -54,18 +54,17 @@ const ProjectLogLogic = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let isValid = false;
     const allInputsAreNonEmpty = !Object.values(projectInputData).some(
       (value) => value === null || value === ""
     );
     if (allInputsAreNonEmpty) {
       const codeArr = projects?.map((project) => project.code);
-      const { codeIsNew } = checkForDuplicates(
+      const codeIsDuplicated = checkForDuplicates(
         projectInputData["code"],
         codeArr
       );
 
-      setProjectFormIsValid(codeIsNew);
+      setProjectFormIsValid(!codeIsDuplicated);
     }
   };
   return {

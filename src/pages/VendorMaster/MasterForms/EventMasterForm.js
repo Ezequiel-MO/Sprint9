@@ -17,6 +17,7 @@ import MasterFormLogic from "./MasterFormLogic";
 
 const EventMasterForm = () => {
   const fileInput = useRef();
+  const events = "events";
   const {
     typeOfVendor,
     handleSubmit,
@@ -25,7 +26,7 @@ const EventMasterForm = () => {
     textContent,
     handleTextDescription,
     handleTextIntroduction,
-  } = MasterFormLogic(fileInput, "events");
+  } = MasterFormLogic(fileInput, events);
 
   const { name, city, titleSidebar, title, price, latitude, longitude } =
     typeOfVendor;

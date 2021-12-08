@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
-import { baseAPI } from "../../../api/axios";
+import { baseAPI, baseURL } from "../../../api/axios";
+import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
+import { checkForDuplicates } from "../../ProjectConfig/utils/utils";
 
 const MasterFormLogic = (fileInput, cat) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [textContent, setTextContent] = useState([]);
   const [introduction, setIntroduction] = useState([]);
   const [typeOfVendor, setTypeOfVendor] = useState({});
+  const [vendorOptions, setVendorOptions] = useState();
+
+  const { data } = useAxiosFetch(`${baseURL}/${cat}`);
+
+  useEffect(() => {
+    const vendorOptionData = data[cat];
+    setVendorOptions(vendorOptionData);
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +38,7 @@ const MasterFormLogic = (fileInput, cat) => {
 
   useEffect(() => {
     const formData = new FormData();
+
     for (const key in typeOfVendor) {
       formData.append(key, typeOfVendor[key]);
     }
@@ -48,7 +59,17 @@ const MasterFormLogic = (fileInput, cat) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormIsValid(true);
+
+    const vendorOptionNames = vendorOptions?.map((vendor) => vendor.name);
+    const codeIsDuplicated = checkForDuplicates(
+      typeOfVendor["name"],
+      vendorOptionNames
+    );
+    if (codeIsDuplicated) {
+      alert("Duplicate Vendor");
+    } else {
+      setFormIsValid(!codeIsDuplicated);
+    }
   };
 
   return {

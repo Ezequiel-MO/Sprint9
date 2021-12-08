@@ -17,6 +17,7 @@ import MasterFormLogic from "./MasterFormLogic";
 
 const RestaurantMasterForm = () => {
   const fileInput = useRef();
+  const restaurants = "restaurants";
 
   const {
     handleChange,
@@ -26,7 +27,7 @@ const RestaurantMasterForm = () => {
     handleTextDescription,
     handleTextIntroduction,
     textContent,
-  } = MasterFormLogic(fileInput, "restaurants");
+  } = MasterFormLogic(fileInput, restaurants);
 
   const { name, city, longitude, latitude, price } = typeOfVendor;
 

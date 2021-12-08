@@ -17,7 +17,7 @@ import MasterFormLogic from "./MasterFormLogic";
 
 const HotelMasterForm = () => {
   const fileInput = useRef();
-
+  const hotels = "hotels";
   const {
     handleSubmit,
     typeOfVendor,
@@ -25,7 +25,7 @@ const HotelMasterForm = () => {
     handleChange,
     handleCheckboxChange,
     handleTextDescription,
-  } = MasterFormLogic(fileInput, "hotels");
+  } = MasterFormLogic(fileInput, hotels);
 
   const {
     name,
