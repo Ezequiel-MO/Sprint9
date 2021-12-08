@@ -15,7 +15,7 @@ const MasterFormLogic = (fileInput, cat) => {
   useEffect(() => {
     const vendorOptionData = data[cat];
     setVendorOptions(vendorOptionData);
-  }, [data]);
+  }, [data, cat]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
