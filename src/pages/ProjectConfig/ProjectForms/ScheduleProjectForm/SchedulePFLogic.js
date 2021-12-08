@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import useGetRestaurants from "../../../../hooks/useGetRestaurants";
-import useGetEvents from "../../../../hooks/useGetEvents";
 import useComputeTotalDays from "../../../../hooks/useComputeTotalDays";
 import { findSelectedOptions, whichDay } from "../../utils/utils";
 import { useSelector } from "react-redux";
@@ -9,6 +7,7 @@ import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseURL } from "../../../../api/axios";
 import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
+import useGetVendors from "../../../../hooks/useGetVendor";
 
 const SchedulePFLogic = () => {
   const history = useHistory();
@@ -22,8 +21,8 @@ const SchedulePFLogic = () => {
     useState([]);
   const [counter, setCounter] = useState(1);
   const [formIsValid, setFormIsValid] = useState(false);
-  const { restaurantOptions } = useGetRestaurants();
-  const { eventOptions } = useGetEvents();
+  const { vendorOptions: restaurantOptions } = useGetVendors("restaurants");
+  const { vendorOptions: eventOptions } = useGetVendors("events");
   const activeCode = useSelector(selectActiveCode);
   const {
     data: { project: projectByCode },

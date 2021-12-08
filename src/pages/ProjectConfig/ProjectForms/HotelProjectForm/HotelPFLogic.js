@@ -4,18 +4,15 @@ import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../api/axios";
-import useGetHotels from "../../../../hooks/useGetHotels";
 import { findSelectedOptions } from "../../utils/utils";
+import useGetVendors from "../../../../hooks/useGetVendor";
 
 const HotelPFLogic = () => {
   const activeCode = useSelector(selectActiveCode);
   const history = useHistory();
   const [formIsValid, setFormIsValid] = useState(false);
-
   const [hotels, setHotels] = useState([]);
-
-  const { hotelOptions } = useGetHotels();
-
+  const { vendorOptions: hotelOptions } = useGetVendors("hotels");
   const [selectedHotelOptions, setSelectedHotelOptions] = useState([]);
 
   const {

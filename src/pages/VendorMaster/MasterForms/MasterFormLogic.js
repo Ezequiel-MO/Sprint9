@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { baseAPI, baseURL } from "../../../api/axios";
-import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
+import { baseAPI } from "../../../api/axios";
+import useGetVendors from "../../../hooks/useGetVendor";
 import { checkForDuplicates } from "../../ProjectConfig/utils/utils";
 
 const MasterFormLogic = (fileInput, cat) => {
@@ -8,14 +8,8 @@ const MasterFormLogic = (fileInput, cat) => {
   const [textContent, setTextContent] = useState([]);
   const [introduction, setIntroduction] = useState([]);
   const [typeOfVendor, setTypeOfVendor] = useState({});
-  const [vendorOptions, setVendorOptions] = useState();
 
-  const { data } = useAxiosFetch(`${baseURL}/${cat}`);
-
-  useEffect(() => {
-    const vendorOptionData = data[cat];
-    setVendorOptions(vendorOptionData);
-  }, [data, cat]);
+  const { vendorOptions } = useGetVendors(cat);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
