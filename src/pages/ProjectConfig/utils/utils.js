@@ -12,8 +12,8 @@ export const checkForDuplicates = (string, array) => {
 
 //HotelProjectForm.js & ScheduleProjectForm.js
 export const findSelectedOptions = (array, fullArray) => {
-  //find the selected options in the array and return them
   let selectedOptionsFullObject = [];
+  debugger;
   let flatArray = array.map((item) => item.value);
   fullArray.forEach((item) => {
     if (flatArray.includes(item.name)) {

@@ -3,7 +3,7 @@ import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
-import { baseAPI } from "../../../../api/axios";
+import { baseAPI, baseURL } from "../../../../api/axios";
 import { findSelectedOptions } from "../../utils/utils";
 import useGetVendors from "../../../../hooks/useGetVendor";
 
@@ -17,7 +17,7 @@ const HotelPFLogic = () => {
 
   const {
     data: { project: projectByCode },
-  } = useAxiosFetch(`https://cutt-events.herokuapp.com/project/${activeCode}`);
+  } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   useEffect(() => {
     if (formIsValid) {
