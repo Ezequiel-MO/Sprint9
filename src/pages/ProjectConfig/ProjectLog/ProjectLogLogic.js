@@ -63,8 +63,9 @@ const ProjectLogLogic = () => {
         projectInputData["code"],
         codeArr
       );
-
       setProjectFormIsValid(!codeIsDuplicated);
+    } else {
+      alert("Gaps found - please fill in all data");
     }
   };
   return {
