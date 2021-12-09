@@ -100,7 +100,7 @@ const ProjectLog = () => {
           />
           <Input
             type='text'
-            placeholder='Client Acc. Exec'
+            placeholder='Client Acc Exec'
             name='clientAccManager'
             value={clientAccManager}
             onChange={handleChange}

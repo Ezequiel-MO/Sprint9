@@ -11,21 +11,29 @@ const ProjectLogLogic = () => {
   const history = useHistory();
   const {
     data: { projects },
+    fetchError,
   } = useAxiosFetch(`${baseURL}/projects`);
   const [projectFormIsValid, setProjectFormIsValid] = useState(false);
   const [projectInputData, setProjectInputData] = useState({
-    code: "",
-    accountManager: "",
-    groupName: "",
-    groupLocation: "",
-    arrivalDay: "",
-    departureDay: "",
-    nrPax: null,
-    clientCo: "",
-    clientAccManager: "",
+    code: "ex BEM20210023",
+    accountManager: "John Doe",
+    groupName: "Ciscalis",
+    groupLocation: "Barcelona",
+    arrivalDay: "20-10-2022",
+    departureDay: "22-10-2022",
+    nrPax: 100,
+    clientCo: "The Ev Mng co",
+    clientAccManager: "Jonas Smith",
     hotels: [],
     schedule: [],
   });
+
+  useEffect(() => {
+    if (fetchError) {
+      alert(fetchError);
+      history.push("/");
+    }
+  }, [fetchError, history]);
 
   useEffect(() => {
     if (projectFormIsValid) {
@@ -42,8 +50,6 @@ const ProjectLogLogic = () => {
       dispatch(SET_ActiveCode(projectInputData["code"]));
       postProjectData();
       setTimeout(() => history.push("/hotel-project-form"), 500);
-    } else {
-      alert("please fill in all data");
     }
   }, [projectFormIsValid]);
 
