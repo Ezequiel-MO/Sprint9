@@ -11,9 +11,9 @@ import {
 } from "./features/UserIsSearchingProjectSlice";
 import ProjectLog from "./pages/ProjectConfig/ProjectLog/ProjectLog";
 import ScheduleProjectForm from "./pages/ProjectConfig/ProjectForms/ScheduleProjectForm/ScheduleProjectForm";
-import HotelMasterForm from "./pages/VendorMaster/MasterForms/HotelMasterForm";
-import RestaurantMasterForm from "./pages/VendorMaster/MasterForms/RestaurantMasterForm";
-import EventMasterForm from "./pages/VendorMaster/MasterForms/EventMasterForm";
+import HotelMasterForm from "./pages/MasterForms/HotelMasterForm";
+import RestaurantMasterForm from "./pages/MasterForms/RestaurantMasterForm";
+import EventMasterForm from "./pages/MasterForms/EventMasterForm";
 import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
 
 function App() {

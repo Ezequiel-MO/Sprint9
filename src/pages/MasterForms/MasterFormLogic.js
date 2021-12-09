@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { baseAPI } from "../../../api/axios";
-import useGetVendors from "../../../hooks/useGetVendor";
-import { checkForDuplicates } from "../../ProjectConfig/utils/utils";
+import { baseAPI } from "../../api/axios";
+import useGetVendors from "../../hooks/useGetVendor";
+import { checkForDuplicates } from "../ProjectConfig/utils/utils";
 
 const MasterFormLogic = (fileInput, cat) => {
   const [formIsValid, setFormIsValid] = useState(false);
