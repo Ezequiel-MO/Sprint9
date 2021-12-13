@@ -26,6 +26,7 @@ const RestaurantMasterForm = () => {
     introduction,
     handleTextDescription,
     handleTextIntroduction,
+    handleCoordsChange,
     textContent,
   } = MasterFormLogic(fileInput, restaurants);
 
@@ -70,20 +71,20 @@ const RestaurantMasterForm = () => {
           <InfoGrid>
             <Box>
               <input
-                type='number'
+                type='text'
                 name='longitude'
                 placeholder='coordinates : longitude'
                 value={longitude}
-                onChange={handleChange}
+                onChange={handleCoordsChange}
               />
             </Box>
             <Box>
               <input
-                type='number'
+                type='text'
                 name='latitude'
                 placeholder='coordinates: latitude'
                 value={latitude}
-                onChange={handleChange}
+                onChange={handleCoordsChange}
               />
             </Box>
             <Box>
