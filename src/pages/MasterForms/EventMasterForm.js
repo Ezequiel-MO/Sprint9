@@ -26,6 +26,7 @@ const EventMasterForm = () => {
     textContent,
     handleTextDescription,
     handleTextIntroduction,
+    handleCoordsChange,
   } = MasterFormLogic(fileInput, events);
 
   const { name, city, titleSidebar, title, price, latitude, longitude } =
@@ -97,20 +98,20 @@ const EventMasterForm = () => {
             </Box>
             <Box>
               <input
-                type='number'
+                type='text'
                 name='longitude'
                 placeholder='coordinates : longitude'
                 value={longitude}
-                onChange={handleChange}
+                onChange={handleCoordsChange}
               />
             </Box>
             <Box>
               <input
-                type='number'
+                type='text'
                 name='latitude'
                 placeholder='coordinates: latitude'
                 value={latitude}
-                onChange={handleChange}
+                onChange={handleCoordsChange}
               />
             </Box>
           </InfoGrid>
