@@ -25,6 +25,7 @@ const HotelMasterForm = () => {
     handleChange,
     handleCheckboxChange,
     handleTextDescription,
+    handleCoordsChange,
   } = MasterFormLogic(fileInput, hotels);
 
   const {
@@ -72,14 +73,14 @@ const HotelMasterForm = () => {
               name='latitude'
               placeholder='Coords: latitude'
               value={latitude}
-              onChange={handleChange}
+              onChange={handleCoordsChange}
             />
             <input
               type='text'
               name='longitude'
               placeholder='Coords: longitude'
               value={longitude}
-              onChange={handleChange}
+              onChange={handleCoordsChange}
             />
           </Address>
         </VendorNameAndAddress>

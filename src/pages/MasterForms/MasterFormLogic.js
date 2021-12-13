@@ -8,12 +8,21 @@ const MasterFormLogic = (fileInput, cat) => {
   const [textContent, setTextContent] = useState([]);
   const [introduction, setIntroduction] = useState([]);
   const [typeOfVendor, setTypeOfVendor] = useState({});
+  const [coords, setCoords] = useState({
+    latitude: "",
+    longitude: "",
+  });
 
   const { vendorOptions } = useGetVendors(cat);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTypeOfVendor({ ...typeOfVendor, [name]: value });
+  };
+
+  const handleCoordsChange = (e) => {
+    const { name, value } = e.target;
+    setCoords({ ...coords, [name]: value });
   };
 
   const handleCheckboxChange = (e) => {
@@ -38,6 +47,9 @@ const MasterFormLogic = (fileInput, cat) => {
     }
     formData.append("textContent", JSON.stringify(textContent));
     formData.append("introduction", JSON.stringify(introduction));
+    //convert coords object to array
+    const coordsArray = Object.values(coords);
+    formData.append("coordinates", JSON.stringify(coordsArray));
     for (let i = 0; i < fileInput.current.files.length; i++) {
       formData.append("images", fileInput.current.files[i]);
     }
@@ -72,6 +84,7 @@ const MasterFormLogic = (fileInput, cat) => {
     handleTextIntroduction,
     handleTextDescription,
     handleCheckboxChange,
+    handleCoordsChange,
     typeOfVendor,
     introduction,
     textContent,
