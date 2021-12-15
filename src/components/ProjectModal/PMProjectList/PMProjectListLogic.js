@@ -17,7 +17,10 @@ const PMProjectListLogic = () => {
     return `${day}/${month}/${year}`;
   };
 
+  const handleSortByDate = () => {};
+
   return {
+    handleSortByDate,
     projects,
     getDate,
   };
