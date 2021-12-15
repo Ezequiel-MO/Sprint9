@@ -40,7 +40,7 @@ function App() {
           <Route path='/' exact component={Dashboard} />
         </Switch>
       </Container>
-      {userIsSearchingProject && <ProjectModal />}
+      {userIsSearchingProject && <ProjectModal listingFormat='modal' />}
     </Router>
   );
 }

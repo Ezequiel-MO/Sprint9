@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const PMContainer = styled.div`
+const ModalListingFormat = css`
   border: 1px solid #ccc;
   width: 45rem;
   min-width: 35rem;
@@ -19,6 +19,19 @@ export const PMContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+`;
+
+const PageListingFormat = css`
+  width: 55rem;
+`;
+
+export const PMContainer = styled.div`
+  ${({ listingFormat }) =>
+    listingFormat === "modal"
+      ? ModalListingFormat
+      : listingFormat === "page"
+      ? PageListingFormat
+      : null}
 `;
 export const PMHeader = styled.div`
   display: flex;
@@ -64,6 +77,6 @@ export const StyledIcon = styled.span`
 
 export const OpenCancelButtons = styled.div`
   position: absolute;
-  bottom: 3%;
+  bottom: ${({ listingFormat }) => (listingFormat === "modal" ? "3%" : "-5%")};
   right: 3%;
 `;

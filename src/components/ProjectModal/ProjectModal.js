@@ -11,7 +11,7 @@ import { Icon } from "@iconify/react";
 import Button from "../../uicomponents/Button/Button.js";
 import ProjectModalLogic from "./ProjectModalLogic.js";
 
-const ProjectModal = () => {
+const ProjectModal = ({ listingFormat }) => {
   const {
     handleNewProjectClick,
     handleChange,
@@ -20,9 +20,27 @@ const ProjectModal = () => {
     project,
   } = ProjectModalLogic();
   return (
-    <PMContainer>
+    <PMContainer listingFormat={listingFormat}>
       <PMHeader>
-        <h3>Select a project</h3>
+        <PMSearchForm onSubmit={handleSubmit}>
+          <StyledIcon>
+            <Icon
+              icon='cil:magnifying-glass'
+              color='black'
+              width='24'
+              inline={true}
+            />
+          </StyledIcon>
+          <Input
+            type='text'
+            placeholder='Search project by Code, User or Client ... '
+            value={project}
+            onChange={handleChange}
+          />
+          <button data-testid='search' type='submit'>
+            Search
+          </button>
+        </PMSearchForm>
         <Button onClick={handleNewProjectClick}>
           <span>
             <Icon
@@ -35,29 +53,9 @@ const ProjectModal = () => {
           New Project
         </Button>
       </PMHeader>
-      <PMSearchForm onSubmit={handleSubmit}>
-        <StyledIcon>
-          <Icon
-            icon='cil:magnifying-glass'
-            color='black'
-            width='24'
-            inline={true}
-          />
-        </StyledIcon>
-        <Input
-          type='text'
-          placeholder='Search project by Code, User or Client ... '
-          value={project}
-          onChange={handleChange}
-        />
-        <button data-testid='search' type='submit'>
-          Search
-        </button>
-      </PMSearchForm>
       <PMProjectList project={project} />
-      <OpenCancelButtons>
+      <OpenCancelButtons listingFormat={listingFormat}>
         <Button onClick={handleCancelClick}>CANCEL</Button>
-        <Button>OPEN</Button>
       </OpenCancelButtons>
     </PMContainer>
   );

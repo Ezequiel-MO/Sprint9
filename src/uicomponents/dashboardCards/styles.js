@@ -6,6 +6,7 @@ export const DashboardCardContainer = styled.button`
   border: 1px solid #ea5933;
   border-radius: 6px;
   min-width: 16rem;
+  width: 18rem;
   padding: 20px;
   margin-bottom: 20px;
   background-color: #ddbcb0;

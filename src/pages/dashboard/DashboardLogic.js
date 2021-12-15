@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const DashboardLogic = () => {
   const [showVendorCards, setShowVendorCards] = useState(false);
+  const [showListOfProjects, setShowListOfProjects] = useState(false);
 
   const dashboardData = [
     {
@@ -29,6 +30,8 @@ const DashboardLogic = () => {
     showVendorCards,
     dashboardData,
     setShowVendorCards,
+    showListOfProjects,
+    setShowListOfProjects,
   };
 };
 

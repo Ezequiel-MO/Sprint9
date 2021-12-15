@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const activeCodeSlice = createSlice({
   name: "activeCode",
   initialState: {
-    activeCode: "your code here",
+    activeCode: "current code in use",
   },
   reducers: {
     SET_ActiveCode: (state, action) => {

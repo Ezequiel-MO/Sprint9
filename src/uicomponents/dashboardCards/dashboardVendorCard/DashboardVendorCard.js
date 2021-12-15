@@ -1,8 +1,8 @@
-import { DashboardCardContainer } from "./styles";
+import { DashboardCardContainer } from "../styles";
 import { Icon } from "@iconify/react";
-import DashboardCardLogic from "./DashboardCardLogic";
+import DashboardCardLogic from "./DashboardVCLogic";
 
-const DashboardCard = ({
+const DashboardVendorCard = ({
   slug,
   icon,
   title,
@@ -24,4 +24,4 @@ const DashboardCard = ({
   );
 };
 
-export default DashboardCard;
+export default DashboardVendorCard;

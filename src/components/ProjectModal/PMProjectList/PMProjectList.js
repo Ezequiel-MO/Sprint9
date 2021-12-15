@@ -42,7 +42,9 @@ const PMProjectList = ({ project: searchWord }) => {
               <td>{accountManager}</td>
               <td>{clientCo}</td>
               <td>{getDate(createdAt)}</td>
-              <td>"+"</td>
+              <td>
+                <Icon icon='akar-icons:circle-plus' />
+              </td>
             </tr>
           ))}
       </tbody>
