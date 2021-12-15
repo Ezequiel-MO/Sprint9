@@ -4,8 +4,13 @@ import Button from "../../../uicomponents/Button/Button";
 import PMProjectListLogic from "./PMProjectListLogic";
 import { PMFilters } from "./styles";
 
-const PMProjectList = () => {
+const PMProjectList = ({ project: searchWord }) => {
   const { projects, getDate } = PMProjectListLogic();
+
+  const findSearchTerm = (string1, string2) => {
+    return string1.toLowerCase().includes(string2.toLowerCase());
+  };
+
   return (
     <Table>
       <caption>
@@ -41,7 +46,15 @@ const PMProjectList = () => {
           <th align='left'>Date</th>
         </tr>
         {projects
-          ?.slice(0, 5)
+          ?.filter((project) => {
+            return (
+              project.code.toLowerCase().includes(searchWord.toLowerCase()) ||
+              project.accountManager
+                .toLowerCase()
+                .includes(searchWord.toLowerCase())
+            );
+          })
+          .slice(0, 5)
           .map(({ code, accountManager, createdAt, _id }) => (
             <tr key={_id}>
               <td>{code}</td>

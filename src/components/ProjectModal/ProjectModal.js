@@ -54,7 +54,7 @@ const ProjectModal = () => {
           Search
         </button>
       </PMSearchForm>
-      <PMProjectList />
+      <PMProjectList project={project} />
       <OpenCancelButtons>
         <Button onClick={handleCancelClick}>CANCEL</Button>
         <Button>OPEN</Button>
