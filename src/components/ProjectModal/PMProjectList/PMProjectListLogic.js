@@ -1,15 +1,36 @@
 import useGetProjects from "../../../hooks/useGetProjects";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const PMProjectListLogic = () => {
   const { projects } = useGetProjects();
+  const [sortedProjects, setSortedProjects] = useState([]);
+  const [sortOrder, setSortOrder] = useState("");
 
   useEffect(() => {
-    console.log("projects", projects);
+    setSortedProjects(projects);
   }, [projects]);
 
+  useEffect(() => {
+    if (sortOrder === "asc") {
+      const AscProjectsArr = [...projects].sort((a, b) => {
+        let c = new Date(a.createdAt);
+        let d = new Date(b.createdAt);
+        return c - d;
+      });
+
+      setSortedProjects(AscProjectsArr);
+    } else if (sortOrder === "desc") {
+      const DescProjectsArr = [...projects].sort((a, b) => {
+        let c = new Date(a.createdAt);
+        let d = new Date(b.createdAt);
+        return d - c;
+      });
+
+      setSortedProjects(DescProjectsArr);
+    }
+  }, [sortOrder]);
+
   const getDate = (date) => {
-    //transform date 2021-11-17T10:07:33.952Z to 17/Nov/2021
     const newDate = new Date(date);
     const day = newDate.getDate();
     const month = newDate.toLocaleString("default", { month: "short" });
@@ -17,12 +38,10 @@ const PMProjectListLogic = () => {
     return `${day}/${month}/${year}`;
   };
 
-  const handleSortByDate = () => {};
-
   return {
-    handleSortByDate,
-    projects,
+    sortedProjects,
     getDate,
+    setSortOrder,
   };
 };
 

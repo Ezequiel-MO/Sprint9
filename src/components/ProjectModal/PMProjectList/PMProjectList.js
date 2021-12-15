@@ -4,7 +4,7 @@ import PMProjectListLogic from "./PMProjectListLogic";
 import { ScTh } from "./styles";
 
 const PMProjectList = ({ project: searchWord }) => {
-  const { projects, getDate, handleSortByDate } = PMProjectListLogic();
+  const { sortedProjects, getDate, setSortOrder } = PMProjectListLogic();
 
   return (
     <Table>
@@ -20,12 +20,12 @@ const PMProjectList = ({ project: searchWord }) => {
             </span>
             <div>
               <p>ORDER</p>
-              <p onClick={() => handleSortByDate("asc")}>Ascending</p>
-              <p onClick={() => handleSortByDate("desc")}>Descending</p>
+              <p onClick={() => setSortOrder("asc")}>Ascending</p>
+              <p onClick={() => setSortOrder("desc")}>Descending</p>
             </div>
           </ScTh>
         </tr>
-        {projects
+        {sortedProjects
           ?.filter((project) => {
             return (
               project.code.toLowerCase().includes(searchWord.toLowerCase()) ||
@@ -42,6 +42,7 @@ const PMProjectList = ({ project: searchWord }) => {
               <td>{accountManager}</td>
               <td>{clientCo}</td>
               <td>{getDate(createdAt)}</td>
+              <td>"+"</td>
             </tr>
           ))}
       </tbody>
