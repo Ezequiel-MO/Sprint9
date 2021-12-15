@@ -1,27 +1,11 @@
 import { Icon } from "@iconify/react";
-import { projectData } from "../../../data/projects-data";
 import { Table } from "../../../generalStyles";
 import Button from "../../../uicomponents/Button/Button";
+import PMProjectListLogic from "./PMProjectListLogic";
 import { PMFilters } from "./styles";
-import useGetProjects from "../../../hooks/useGetProjects";
-import { useEffect } from "react";
 
 const PMProjectList = () => {
-  const { projects } = useGetProjects();
-
-  useEffect(() => {
-    console.log("projects", projects);
-  }, [projects]);
-
-  const getDate = (date) => {
-    //transfor date 2021-11-17T10:07:33.952Z to 17/Nov/2021
-    const newDate = new Date(date);
-    const day = newDate.getDate();
-    const month = newDate.toLocaleString("default", { month: "short" });
-    const year = newDate.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
+  const { projects, getDate } = PMProjectListLogic();
   return (
     <Table>
       <caption>
