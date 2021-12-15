@@ -7,10 +7,6 @@ import { PMFilters } from "./styles";
 const PMProjectList = ({ project: searchWord }) => {
   const { projects, getDate } = PMProjectListLogic();
 
-  const findSearchTerm = (string1, string2) => {
-    return string1.toLowerCase().includes(string2.toLowerCase());
-  };
-
   return (
     <Table>
       <caption>
@@ -26,23 +22,13 @@ const PMProjectList = ({ project: searchWord }) => {
             </span>
             Sort by Date
           </Button>
-          <Button>
-            <span>
-              <Icon
-                icon='ant-design:sort-ascending-outlined'
-                color='#000'
-                width='24'
-                inline={true}
-              />
-            </span>
-            Sort by User
-          </Button>
         </PMFilters>
       </caption>
       <tbody>
         <tr>
-          <th align='left'>Project</th>
+          <th align='left'>Code</th>
           <th align='left'>User</th>
+          <th align='left'>Client</th>
           <th align='left'>Date</th>
         </tr>
         {projects
@@ -51,14 +37,16 @@ const PMProjectList = ({ project: searchWord }) => {
               project.code.toLowerCase().includes(searchWord.toLowerCase()) ||
               project.accountManager
                 .toLowerCase()
-                .includes(searchWord.toLowerCase())
+                .includes(searchWord.toLowerCase()) ||
+              project.clientCo.toLowerCase().includes(searchWord.toLowerCase())
             );
           })
           .slice(0, 5)
-          .map(({ code, accountManager, createdAt, _id }) => (
+          .map(({ code, accountManager, createdAt, clientCo, _id }) => (
             <tr key={_id}>
               <td>{code}</td>
               <td>{accountManager}</td>
+              <td>{clientCo}</td>
               <td>{getDate(createdAt)}</td>
             </tr>
           ))}

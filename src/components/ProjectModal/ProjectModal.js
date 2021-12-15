@@ -46,7 +46,7 @@ const ProjectModal = () => {
         </StyledIcon>
         <Input
           type='text'
-          placeholder='Search project'
+          placeholder='Search project by Code, User or Client ... '
           value={project}
           onChange={handleChange}
         />
