@@ -13,6 +13,7 @@ const ProjectLogLogic = () => {
     data: { projects },
     fetchError,
   } = useAxiosFetch(`${baseURL}/projects`);
+  const [dialogMessage, setDialogMessage] = useState("");
   const [projectFormIsValid, setProjectFormIsValid] = useState(false);
   const [projectInputData, setProjectInputData] = useState({
     code: "ex BEM20210023",
@@ -69,15 +70,17 @@ const ProjectLogLogic = () => {
         projectInputData["code"],
         codeArr
       );
+      setDialogMessage("");
       setProjectFormIsValid(!codeIsDuplicated);
     } else {
-      alert("Gaps found - please fill in all data");
+      setDialogMessage("Gaps found - please fill in all data");
     }
   };
   return {
     projectInputData,
     handleChange,
     handleSubmit,
+    dialogMessage,
     projectFormIsValid,
   };
 };
