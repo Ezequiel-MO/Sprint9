@@ -59,22 +59,52 @@ const ProjectLogLogic = () => {
     setProjectInputData({ ...projectInputData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const allInputsAreNonEmpty = !Object.values(projectInputData).some(
+  const checkAllInputsAreNonEmpty = (arr) => {
+    const allInputsAreNonEmpty = !Object.values(arr).some(
       (value) => value === null || value === ""
     );
-    if (allInputsAreNonEmpty) {
-      const codeArr = projects?.map((project) => project.code);
-      const codeIsDuplicated = checkForDuplicates(
-        projectInputData["code"],
-        codeArr
-      );
+    return allInputsAreNonEmpty;
+  };
+
+  const checkCodeIsUnique = (code) => {
+    const codeArr = projects?.map((project) => project.code);
+    const codeIsUnique = !checkForDuplicates(code, codeArr);
+    return codeIsUnique;
+  };
+
+  const checkDatesAreValid = (arrivalDay, departureDay) => {
+    const arrivalDayIsAfterToday = new Date(arrivalDay) > new Date();
+    const departureDayIsAfterArrivalDay =
+      new Date(departureDay) > new Date(arrivalDay);
+    return arrivalDayIsAfterToday && departureDayIsAfterArrivalDay;
+  };
+
+  const showErrorMessages = (bool1, bool2, bool3) => {
+    setDialogMessage("");
+    if (bool1 && bool2 && bool3) {
       setDialogMessage("");
-      setProjectFormIsValid(!codeIsDuplicated);
-    } else {
-      setDialogMessage("Gaps found - please fill in all data");
+      setProjectFormIsValid(true);
+    } else if (!bool1) {
+      setDialogMessage("Please fill in all the inputs");
+      setProjectFormIsValid(false);
+    } else if (!bool2) {
+      setDialogMessage("This code is already in the DB");
+      setProjectFormIsValid(false);
+    } else if (!bool3) {
+      setDialogMessage("The Dates are not valid");
+      setProjectFormIsValid(false);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const allInputsNonEmpty = checkAllInputsAreNonEmpty(projectInputData);
+    const noDupes = checkCodeIsUnique(projectInputData["code"]);
+    const datesAreValid = checkDatesAreValid(
+      projectInputData["arrivalDay"],
+      projectInputData["departureDay"]
+    );
+    showErrorMessages(allInputsNonEmpty, noDupes, datesAreValid);
   };
   return {
     projectInputData,
