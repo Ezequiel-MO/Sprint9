@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { AutoCompleteDiv } from "../styles";
 import Select from "react-select";
@@ -11,15 +11,14 @@ const ProjectSelector = ({
   options,
   storeSelectedValues,
 }) => {
-  let valueLabels = [];
+  const [valueLabels, setValueLabels] = useState([]);
+
   useEffect(() => {
-    for (let i = 0; i < options?.length; i++) {
-      valueLabels.push({
-        value: options[i].name,
-        label: options[i].name,
-      });
-    }
-  }, [options, valueLabels]);
+    const newValueLabels = options?.map((option) => {
+      return { value: option.name, label: option.name };
+    });
+    setValueLabels(newValueLabels);
+  }, [options]);
 
   return (
     <AutoCompleteDiv>

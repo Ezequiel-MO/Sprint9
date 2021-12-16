@@ -41,7 +41,6 @@ const ProjectLog = () => {
             </legend>
             <Input
               type='text'
-              required
               placeholder='Write Project Code'
               name='code'
               value={code}

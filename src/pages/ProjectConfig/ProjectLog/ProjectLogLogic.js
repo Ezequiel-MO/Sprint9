@@ -73,14 +73,19 @@ const ProjectLogLogic = () => {
   };
 
   const checkDatesAreValid = (arrivalDay, departureDay) => {
+    debugger;
     const arrivalDayIsAfterToday = new Date(arrivalDay) > new Date();
-    const departureDayIsAfterArrivalDay =
-      new Date(departureDay) > new Date(arrivalDay);
-    return arrivalDayIsAfterToday && departureDayIsAfterArrivalDay;
+    const departureDayIsAfterArrivalDayOrSameAsArrivalDay =
+      //departure day is after arrival day or same as arrival day
+      new Date(departureDay) > new Date(arrivalDay) ||
+      arrivalDay === departureDay;
+
+    return (
+      arrivalDayIsAfterToday && departureDayIsAfterArrivalDayOrSameAsArrivalDay
+    );
   };
 
   const showErrorMessages = (bool1, bool2, bool3) => {
-    setDialogMessage("");
     if (bool1 && bool2 && bool3) {
       setDialogMessage("");
       setProjectFormIsValid(true);
@@ -104,7 +109,11 @@ const ProjectLogLogic = () => {
       projectInputData["arrivalDay"],
       projectInputData["departureDay"]
     );
-    showErrorMessages(allInputsNonEmpty, noDupes, datesAreValid);
+    setDialogMessage("");
+    setTimeout(
+      () => showErrorMessages(allInputsNonEmpty, noDupes, datesAreValid),
+      500
+    );
   };
   return {
     projectInputData,
