@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { AutoCompleteDiv } from "../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import ProjectSelectorLogic from "./ProjectSelectorLogic";
 
 const ProjectSelector = ({
   icon,
@@ -11,15 +11,7 @@ const ProjectSelector = ({
   options,
   storeSelectedValues,
 }) => {
-  const [valueLabels, setValueLabels] = useState([]);
-
-  useEffect(() => {
-    const newValueLabels = options?.map((option) => {
-      return { value: option.name, label: option.name };
-    });
-    setValueLabels(newValueLabels);
-  }, [options]);
-
+  const { valueLabels } = ProjectSelectorLogic(options);
   return (
     <AutoCompleteDiv>
       <label>
