@@ -73,7 +73,6 @@ const ProjectLogLogic = () => {
   };
 
   const checkDatesAreValid = (arrivalDay, departureDay) => {
-    debugger;
     const arrivalDayIsAfterToday = new Date(arrivalDay) > new Date();
     const departureDayIsAfterArrivalDayOrSameAsArrivalDay =
       //departure day is after arrival day or same as arrival day
