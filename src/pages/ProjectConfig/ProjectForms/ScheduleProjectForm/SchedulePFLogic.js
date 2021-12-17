@@ -28,8 +28,8 @@ const SchedulePFLogic = () => {
     data: { project: projectByCode },
   } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
   const { totalDays } = useComputeTotalDays(projectByCode);
+
   const storeSelectedValues = (array, action) => {
-    console.log("action", action);
     if (action.action === "select-option" || action.action === "remove-value") {
       if (action.name === "lunch") {
         setSelectedLunchOptions(array);
@@ -68,11 +68,10 @@ const SchedulePFLogic = () => {
   }, [formIsValid]);
 
   useEffect(() => {
+    setSchedule([...schedule, dayProgram]);
     if (counter < totalDays) {
-      setSchedule([...schedule, dayProgram]);
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
-      setSchedule([...schedule, dayProgram]);
       setFormIsValid(true);
     }
   }, [dayProgram]);
@@ -101,8 +100,8 @@ const SchedulePFLogic = () => {
     setSelectedDinnerOptions([]);
     setSelectedMorningEventOptions([]);
     setSelectedAfternoonEventOptions([]);
-    console.log("aqui que hay ", e.target);
   };
+
   return {
     handleSubmit,
     projectByCode,
@@ -111,6 +110,10 @@ const SchedulePFLogic = () => {
     storeSelectedValues,
     counter,
     whichDay,
+    selectedLunchOptions,
+    selectedDinnerOptions,
+    selectedMorningEventOptions,
+    selectedAfternoonEventOptions,
   };
 };
 

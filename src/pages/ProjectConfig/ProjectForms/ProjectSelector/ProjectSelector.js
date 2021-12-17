@@ -10,6 +10,7 @@ const ProjectSelector = ({
   placeholder,
   options,
   storeSelectedValues,
+  value,
 }) => {
   const { valueLabels } = ProjectSelectorLogic(options);
   return (
@@ -20,6 +21,7 @@ const ProjectSelector = ({
       <Select
         components={makeAnimated()}
         name={name}
+        value={value}
         options={valueLabels}
         noOptionsMessage={() => "No options left to select :("}
         placeholder={placeholder}

@@ -9,6 +9,10 @@ const ScheduleProjectForm = () => {
     projectByCode,
     eventOptions,
     restaurantOptions,
+    selectedLunchOptions,
+    selectedDinnerOptions,
+    selectedMorningEventOptions,
+    selectedAfternoonEventOptions,
     storeSelectedValues,
     counter,
     whichDay,
@@ -24,6 +28,7 @@ const ScheduleProjectForm = () => {
           options={eventOptions}
           placeholder='ex :  Morning Event Options'
           storeSelectedValues={storeSelectedValues}
+          value={selectedMorningEventOptions}
         />
         <ProjectSelector
           name='lunch'
@@ -31,6 +36,7 @@ const ScheduleProjectForm = () => {
           options={restaurantOptions}
           placeholder='ex : Lunch Options'
           storeSelectedValues={storeSelectedValues}
+          value={selectedLunchOptions}
         />
         <ProjectSelector
           name='afternoon-event'
@@ -38,6 +44,7 @@ const ScheduleProjectForm = () => {
           options={eventOptions}
           placeholder='ex :  Afternoon Event Options'
           storeSelectedValues={storeSelectedValues}
+          value={selectedAfternoonEventOptions}
         />
         <ProjectSelector
           name='dinner'
@@ -45,6 +52,7 @@ const ScheduleProjectForm = () => {
           options={restaurantOptions}
           placeholder='ex : Dinner Options'
           storeSelectedValues={storeSelectedValues}
+          value={selectedDinnerOptions}
         />
 
         <SaveButton
