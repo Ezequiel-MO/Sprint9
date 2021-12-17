@@ -47,7 +47,6 @@ const MasterFormLogic = (fileInput, cat) => {
     }
     formData.append("textContent", JSON.stringify(textContent));
     formData.append("introduction", JSON.stringify(introduction));
-    //convert coords object to array
     const coordsArray = Object.values(coords);
     formData.append("coordinates", JSON.stringify(coordsArray));
     for (let i = 0; i < fileInput.current.files.length; i++) {
@@ -65,7 +64,6 @@ const MasterFormLogic = (fileInput, cat) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const vendorOptionNames = vendorOptions?.map((vendor) => vendor.name);
     const codeIsDuplicated = checkForDuplicates(
       typeOfVendor["name"],

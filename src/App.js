@@ -15,10 +15,14 @@ import HotelMasterForm from "./pages/MasterForms/HotelMasterForm";
 import RestaurantMasterForm from "./pages/MasterForms/RestaurantMasterForm";
 import EventMasterForm from "./pages/MasterForms/EventMasterForm";
 import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
+import PrivateRoute from "./auth/PrivateRoute";
+import { selectAuthRoutes } from "./features/authRoutesSlice";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
   const dispatch = useDispatch();
+  const authRoutes = useSelector(selectAuthRoutes);
+
   return (
     <Router>
       <Header />
@@ -26,7 +30,12 @@ function App() {
         <Switch>
           <Route path='/login' component={Login} />
           <Route path='/project-log' component={ProjectLog} />
-          <Route path='/hotel-project-form' component={HotelProjectForm} />
+          <PrivateRoute
+            path='/hotel-project-form'
+            isAuth={authRoutes["hotelProjectForm"]}
+          >
+            <Route component={HotelProjectForm} />
+          </PrivateRoute>
           <Route
             path='/schedule-project-form'
             component={ScheduleProjectForm}

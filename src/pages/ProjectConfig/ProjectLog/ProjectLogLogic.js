@@ -5,6 +5,11 @@ import { checkForDuplicates } from "../utils/utils";
 import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import {
+  AUTH_ROUTES,
+  selectAuthRoutes,
+} from "../../../features/authRoutesSlice";
 
 const ProjectLogLogic = () => {
   const dispatch = useDispatch();
@@ -28,6 +33,8 @@ const ProjectLogLogic = () => {
     hotels: [],
     schedule: [],
   });
+
+  const authRoutes = useSelector(selectAuthRoutes);
 
   useEffect(() => {
     if (fetchError) {
@@ -87,6 +94,7 @@ const ProjectLogLogic = () => {
   const showErrorMessages = (bool1, bool2, bool3) => {
     if (bool1 && bool2 && bool3) {
       setDialogMessage("");
+      dispatch(AUTH_ROUTES({ hotelProjectForm: true }));
       setProjectFormIsValid(true);
     } else if (!bool1) {
       setDialogMessage("Please fill in all the inputs");
