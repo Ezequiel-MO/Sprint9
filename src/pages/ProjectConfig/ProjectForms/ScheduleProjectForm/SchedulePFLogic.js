@@ -59,7 +59,10 @@ const SchedulePFLogic = () => {
           .post(`/addSchedule/${projectByCode._id}`, schedule)
           .then((response) => {
             console.log("response=>", response);
-            history.push("/");
+
+            setTimeout(() => {
+              history.push("/");
+            }, 1500);
           });
       } catch (error) {
         console.log(error);
@@ -114,6 +117,7 @@ const SchedulePFLogic = () => {
     selectedDinnerOptions,
     selectedMorningEventOptions,
     selectedAfternoonEventOptions,
+    formIsValid,
   };
 };
 
