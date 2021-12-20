@@ -20,7 +20,6 @@ const ScheduleProjectForm = () => {
   } = SchedulePFLogic();
 
   if (formIsValid === true) {
-    //return the message <h1>Project successfully created!</h1> and show it for 1500ms
     return (
       <ScheduleProjectFormContainer>
         <h1>Project successfully created!</h1>
