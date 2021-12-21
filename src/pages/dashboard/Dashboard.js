@@ -1,28 +1,21 @@
 import ProjectModal from "../../components/ProjectModal/ProjectModal";
-import DashboardProjectCard from "../../uicomponents/dashboardCards/dashboardProjectCard/DashboardProjectCard";
+import DashboardCard from "../../uicomponents/dashboardCards/dashboardCard/DashboardCard";
 import DashboardVendorCard from "../../uicomponents/dashboardCards/dashboardVendorCard/DashboardVendorCard";
 import DashboardLogic from "./DashboardLogic";
 import { WelcomeContainer, VendorCardsContainer } from "./styles";
 
 const Dashboard = () => {
-  const {
-    showVendorCards,
-    setShowVendorCards,
-    dashboardData,
-    showListOfProjects,
-    setShowListOfProjects,
-  } = DashboardLogic();
+  const { dashboardData, status, setStatus } = DashboardLogic();
 
   return (
     <WelcomeContainer>
-      <DashboardVendorCard
+      <DashboardCard
         icon='akar-icons:key'
         title='Create/Maintain Vendor'
-        showVendorCards={showVendorCards}
-        setShowVendorCards={setShowVendorCards}
+        setStatus={setStatus}
       />
 
-      {showVendorCards && (
+      {status === "show-vendor-cards" && (
         <VendorCardsContainer>
           {dashboardData.map((item) => (
             <DashboardVendorCard
@@ -34,13 +27,12 @@ const Dashboard = () => {
           ))}
         </VendorCardsContainer>
       )}
-      <DashboardProjectCard
+      <DashboardCard
         icon='ph:projector-screen-chart-light'
         title='See List of Projects'
-        showListOfProjects={showListOfProjects}
-        setShowListOfProjects={setShowListOfProjects}
+        setStatus={setStatus}
       />
-      {showListOfProjects && (
+      {status === "show-list-projects" && (
         <VendorCardsContainer>
           <ProjectModal listingFormat='page' />
         </VendorCardsContainer>

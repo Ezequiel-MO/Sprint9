@@ -59,7 +59,6 @@ const SchedulePFLogic = () => {
           .post(`/addSchedule/${projectByCode._id}`, schedule)
           .then((response) => {
             console.log("response=>", response);
-
             setTimeout(() => {
               history.push("/");
             }, 1500);

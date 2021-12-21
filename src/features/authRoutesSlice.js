@@ -4,8 +4,8 @@ export const authRoutesSlice = createSlice({
   name: "authRoutes",
   initialState: {
     authRoutes: {
-      hotelProjectForm: false,
-      scheduleProjectForm: false,
+      hotelProjectForm: true,
+      scheduleProjectForm: true,
     },
   },
   reducers: {

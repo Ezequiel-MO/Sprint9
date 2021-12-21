@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 const DashboardLogic = () => {
-  const [showVendorCards, setShowVendorCards] = useState(false);
-  const [showListOfProjects, setShowListOfProjects] = useState(false);
+  const [status, setStatus] = useState("show-vendor-cards");
 
   const dashboardData = [
     {
@@ -27,11 +26,9 @@ const DashboardLogic = () => {
     },
   ];
   return {
-    showVendorCards,
     dashboardData,
-    setShowVendorCards,
-    showListOfProjects,
-    setShowListOfProjects,
+    status,
+    setStatus,
   };
 };
 

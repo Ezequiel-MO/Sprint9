@@ -1,14 +1,13 @@
 import { DashboardCardContainer } from "../styles";
 import { Icon } from "@iconify/react";
 
-const DashboardProjectCard = ({
-  icon,
-  title,
-  setShowListOfProjects,
-  showListOfProjects,
-}) => {
+const DashboardCard = ({ icon, title, setStatus }) => {
   const handleClick = () => {
-    setShowListOfProjects(!showListOfProjects);
+    if (title === "Create/Maintain Vendor") {
+      setStatus("show-vendor-cards");
+    } else if (title === "See List of Projects") {
+      setStatus("show-list-projects");
+    }
   };
   return (
     <DashboardCardContainer onClick={handleClick}>
@@ -18,4 +17,4 @@ const DashboardProjectCard = ({
   );
 };
 
-export default DashboardProjectCard;
+export default DashboardCard;
