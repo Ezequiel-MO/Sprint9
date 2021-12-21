@@ -13,7 +13,7 @@ const TransfersMasterForm = () => {
   const [companyValues, setCompanyValues] = useState({
     city: "",
     company: "",
-    "4hrs Dispo": "",
+    dispo_4h: "",
     "transfer_in/out": "",
   });
 
@@ -30,7 +30,10 @@ const TransfersMasterForm = () => {
         {
           id: uuidv4(),
           vehicleCapacity: value,
-          labels: ["4hrs Dispo", "transfer_in/out"],
+          ids: [
+            { label: "4hrs Dispo", name: "dispo_4h" },
+            { label: "Transfers In/Out", name: "transfer_in/out" },
+          ],
         },
       ]);
       setErrorMessage("");
@@ -44,6 +47,7 @@ const TransfersMasterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("your info has been submitted");
+    console.log("company values", companyValues);
   };
 
   return (
@@ -66,7 +70,7 @@ const TransfersMasterForm = () => {
           companyValues={companyValues}
           setCompanyValues={setCompanyValues}
         />
-        <button type='submit' disabled={!submitReady}>
+        <button type='button' disabled={!submitReady}>
           If you have added all services for this Transfer vendor, click here to
           leave this form
         </button>

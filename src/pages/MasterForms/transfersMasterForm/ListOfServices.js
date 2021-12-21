@@ -11,20 +11,21 @@ const ListOfServices = ({ services, companyValues, setCompanyValues }) => {
             <legend>Buses of {service.vehicleCapacity}</legend>
             {
               <div>
-                {service.labels.map((label) => (
-                  <label key={label}>
-                    {label}
+                {service.ids.map((item) => (
+                  <label key={item.label}>
+                    {item.label}
                     <input
                       type='number'
-                      name={label}
+                      name={item.name}
                       onChange={handleChange}
-                      value={companyValues[`${label}`]}
+                      value={companyValues[`${item.name}`]}
                     />
                   </label>
                 ))}
               </div>
             }
           </fieldset>
+          <button type='submit'>Save on DB</button>
         </div>
       ))}
     </div>
