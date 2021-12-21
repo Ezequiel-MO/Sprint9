@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const DashboardLogic = () => {
-  const [status, setStatus] = useState("show-vendor-cards");
+  const [status, setStatus] = useState("");
 
   const dashboardData = [
     {
