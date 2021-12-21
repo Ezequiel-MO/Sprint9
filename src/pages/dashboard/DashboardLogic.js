@@ -12,7 +12,7 @@ const DashboardLogic = () => {
     {
       icon: "bx:bx-bus",
       title: "Transportation DB",
-      slug: "/transport-master-form",
+      slug: "/transfers-master-form",
     },
     {
       icon: "carbon:events",

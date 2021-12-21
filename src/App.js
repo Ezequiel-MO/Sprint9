@@ -17,6 +17,7 @@ import EventMasterForm from "./pages/MasterForms/EventMasterForm";
 import HotelProjectForm from "./pages/ProjectConfig/ProjectForms/HotelProjectForm/HotelProjectForm";
 import PrivateRoute from "./auth/PrivateRoute";
 import { selectAuthRoutes } from "./features/authRoutesSlice";
+import TransfersMasterForm from "./pages/MasterForms/transfersMasterForm/TransfersMasterForm";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -46,6 +47,10 @@ function App() {
             component={RestaurantMasterForm}
           />
           <Route path='/event-master-form' component={EventMasterForm} />
+          <Route
+            path='/transfers-master-form'
+            component={TransfersMasterForm}
+          />
           <Route path='/' exact component={Dashboard} />
         </Switch>
       </Container>

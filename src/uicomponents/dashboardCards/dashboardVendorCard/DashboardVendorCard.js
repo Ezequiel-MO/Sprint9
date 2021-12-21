@@ -4,7 +4,6 @@ import DashboardCardLogic from "./DashboardVCLogic";
 
 const DashboardVendorCard = ({ slug, icon, title }) => {
   const { handleClick } = DashboardCardLogic(slug);
-
   return (
     <DashboardCardContainer onClick={handleClick}>
       <Icon icon={icon} width='40' />
