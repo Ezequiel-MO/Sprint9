@@ -1,8 +1,4 @@
-import { useState } from "react";
-
-const TransferCo = () => {
-  const [companyValues, setCompanyValues] = useState({});
-
+const TransferCo = ({ companyValues, setCompanyValues }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCompanyValues({ ...companyValues, [name]: value });
@@ -13,15 +9,21 @@ const TransferCo = () => {
       <legend>Transfers</legend>
       <label>
         City:
-        <input type='text' name='city' onChange={handleChange} />
+        <input
+          type='text'
+          name='city'
+          onChange={handleChange}
+          value={companyValues.city}
+        />
       </label>
       <label>
         Company:
-        <input type='text' name='company' onChange={handleChange} />
-      </label>
-      <label>
-        Vehicle Type:
-        <input type='text' name='vehicleType' onChange={handleChange} />
+        <input
+          type='text'
+          name='company'
+          onChange={handleChange}
+          value={companyValues.company}
+        />
       </label>
     </fieldset>
   );

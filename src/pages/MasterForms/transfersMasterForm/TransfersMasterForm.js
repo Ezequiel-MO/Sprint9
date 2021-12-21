@@ -3,33 +3,19 @@ import AddService from "./AddService";
 import { v4 as uuidv4 } from "uuid";
 import DialogBox from "../../../uicomponents/dialogBox/DialogBox";
 import TransferCo from "./TransferCo";
-
-const ListOfServices = (arr) => (
-  <div>
-    {arr?.map((service) => (
-      <div key={service.id}>
-        <fieldset>
-          <legend>Buses of {service.vehicleCapacity}</legend>
-          {
-            <div>
-              {service.labels.map((label) => (
-                <label key={label}>
-                  {label}
-                  <input type='number' name={label} />
-                </label>
-              ))}
-            </div>
-          }
-        </fieldset>
-      </div>
-    ))}
-  </div>
-);
+import ListOfServices from "./ListOfServices";
 
 const TransfersMasterForm = () => {
-  const [status, setStatus] = useState("add-service");
+  const [status, setStatus] = useState("typing");
+  const [submitReady, setSubmitReady] = useState(false);
   const [services, setServices] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [companyValues, setCompanyValues] = useState({
+    city: "",
+    company: "",
+    "4hrs Dispo": "",
+    "transfer_in/out": "",
+  });
 
   const handleAddService = (value) => {
     const newServiceIsUnique = !services.some(
@@ -55,16 +41,34 @@ const TransfersMasterForm = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("your info has been submitted");
+  };
+
   return (
     <div>
       <h2>Transfers Master Form</h2>
-      <form>
-        <TransferCo />
-        <AddService onAddService={handleAddService} status={status} />
-        {ListOfServices(services)}
-        <button type='submit' disabled={status === "add-service" || "typing"}>
-          If you have added all services for this Transfer vendor, you can save
-          it
+      <form onSubmit={handleSubmit}>
+        <TransferCo
+          companyValues={companyValues}
+          setCompanyValues={setCompanyValues}
+        />
+        <AddService
+          onAddService={handleAddService}
+          status={status}
+          setStatus={setStatus}
+          companyValues={companyValues}
+          setSubmitReady={setSubmitReady}
+        />
+        <ListOfServices
+          services={services}
+          companyValues={companyValues}
+          setCompanyValues={setCompanyValues}
+        />
+        <button type='submit' disabled={!submitReady}>
+          If you have added all services for this Transfer vendor, click here to
+          leave this form
         </button>
       </form>
       {errorMessage && <DialogBox message={errorMessage} />}
