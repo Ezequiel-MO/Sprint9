@@ -92,7 +92,6 @@ const TransfersMasterForm = () => {
 
   return (
     <div>
-      <h2>Transfers Master Form</h2>
       <form onSubmit={handleSubmit}>
         <TransferCo
           companyValues={companyValues}

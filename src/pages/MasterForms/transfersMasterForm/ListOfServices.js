@@ -1,3 +1,6 @@
+import accounting from "accounting";
+import { ScFieldset } from "./styles";
+
 const ListOfServices = ({
   services,
   companyValues,
@@ -12,7 +15,7 @@ const ListOfServices = ({
     <div>
       {services?.map((service) => (
         <div key={service.id}>
-          <fieldset>
+          <ScFieldset>
             <legend>Vehicles of {service.vehicleCapacity} pax capacity</legend>
             {
               <div>
@@ -30,12 +33,20 @@ const ListOfServices = ({
                       </label>
                     </div>
                   ) : (
-                    <h4>{item.label}</h4>
+                    <h4>
+                      {item.label}{" "}
+                      <span>
+                        {accounting.formatMoney(
+                          companyValues[`${item.name}`],
+                          "€"
+                        )}
+                      </span>
+                    </h4>
                   );
                 })}
               </div>
             }
-          </fieldset>
+          </ScFieldset>
           <button
             type='submit'
             disabled={status === "submitting" || service.saved === true}

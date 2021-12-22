@@ -1,3 +1,5 @@
+import { ScFieldset } from "./styles";
+
 const TransferCo = ({ companyValues, setCompanyValues }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -5,27 +7,29 @@ const TransferCo = ({ companyValues, setCompanyValues }) => {
   };
 
   return (
-    <fieldset>
-      <legend>Transfers</legend>
-      <label>
-        City:
-        <input
-          type='text'
-          name='city'
-          onChange={handleChange}
-          value={companyValues.city}
-        />
-      </label>
-      <label>
-        Company:
-        <input
-          type='text'
-          name='company'
-          onChange={handleChange}
-          value={companyValues.company}
-        />
-      </label>
-    </fieldset>
+    <ScFieldset>
+      <legend>TRANSFERS MASTER FORM</legend>
+      <div>
+        <label>
+          City:
+          <input
+            type='text'
+            name='city'
+            onChange={handleChange}
+            value={companyValues.city}
+          />
+        </label>
+        <label>
+          Company:
+          <input
+            type='text'
+            name='company'
+            onChange={handleChange}
+            value={companyValues.company}
+          />
+        </label>
+      </div>
+    </ScFieldset>
   );
 };
 
