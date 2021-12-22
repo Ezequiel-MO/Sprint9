@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import DialogBox from "../../../uicomponents/dialogBox/DialogBox";
 import TransferCo from "./TransferCo";
 import ListOfServices from "./ListOfServices";
+import axios from "axios";
+import { baseURL } from "../../../api/axios";
 
 const TransfersMasterForm = () => {
   const [status, setStatus] = useState("typing");
@@ -13,8 +15,16 @@ const TransfersMasterForm = () => {
   const [companyValues, setCompanyValues] = useState({
     city: "",
     company: "",
+    vehicleCapacity: "",
     dispo_4h: "",
-    "transfer_in/out": "",
+    transfer_in_out: "",
+    hextra: "",
+    hextra_night: "",
+    dispo_5h_out: "",
+    dispo_4h_airport: "",
+    dispo_4h_night: "",
+    transfer_in_out_night: "",
+    dispo_6h_night: "",
   });
 
   const handleAddService = (value) => {
@@ -30,9 +40,17 @@ const TransfersMasterForm = () => {
         {
           id: uuidv4(),
           vehicleCapacity: value,
+          saved: false,
           ids: [
-            { label: "4hrs Dispo", name: "dispo_4h" },
-            { label: "Transfers In/Out", name: "transfer_in/out" },
+            { label: "4hrs At Disposal", name: "dispo_4h" },
+            { label: "Transfers In/Out", name: "transfer_in_out" },
+            { label: "Overtime Hours", name: "hextra" },
+            { label: "Night Overtime Hours", name: "hextra_night" },
+            { label: "5hrs At Disposal", name: "dispo_5h_out" },
+            { label: "4hrs At Dispo / Airport", name: "dispo_4h_airport" },
+            { label: "4hrs Dispo / night", name: "dispo_4h_night" },
+            { label: "Transfers In/Out Night", name: "transfer_in_out_night" },
+            { label: "6hrs Dispo / night", name: "dispo_6h_night" },
           ],
         },
       ]);
@@ -44,8 +62,30 @@ const TransfersMasterForm = () => {
     }
   };
 
+  const postServices = () => {
+    setStatus("submitting");
+    setSubmitReady(true);
+    try {
+      axios.post(`${baseURL}/transfers`, companyValues).then((res) => {
+        console.log(res);
+        setStatus("success");
+      });
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const updatedServices = services?.map((service) => {
+      if (service.vehicleCapacity === companyValues.vehicleCapacity) {
+        return { ...service, saved: true };
+      } else {
+        return service;
+      }
+    });
+    setServices(updatedServices);
+    postServices();
     console.log("your info has been submitted");
     console.log("company values", companyValues);
   };
@@ -63,12 +103,14 @@ const TransfersMasterForm = () => {
           status={status}
           setStatus={setStatus}
           companyValues={companyValues}
+          setCompanyValues={setCompanyValues}
           setSubmitReady={setSubmitReady}
         />
         <ListOfServices
           services={services}
           companyValues={companyValues}
           setCompanyValues={setCompanyValues}
+          status={status}
         />
         <button type='button' disabled={!submitReady}>
           If you have added all services for this Transfer vendor, click here to

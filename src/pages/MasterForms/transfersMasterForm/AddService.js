@@ -1,10 +1,21 @@
 import { useState } from "react";
 
-const AddService = ({ onAddService, status, setStatus, setSubmitReady }) => {
+const AddService = ({
+  onAddService,
+  status,
+  setStatus,
+  setSubmitReady,
+  companyValues,
+  setCompanyValues,
+}) => {
   console.log("status", status);
   const [value, setValue] = useState(0);
   const handleClick = () => {
     onAddService(value);
+    setCompanyValues({
+      ...companyValues,
+      vehicleCapacity: value,
+    });
     setValue(0);
     setSubmitReady(true);
   };

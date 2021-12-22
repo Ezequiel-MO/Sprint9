@@ -1,4 +1,9 @@
-const ListOfServices = ({ services, companyValues, setCompanyValues }) => {
+const ListOfServices = ({
+  services,
+  companyValues,
+  setCompanyValues,
+  status,
+}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCompanyValues({ ...companyValues, [name]: value });
@@ -8,24 +13,35 @@ const ListOfServices = ({ services, companyValues, setCompanyValues }) => {
       {services?.map((service) => (
         <div key={service.id}>
           <fieldset>
-            <legend>Buses of {service.vehicleCapacity}</legend>
+            <legend>Vehicles of {service.vehicleCapacity} pax capacity</legend>
             {
               <div>
-                {service.ids.map((item) => (
-                  <label key={item.label}>
-                    {item.label}
-                    <input
-                      type='number'
-                      name={item.name}
-                      onChange={handleChange}
-                      value={companyValues[`${item.name}`]}
-                    />
-                  </label>
-                ))}
+                {service.ids.map((item) => {
+                  return service.saved === false ? (
+                    <div key={item.name}>
+                      <label>
+                        {item.label}:
+                        <input
+                          type='number'
+                          name={item.name}
+                          onChange={handleChange}
+                          value={companyValues[`${item.name}`]}
+                        />
+                      </label>
+                    </div>
+                  ) : (
+                    <h4>{item.label}</h4>
+                  );
+                })}
               </div>
             }
           </fieldset>
-          <button type='submit'>Save on DB</button>
+          <button
+            type='submit'
+            disabled={status === "submitting" || service.saved === true}
+          >
+            Save on DB
+          </button>
         </div>
       ))}
     </div>
