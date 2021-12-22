@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 export const ScFieldset = styled.fieldset`
   background-color: #f5f1e9;
-  padding: 0;
+  padding-bottom: 0.7rem;
   border: 1px solid #ddbcb0;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
