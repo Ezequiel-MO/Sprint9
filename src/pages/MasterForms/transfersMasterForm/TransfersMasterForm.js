@@ -6,8 +6,11 @@ import TransferCo from "./TransferCo";
 import ListOfServices from "./ListOfServices";
 import axios from "axios";
 import { baseURL } from "../../../api/axios";
+import { ScButton } from "./styles";
+import { useHistory } from "react-router-dom";
 
 const TransfersMasterForm = () => {
+  const history = useHistory();
   const [status, setStatus] = useState("typing");
   const [submitReady, setSubmitReady] = useState(false);
   const [services, setServices] = useState([]);
@@ -75,6 +78,13 @@ const TransfersMasterForm = () => {
     }
   };
 
+  const handleLeave = () => {
+    setStatus("leaving");
+    setTimeout(() => {
+      history.push("/dashboard");
+    }, 1000);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedServices = services?.map((service) => {
@@ -111,12 +121,15 @@ const TransfersMasterForm = () => {
           setCompanyValues={setCompanyValues}
           status={status}
         />
-        <button type='button' disabled={!submitReady}>
+        <ScButton type='button' disabled={!submitReady} onClick={handleLeave}>
           If you have added all services for this Transfer vendor, click here to
           leave this form
-        </button>
+        </ScButton>
       </form>
       {errorMessage && <DialogBox message={errorMessage} />}
+      {status === "leaving" && (
+        <DialogBox message='Thanks for submitting the form' />
+      )}
     </div>
   );
 };

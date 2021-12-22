@@ -1,5 +1,5 @@
 import accounting from "accounting";
-import { ScFieldset } from "./styles";
+import { ScButton, ScFieldset } from "./styles";
 
 const ListOfServices = ({
   services,
@@ -16,7 +16,11 @@ const ListOfServices = ({
       {services?.map((service) => (
         <div key={service.id}>
           <ScFieldset>
-            <legend>Vehicles of {service.vehicleCapacity} pax capacity</legend>
+            <legend>
+              {service.saved === false
+                ? `Vehicles of ${service.vehicleCapacity} pax capacity`
+                : `Records saved to the DB for vehicles of ${service.vehicleCapacity} pax capacity`}
+            </legend>
             {
               <div>
                 {service.ids.map((item) => {
@@ -33,7 +37,7 @@ const ListOfServices = ({
                       </label>
                     </div>
                   ) : (
-                    <h4>
+                    <p>
                       {item.label}{" "}
                       <span>
                         {accounting.formatMoney(
@@ -41,18 +45,18 @@ const ListOfServices = ({
                           "€"
                         )}
                       </span>
-                    </h4>
+                    </p>
                   );
                 })}
               </div>
             }
+            <ScButton
+              type='submit'
+              disabled={status === "submitting" || service.saved === true}
+            >
+              Save on DB
+            </ScButton>
           </ScFieldset>
-          <button
-            type='submit'
-            disabled={status === "submitting" || service.saved === true}
-          >
-            Save on DB
-          </button>
         </div>
       ))}
     </div>
