@@ -74,7 +74,10 @@ const SchedulePFLogic = () => {
     if (counter < totalDays) {
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
-      setFormIsValid(true);
+      history.push({
+        pathname: "/schedule-check",
+        state: schedule,
+      });
     }
   }, [dayProgram]);
 
