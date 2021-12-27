@@ -12,18 +12,32 @@ const ScheduleFinalCheck = () => {
   const [capacities, setCapacities] = useState([]);
   const [capacity, setCapacity] = useState("");
   const [vendorCost, setVendorCost] = useState(0);
+  const [nrVehicles, setNrVehicles] = useState(1);
   const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
 
   console.log("transfers db >===>", transfersDB);
 
+  const computeCost = (nr) => {
+    const cost = transfersDB.filter(
+      (element) =>
+        element.city === city &&
+        element.company === vendor &&
+        element.vehicleCapacity === parseInt(capacity)
+    );
+
+    return nr * cost[0].transfer_in_out;
+  };
+
   useEffect(() => {
-    if (capacity) {
+    if (transfersDB && capacity) {
       if (capacity !== "Vehicle Capacity") {
         setStatus("selected");
+        const computedCost = computeCost(nrVehicles);
+        setVendorCost(computedCost);
       }
     }
-  }, [capacity]);
+  }, [capacity, nrVehicles]);
 
   useEffect(() => {
     setCapacities([]);
@@ -76,6 +90,10 @@ const ScheduleFinalCheck = () => {
     setCapacity(e.target.value);
   };
 
+  const handleNrVehiclesChange = (e) => {
+    setNrVehicles(e.target.value);
+  };
+
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <select value={city} onChange={handleCityChange}>
@@ -96,6 +114,12 @@ const ScheduleFinalCheck = () => {
           <option key={item}>{item}</option>
         ))}
       </select>
+      <input
+        type='number'
+        placeholder='Add Quantity'
+        value={nrVehicles}
+        onChange={handleNrVehiclesChange}
+      />
       <p>
         Transfer In, {capacity} Seater Bus, {vendor} , cost {vendorCost}€
       </p>
