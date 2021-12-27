@@ -1,8 +1,14 @@
 import { useLocation } from "react-router-dom";
 import useGetVendors from "../../../hooks/useGetVendor";
 import { useState, useEffect } from "react";
+import { baseAPI, baseURL } from "../../../api/axios";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
+import { selectActiveCode } from "../../../features/ActiveCodeSlice";
 
 const ScheduleFCLogic = () => {
+  const history = useHistory();
   const { state } = useLocation();
   console.log("schedule", state);
   const [cities, setCities] = useState([]);
@@ -15,8 +21,12 @@ const ScheduleFCLogic = () => {
   const [nrVehicles, setNrVehicles] = useState(1);
   const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
-
-  console.log("transfers db >===>", transfersDB);
+  const [schedule, setSchedule] = useState([]);
+  const [formIsValid, setFormIsValid] = useState(false);
+  const activeCode = useSelector(selectActiveCode);
+  const {
+    data: { project: projectByCode },
+  } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
 
   const computeCost = (nr) => {
     const cost = transfersDB.filter(
@@ -93,6 +103,43 @@ const ScheduleFCLogic = () => {
   const handleNrVehiclesChange = (e) => {
     setNrVehicles(e.target.value);
   };
+
+  useEffect(() => {
+    if (formIsValid) {
+      try {
+        baseAPI
+          .post(`/addSchedule/${projectByCode._id}`, schedule)
+          .then((response) => {
+            console.log("response=>", response);
+            setTimeout(() => {
+              history.push("/");
+            }, 1500);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [schedule]);
+
+  const updateSchedule = () => {
+    const newState = state.slice(1);
+    const transferIn = {
+      city,
+      company: vendor,
+      vehicleCapacity: parseInt(capacity),
+      transfer_in_out: parseInt(vendorCost),
+    };
+    newState[0].transfer_in_out = [transferIn];
+    setSchedule(newState);
+    setFormIsValid(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    updateSchedule();
+  };
+
   return {
     city,
     handleCityChange,
@@ -107,6 +154,8 @@ const ScheduleFCLogic = () => {
     handleNrVehiclesChange,
     vendorCost,
     status,
+    handleSubmit,
+    formIsValid,
   };
 };
 

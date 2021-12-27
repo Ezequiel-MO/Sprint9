@@ -1,3 +1,4 @@
+import { ScheduleProjectFormContainer } from "../ProjectForms/styles";
 import ScheduleFCLogic from "./ScheduleFCLogic";
 
 const ScheduleFinalCheck = () => {
@@ -15,11 +16,22 @@ const ScheduleFinalCheck = () => {
     handleNrVehiclesChange,
     vendorCost,
     status,
+    handleSubmit,
+    formIsValid,
   } = ScheduleFCLogic();
+
+  if (formIsValid === true) {
+    return (
+      <ScheduleProjectFormContainer>
+        <h1>Project successfully created!</h1>
+      </ScheduleProjectFormContainer>
+    );
+  }
+
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={handleSubmit}>
       <select value={city} onChange={handleCityChange}>
-        <option value='0'>Select city</option>
+        <option>Select city</option>
         {cities?.map((city) => (
           <option key={city}>{city}</option>
         ))}

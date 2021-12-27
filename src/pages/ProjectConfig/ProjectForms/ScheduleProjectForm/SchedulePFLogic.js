@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseURL } from "../../../../api/axios";
-import { baseAPI } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetVendors from "../../../../hooks/useGetVendor";
 
@@ -20,7 +19,7 @@ const SchedulePFLogic = () => {
   const [selectedAfternoonEventOptions, setSelectedAfternoonEventOptions] =
     useState([]);
   const [counter, setCounter] = useState(1);
-  const [formIsValid, setFormIsValid] = useState(false);
+
   const { vendorOptions: restaurantOptions } = useGetVendors("restaurants");
   const { vendorOptions: eventOptions } = useGetVendors("events");
   const activeCode = useSelector(selectActiveCode);
@@ -52,25 +51,8 @@ const SchedulePFLogic = () => {
       }
     }
   };
-  useEffect(() => {
-    if (formIsValid) {
-      try {
-        baseAPI
-          .post(`/addSchedule/${projectByCode._id}`, schedule)
-          .then((response) => {
-            console.log("response=>", response);
-            setTimeout(() => {
-              history.push("/");
-            }, 1500);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, [formIsValid]);
 
   useEffect(() => {
-    setSchedule([...schedule, dayProgram]);
     if (counter < totalDays) {
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
@@ -79,6 +61,10 @@ const SchedulePFLogic = () => {
         state: schedule,
       });
     }
+  }, [schedule]);
+
+  useEffect(() => {
+    setSchedule([...schedule, dayProgram]);
   }, [dayProgram]);
 
   const updateInputData = () => {
@@ -119,7 +105,6 @@ const SchedulePFLogic = () => {
     selectedDinnerOptions,
     selectedMorningEventOptions,
     selectedAfternoonEventOptions,
-    formIsValid,
   };
 };
 

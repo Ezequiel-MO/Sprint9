@@ -14,18 +14,9 @@ const ScheduleProjectForm = () => {
     selectedMorningEventOptions,
     selectedAfternoonEventOptions,
     storeSelectedValues,
-    formIsValid,
     counter,
     whichDay,
   } = SchedulePFLogic();
-
-  if (formIsValid === true) {
-    return (
-      <ScheduleProjectFormContainer>
-        <h1>Project successfully created!</h1>
-      </ScheduleProjectFormContainer>
-    );
-  }
 
   return (
     <>
