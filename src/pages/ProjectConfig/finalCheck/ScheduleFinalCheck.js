@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 const ScheduleFinalCheck = () => {
   const { state } = useLocation();
   console.log("schedule", state);
+  const [cities, setCities] = useState([]);
   const [city, setCity] = useState("");
   const [vendors, setVendors] = useState([]);
   const [vendor, setVendor] = useState("Select Vendor");
@@ -44,6 +45,16 @@ const ScheduleFinalCheck = () => {
     }
   }, [city, transfersDB]);
 
+  useEffect(() => {
+    setCities([]);
+    if (transfersDB) {
+      const filteredCities = transfersDB.map((vendor) => vendor.city);
+      const uniqueCities = [...new Set(filteredCities)];
+      setCities(uniqueCities);
+      setCity("Select City");
+    }
+  }, [transfersDB]);
+
   const handleCityChange = (e) => {
     setCity(e.target.value);
   };
@@ -60,9 +71,9 @@ const ScheduleFinalCheck = () => {
     <form onSubmit={(e) => e.preventDefault()}>
       <select value={city} onChange={handleCityChange}>
         <option value='0'>Select city</option>
-        <option value='Barcelona'>Barcelona</option>
-        <option value='Madrid'>Madrid</option>
-        <option value='Valencia'>Valencia</option>
+        {cities?.map((city) => (
+          <option key={city}>{city}</option>
+        ))}
       </select>
       <select value={vendor} onChange={handleVendorChange}>
         <option>{vendor}</option>
