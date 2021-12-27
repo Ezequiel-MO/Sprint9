@@ -6,19 +6,29 @@ const ScheduleFinalCheck = () => {
   const { state } = useLocation();
   console.log("schedule", state);
   const [cities, setCities] = useState([]);
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState("Select City");
   const [vendors, setVendors] = useState([]);
   const [vendor, setVendor] = useState("Select Vendor");
   const [capacities, setCapacities] = useState([]);
   const [capacity, setCapacity] = useState("");
   const [vendorCost, setVendorCost] = useState(0);
+  const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
 
   console.log("transfers db >===>", transfersDB);
 
   useEffect(() => {
+    if (capacity) {
+      if (capacity !== "Vehicle Capacity") {
+        setStatus("selected");
+      }
+    }
+  }, [capacity]);
+
+  useEffect(() => {
     setCapacities([]);
-    if (transfersDB && vendor !== "Select Vendor") {
+    setCapacity("Vehicle Capacity");
+    if (transfersDB && vendor !== "Select Vendor" && city !== "Select City") {
       const filteredVendor = transfersDB.filter(
         (item) => item.company === vendor
       );
@@ -26,13 +36,13 @@ const ScheduleFinalCheck = () => {
         (item) => item.vehicleCapacity
       );
       setCapacities(filteredVendorCapacities);
-      setCapacity("Vehicle Capacity");
     }
   }, [vendor, transfersDB]);
 
   useEffect(() => {
     setVendors([]);
-    if (transfersDB) {
+    setVendor("Select Vendor");
+    if (transfersDB && city !== "Select City") {
       const filteredVendorsByCity = transfersDB.filter(
         (vendor) => vendor.city === city
       );
@@ -41,17 +51,16 @@ const ScheduleFinalCheck = () => {
       );
       const uniqueVendors = [...new Set(filteredVendorNamesByCity)];
       setVendors(uniqueVendors);
-      setVendor("Select Vendor");
     }
   }, [city, transfersDB]);
 
   useEffect(() => {
     setCities([]);
+    setCity("Select City");
     if (transfersDB) {
       const filteredCities = transfersDB.map((vendor) => vendor.city);
       const uniqueCities = [...new Set(filteredCities)];
       setCities(uniqueCities);
-      setCity("Select City");
     }
   }, [transfersDB]);
 
@@ -76,7 +85,7 @@ const ScheduleFinalCheck = () => {
         ))}
       </select>
       <select value={vendor} onChange={handleVendorChange}>
-        <option>{vendor}</option>
+        <option>Select Vendor</option>
         {vendors?.map((item) => (
           <option key={item}>{item}</option>
         ))}
@@ -90,7 +99,7 @@ const ScheduleFinalCheck = () => {
       <p>
         Transfer In, {capacity} Seater Bus, {vendor} , cost {vendorCost}€
       </p>
-      <button>Add Transfer In</button>
+      <button disabled={status === "selecting"}>Add Transfer In</button>
     </form>
   );
 };
