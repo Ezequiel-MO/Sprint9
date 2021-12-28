@@ -24,6 +24,10 @@ const ScheduleFCLogic = () => {
     transferIn: [],
     transferOut: [],
   });
+  const [addTransfers, setAddTransfers] = useState({
+    transferIn: false,
+    transferOut: false,
+  });
   const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
   const [formIsValid, setFormIsValid] = useState(false);
@@ -108,6 +112,13 @@ const ScheduleFCLogic = () => {
     });
   }, [typeOfService]);
 
+  const handleAddTransfer = () => {
+    setAddTransfers({
+      ...addTransfers,
+      [typeOfService]: true,
+    });
+  };
+
   const handleCityChange = (e) => {
     setCity(e.target.value);
   };
@@ -185,6 +196,9 @@ const ScheduleFCLogic = () => {
     status,
     handleSubmit,
     formIsValid,
+    transfers,
+    addTransfers,
+    handleAddTransfer,
   };
 };
 

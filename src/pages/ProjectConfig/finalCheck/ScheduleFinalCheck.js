@@ -20,6 +20,9 @@ const ScheduleFinalCheck = () => {
     status,
     handleSubmit,
     formIsValid,
+    transfers,
+    addTransfers,
+    handleAddTransfer,
   } = ScheduleFCLogic();
 
   if (formIsValid === true) {
@@ -32,7 +35,7 @@ const ScheduleFinalCheck = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", margin: "1rem" }}>
         <select value={city} onChange={handleCityChange}>
           <option>Select city</option>
           {cities?.map((city) => (
@@ -45,29 +48,65 @@ const ScheduleFinalCheck = () => {
             <option key={item}>{item}</option>
           ))}
         </select>
-
-        <select value={capacity} onChange={handleCapacityChange}>
-          <option>Vehicle Capacity</option>
-          {capacities?.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
+      </div>
+      <div style={{ display: "flex", margin: "1rem" }}>
         <select value={typeOfService} onChange={handleTypeOfServiceChange}>
           <option>Type of Service</option>
           <option value='transferIn'>Transfer In</option>
           <option value='transferOut'>Transfer Out</option>
         </select>
-        <input
-          type='number'
-          placeholder='Add Quantity'
-          value={nrVehicles}
-          onChange={handleNrVehiclesChange}
-        />
-        <p>
-          Transfer In, {capacity} Seater Bus, {vendor} , cost {vendorCost}€
-        </p>
+        <button type='button' onClick={handleAddTransfer}>
+          Add Transfer
+        </button>
       </div>
-      <button disabled={status === "selecting"}>Add Transfers</button>
+
+      {addTransfers.transferIn && (
+        <div style={{ display: "flex" }}>
+          <select value={capacity} onChange={handleCapacityChange}>
+            <option>Vehicle Capacity</option>
+            {capacities?.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+
+          <input
+            type='number'
+            placeholder='Add Quantity'
+            value={nrVehicles}
+            onChange={handleNrVehiclesChange}
+          />
+
+          <p>
+            Transfer In , {capacity} Seater Bus , cost {vendorCost}€
+          </p>
+        </div>
+      )}
+
+      {addTransfers.transferOut && (
+        <div style={{ display: "flex" }}>
+          <select value={capacity} onChange={handleCapacityChange}>
+            <option>Vehicle Capacity</option>
+            {capacities?.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+
+          <input
+            type='number'
+            placeholder='Add Quantity'
+            value={nrVehicles}
+            onChange={handleNrVehiclesChange}
+          />
+
+          <p>
+            Transfer Out , {capacity} Seater Bus , cost {vendorCost}€
+          </p>
+        </div>
+      )}
+
+      <button type='submit' disabled={status === "selecting"}>
+        Submit Form
+      </button>
     </form>
   );
 };
