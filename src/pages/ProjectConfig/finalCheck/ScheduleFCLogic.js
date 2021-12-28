@@ -21,7 +21,6 @@ const ScheduleFCLogic = () => {
   const [nrVehicles, setNrVehicles] = useState(1);
   const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
-  const [schedule, setSchedule] = useState([]);
   const [formIsValid, setFormIsValid] = useState(false);
   const activeCode = useSelector(selectActiveCode);
   const {
@@ -104,22 +103,21 @@ const ScheduleFCLogic = () => {
     setNrVehicles(e.target.value);
   };
 
-  useEffect(() => {
-    if (formIsValid) {
-      try {
-        baseAPI
-          .post(`/addSchedule/${projectByCode._id}`, schedule)
-          .then((response) => {
-            console.log("response=>", response);
-            setTimeout(() => {
-              history.push("/");
-            }, 1500);
-          });
-      } catch (error) {
-        console.log(error);
-      }
+  const postSchedule = (schedule) => {
+    try {
+      baseAPI
+        .post(`/addSchedule/${projectByCode._id}`, schedule)
+        .then((response) => {
+          console.log("response=>", response);
+          setTimeout(() => {
+            history.push("/");
+          }, 1500);
+        });
+    } catch (error) {
+      console.log(error);
     }
-  }, [schedule]);
+    setFormIsValid(true);
+  };
 
   const updateSchedule = () => {
     const newState = state.slice(1);
@@ -130,14 +128,13 @@ const ScheduleFCLogic = () => {
       transfer_in_out: parseInt(vendorCost),
     };
     newState[0].transfer_in_out = [transferIn];
-    setSchedule(newState);
-    setFormIsValid(true);
+    return newState;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    updateSchedule();
+    const schedule = updateSchedule();
+    postSchedule(schedule);
   };
 
   return {
