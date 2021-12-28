@@ -10,7 +10,7 @@ import { selectActiveCode } from "../../../features/ActiveCodeSlice";
 const ScheduleFCLogic = () => {
   const history = useHistory();
   const { state } = useLocation();
-  console.log("schedule", state);
+  console.log("state", state);
   const [cities, setCities] = useState([]);
   const [city, setCity] = useState("Select City");
   const [vendors, setVendors] = useState([]);
@@ -19,9 +19,15 @@ const ScheduleFCLogic = () => {
   const [capacity, setCapacity] = useState("");
   const [vendorCost, setVendorCost] = useState(0);
   const [nrVehicles, setNrVehicles] = useState(1);
+  const [typeOfService, setTypeOfService] = useState("");
+  const [transfers, setTransfers] = useState({
+    transferIn: [],
+    transferOut: [],
+  });
   const [status, setStatus] = useState("selecting");
   const { vendorOptions: transfersDB } = useGetVendors("transfers");
   const [formIsValid, setFormIsValid] = useState(false);
+  const [schedule, setSchedule] = useState([]);
   const activeCode = useSelector(selectActiveCode);
   const {
     data: { project: projectByCode },
@@ -87,6 +93,21 @@ const ScheduleFCLogic = () => {
     }
   }, [transfersDB]);
 
+  useEffect(() => {
+    console.log("transfers", transfers);
+  }, [transfers]);
+
+  useEffect(() => {
+    setTransfers({
+      [typeOfService]: {
+        city,
+        company: vendor,
+        vehicleCapacity: parseInt(capacity),
+        transfer_in_out: vendorCost,
+      },
+    });
+  }, [typeOfService]);
+
   const handleCityChange = (e) => {
     setCity(e.target.value);
   };
@@ -103,8 +124,11 @@ const ScheduleFCLogic = () => {
     setNrVehicles(e.target.value);
   };
 
-  const postSchedule = (schedule) => {
-    //if projectByCode exists, then update the project
+  const handleTypeOfServiceChange = (e) => {
+    setTypeOfService(e.target.value);
+  };
+
+  useEffect(() => {
     if (projectByCode) {
       try {
         baseAPI
@@ -120,27 +144,27 @@ const ScheduleFCLogic = () => {
         console.log(error);
       }
     } else {
-      //alert user that project does not exist
       alert("Project does not exist");
     }
-  };
+  }, [schedule]);
 
-  const updateSchedule = () => {
+  const postSchedule = () => {
     const newState = state.slice(1);
-    const transferIn = {
-      city,
-      company: vendor,
-      vehicleCapacity: parseInt(capacity),
-      transfer_in_out: parseInt(vendorCost),
-    };
-    newState[0].transfer_in_out = [transferIn];
-    return newState;
+    newState.forEach((item, index) => {
+      if (index === 0) {
+        item.transfer_in_out = transfers.transferIn;
+      } else if (index === newState.length - 1) {
+        item.transfer_in_out = transfers.transferOut;
+      } else {
+        item.transfer_in_out = [];
+      }
+    });
+    setSchedule(newState);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const schedule = updateSchedule();
-    postSchedule(schedule);
+    postSchedule();
   };
 
   return {
@@ -154,6 +178,8 @@ const ScheduleFCLogic = () => {
     handleCapacityChange,
     capacities,
     nrVehicles,
+    handleTypeOfServiceChange,
+    typeOfService,
     handleNrVehiclesChange,
     vendorCost,
     status,
