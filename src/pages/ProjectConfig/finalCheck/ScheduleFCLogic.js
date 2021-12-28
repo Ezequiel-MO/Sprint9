@@ -104,19 +104,25 @@ const ScheduleFCLogic = () => {
   };
 
   const postSchedule = (schedule) => {
-    try {
-      baseAPI
-        .post(`/addSchedule/${projectByCode._id}`, schedule)
-        .then((response) => {
-          console.log("response=>", response);
-          setTimeout(() => {
-            history.push("/");
-          }, 1500);
-        });
-    } catch (error) {
-      console.log(error);
+    //if projectByCode exists, then update the project
+    if (projectByCode) {
+      try {
+        baseAPI
+          .post(`/addSchedule/${projectByCode._id}`, schedule)
+          .then((response) => {
+            console.log("response=>", response);
+            setTimeout(() => {
+              history.push("/");
+            }, 1500);
+          });
+        setFormIsValid(true);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      //alert user that project does not exist
+      alert("Project does not exist");
     }
-    setFormIsValid(true);
   };
 
   const updateSchedule = () => {
