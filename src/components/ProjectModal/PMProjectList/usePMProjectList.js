@@ -1,7 +1,7 @@
 import useGetProjects from "../../../hooks/useGetProjects";
 import { useState, useEffect } from "react";
 
-const PMProjectListLogic = () => {
+const usePMProjectList = () => {
   const { projects } = useGetProjects();
   const [sortedProjects, setSortedProjects] = useState([]);
   const [sortOrder, setSortOrder] = useState("");
@@ -45,4 +45,4 @@ const PMProjectListLogic = () => {
   };
 };
 
-export default PMProjectListLogic;
+export default usePMProjectList;

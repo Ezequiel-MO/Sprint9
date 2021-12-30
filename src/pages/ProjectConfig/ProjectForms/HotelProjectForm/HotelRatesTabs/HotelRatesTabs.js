@@ -1,13 +1,13 @@
 import { ScHotelRatesTabs, Tabs, TabPanel, HotelRatesCard } from "../../styles";
 import HotelRatesForm from "./HotelRatesForm/HotelRatesForm";
-import HotelRTLogic from "./HotelRTLogic";
+import useHotelRatesTabs from "./useHotelRatesTabs";
 
 const HotelRatesTabs = ({
   selectedHotelOptions,
   projectByCode,
   hotelOptions,
 }) => {
-  const { handleSubmit, handleChange, selectedTab } = HotelRTLogic(
+  const { handleSubmit, handleChange, selectedTab } = useHotelRatesTabs(
     projectByCode,
     hotelOptions,
     selectedHotelOptions

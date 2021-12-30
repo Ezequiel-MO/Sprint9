@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
 import { Table } from "../../../generalStyles";
-import PMProjectListLogic from "./PMProjectListLogic";
 import { ScTh } from "./styles";
+import usePMProjectList from "./usePMProjectList";
 
 const PMProjectList = ({ project: searchWord }) => {
-  const { sortedProjects, getDate, setSortOrder } = PMProjectListLogic();
+  const { sortedProjects, getDate, setSortOrder } = usePMProjectList();
 
   return (
     <Table>

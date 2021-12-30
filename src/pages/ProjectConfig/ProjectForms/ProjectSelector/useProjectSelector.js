@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const ProjectSelectorLogic = (options) => {
+const useProjectSelector = (options) => {
   const [valueLabels, setValueLabels] = useState([]);
 
   useEffect(() => {
@@ -12,4 +12,4 @@ const ProjectSelectorLogic = (options) => {
   return { valueLabels };
 };
 
-export default ProjectSelectorLogic;
+export default useProjectSelector;

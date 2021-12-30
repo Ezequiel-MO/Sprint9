@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { baseAPI } from "../../../../../api/axios";
 
-const HotelRTLogic = (projectByCode, hotelOptions, selectedHotelOptions) => {
+const useHotelRatesTabs = (
+  projectByCode,
+  hotelOptions,
+  selectedHotelOptions
+) => {
   const history = useHistory();
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -48,4 +52,4 @@ const HotelRTLogic = (projectByCode, hotelOptions, selectedHotelOptions) => {
   return { handleChange, handleSubmit, selectedTab };
 };
 
-export default HotelRTLogic;
+export default useHotelRatesTabs;

@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { AutoCompleteDiv } from "../styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import ProjectSelectorLogic from "./ProjectSelectorLogic";
+import useProjectSelector from "./useProjectSelector";
 
 const ProjectSelector = ({
   icon,
@@ -12,7 +12,7 @@ const ProjectSelector = ({
   storeSelectedValues,
   value,
 }) => {
-  const { valueLabels } = ProjectSelectorLogic(options);
+  const { valueLabels } = useProjectSelector(options);
   return (
     <AutoCompleteDiv>
       <label>
