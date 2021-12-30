@@ -1,11 +1,11 @@
 import ProjectModal from "../../components/ProjectModal/ProjectModal";
 import DashboardCard from "../../uicomponents/dashboardCards/dashboardCard/DashboardCard";
 import DashboardVendorCard from "../../uicomponents/dashboardCards/dashboardVendorCard/DashboardVendorCard";
-import DashboardLogic from "./DashboardLogic";
 import { WelcomeContainer, VendorCardsContainer } from "./styles";
+import useDashboard from "./useDashboard";
 
 const Dashboard = () => {
-  const { dashboardData, status, setStatus } = DashboardLogic();
+  const { dashboardData, status, setStatus } = useDashboard();
 
   return (
     <WelcomeContainer>

@@ -13,7 +13,7 @@ import {
   Description,
   Images,
 } from "./styles";
-import MasterFormLogic from "./MasterFormLogic";
+import useMasterForm from "./useMasterForm";
 
 const EventMasterForm = () => {
   const fileInput = useRef();
@@ -27,7 +27,7 @@ const EventMasterForm = () => {
     handleTextDescription,
     handleTextIntroduction,
     handleCoordsChange,
-  } = MasterFormLogic(fileInput, events);
+  } = useMasterForm(fileInput, events);
 
   const { name, city, titleSidebar, title, price, latitude, longitude } =
     typeOfVendor;

@@ -9,7 +9,7 @@ import {
 import PMProjectList from "./PMProjectList/PMProjectList.js";
 import { Icon } from "@iconify/react";
 import Button from "../../uicomponents/Button/Button.js";
-import ProjectModalLogic from "./ProjectModalLogic.js";
+import useProjectModal from "./useProjectModal.js";
 
 const ProjectModal = ({ listingFormat }) => {
   const {
@@ -18,7 +18,7 @@ const ProjectModal = ({ listingFormat }) => {
     handleSubmit,
     handleCancelClick,
     project,
-  } = ProjectModalLogic();
+  } = useProjectModal();
   return (
     <PMContainer listingFormat={listingFormat}>
       <PMHeader>

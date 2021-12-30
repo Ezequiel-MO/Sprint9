@@ -13,7 +13,7 @@ import {
   Description,
   Images,
 } from "./styles";
-import MasterFormLogic from "./MasterFormLogic";
+import useMasterForm from "./useMasterForm";
 
 const RestaurantMasterForm = () => {
   const fileInput = useRef();
@@ -28,7 +28,7 @@ const RestaurantMasterForm = () => {
     handleTextIntroduction,
     handleCoordsChange,
     textContent,
-  } = MasterFormLogic(fileInput, restaurants);
+  } = useMasterForm(fileInput, restaurants);
 
   const { name, city, longitude, latitude, price } = typeOfVendor;
 

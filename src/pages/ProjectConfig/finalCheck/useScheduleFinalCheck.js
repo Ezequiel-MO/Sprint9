@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
 import { selectActiveCode } from "../../../features/ActiveCodeSlice";
 
-const ScheduleFCLogic = () => {
+const useScheduleFinalCheck = () => {
   const history = useHistory();
   const { state } = useLocation();
   console.log("state", state);
@@ -202,4 +202,4 @@ const ScheduleFCLogic = () => {
   };
 };
 
-export default ScheduleFCLogic;
+export default useScheduleFinalCheck;

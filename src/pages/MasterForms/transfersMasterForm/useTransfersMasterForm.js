@@ -4,7 +4,7 @@ import axios from "axios";
 import { baseURL } from "../../../api/axios";
 import { useHistory } from "react-router-dom";
 
-const TransfersMFLogic = () => {
+const useTransfersMasterForm = () => {
   const history = useHistory();
   const [status, setStatus] = useState("typing");
   const [submitReady, setSubmitReady] = useState(false);
@@ -107,4 +107,4 @@ const TransfersMFLogic = () => {
   };
 };
 
-export default TransfersMFLogic;
+export default useTransfersMasterForm;

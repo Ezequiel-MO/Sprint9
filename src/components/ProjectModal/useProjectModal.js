@@ -3,7 +3,7 @@ import { SET_UserIsSearchingProject } from "../../features/UserIsSearchingProjec
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
-const ProjectModalLogic = () => {
+const useProjectModal = () => {
   const [project, setProject] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
@@ -34,4 +34,4 @@ const ProjectModalLogic = () => {
   };
 };
 
-export default ProjectModalLogic;
+export default useProjectModal;

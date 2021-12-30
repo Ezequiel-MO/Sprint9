@@ -13,7 +13,7 @@ import {
   Images,
 } from "./styles";
 import { useRef } from "react";
-import MasterFormLogic from "./MasterFormLogic";
+import useMasterForm from "./useMasterForm";
 
 const HotelMasterForm = () => {
   const fileInput = useRef();
@@ -26,7 +26,7 @@ const HotelMasterForm = () => {
     handleCheckboxChange,
     handleTextDescription,
     handleCoordsChange,
-  } = MasterFormLogic(fileInput, hotels);
+  } = useMasterForm(fileInput, hotels);
 
   const {
     name,

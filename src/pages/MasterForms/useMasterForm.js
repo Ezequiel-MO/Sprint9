@@ -3,7 +3,7 @@ import { baseAPI } from "../../api/axios";
 import useGetVendors from "../../hooks/useGetVendor";
 import { checkForDuplicates } from "../ProjectConfig/utils/utils";
 
-const MasterFormLogic = (fileInput, cat) => {
+const useMasterForm = (fileInput, cat) => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [textContent, setTextContent] = useState([]);
   const [introduction, setIntroduction] = useState([]);
@@ -89,4 +89,4 @@ const MasterFormLogic = (fileInput, cat) => {
   };
 };
 
-export default MasterFormLogic;
+export default useMasterForm;

@@ -3,7 +3,7 @@ import DialogBox from "../../../uicomponents/dialogBox/DialogBox";
 import TransferCo from "./TransferCo";
 import ListOfServices from "./ListOfServices";
 import { ScButton } from "./styles";
-import TransfersMFLogic from "./TransfersMFLogic";
+import useTransfersMasterForm from "./useTransfersMasterForm";
 
 const TransfersMasterForm = () => {
   const {
@@ -18,7 +18,7 @@ const TransfersMasterForm = () => {
     services,
     handleLeave,
     errorMessage,
-  } = TransfersMFLogic();
+  } = useTransfersMasterForm();
   return (
     <div>
       <form onSubmit={handleSubmit}>

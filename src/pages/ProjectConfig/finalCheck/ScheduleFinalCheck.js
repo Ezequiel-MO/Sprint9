@@ -1,5 +1,5 @@
 import { ScheduleProjectFormContainer } from "../ProjectForms/styles";
-import ScheduleFCLogic from "./ScheduleFCLogic";
+import useScheduleFinalCheck from "./useScheduleFinalCheck";
 
 const ScheduleFinalCheck = () => {
   const {
@@ -23,7 +23,7 @@ const ScheduleFinalCheck = () => {
     transfers,
     addTransfers,
     handleAddTransfer,
-  } = ScheduleFCLogic();
+  } = useScheduleFinalCheck();
 
   if (formIsValid === true) {
     return (

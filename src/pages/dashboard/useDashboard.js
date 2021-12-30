@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const DashboardLogic = () => {
+const useDashboard = () => {
   const [status, setStatus] = useState("");
 
   const dashboardData = [
@@ -32,4 +32,4 @@ const DashboardLogic = () => {
   };
 };
 
-export default DashboardLogic;
+export default useDashboard;
