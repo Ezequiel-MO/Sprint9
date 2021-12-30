@@ -2,7 +2,6 @@ import Header from "./components/Header/Header";
 import ProjectModal from "./components/ProjectModal/ProjectModal";
 import { Container } from "./generalStyles";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Dashboard from "./pages/dashboard/Dashboard";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserIsSearchingProject,
@@ -10,6 +9,7 @@ import {
 } from "./features/UserIsSearchingProjectSlice";
 import {
   ProjectLog,
+  Dashboard,
   ScheduleProjectForm,
   HotelMasterForm,
   RestaurantMasterForm,
