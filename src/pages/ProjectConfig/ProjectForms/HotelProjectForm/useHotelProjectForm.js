@@ -7,7 +7,7 @@ import { baseAPI, baseURL } from "../../../../api/axios";
 import { findSelectedOptions } from "../../utils/utils";
 import useGetVendors from "../../../../hooks/useGetVendor";
 
-const HotelPFLogic = () => {
+const useHotelProjectForm = () => {
   const activeCode = useSelector(selectActiveCode);
   const history = useHistory();
   const [formIsValid, setFormIsValid] = useState(false);
@@ -64,4 +64,4 @@ const HotelPFLogic = () => {
   };
 };
 
-export default HotelPFLogic;
+export default useHotelProjectForm;

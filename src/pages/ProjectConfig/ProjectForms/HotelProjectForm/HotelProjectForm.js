@@ -6,7 +6,7 @@ import {
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import ProjectSelector from "../ProjectSelector/ProjectSelector";
 import HotelRatesTabs from "./HotelRatesTabs/HotelRatesTabs";
-import HotelPFLogic from "./HotelPFLogic";
+import useHotelProjectForm from "./useHotelProjectForm";
 
 const HotelProjectForm = () => {
   const {
@@ -16,7 +16,7 @@ const HotelProjectForm = () => {
     selectedHotelOptions,
     projectByCode,
     formIsValid,
-  } = HotelPFLogic();
+  } = useHotelProjectForm();
   return (
     <>
       <HotelFormContainer>

@@ -8,7 +8,7 @@ import { baseURL } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetVendors from "../../../../hooks/useGetVendor";
 
-const SchedulePFLogic = () => {
+const useScheduleProjectForm = () => {
   const history = useHistory();
   const [schedule, setSchedule] = useState([]);
   const [dayProgram, setDayProgram] = useState({});
@@ -108,4 +108,4 @@ const SchedulePFLogic = () => {
   };
 };
 
-export default SchedulePFLogic;
+export default useScheduleProjectForm;

@@ -1,7 +1,7 @@
 import SaveButton from "../../../../uicomponents/SaveButton/SaveButton";
 import { ScheduleProjectFormContainer } from "../styles";
 import ProjectSelector from "../ProjectSelector/ProjectSelector";
-import SchedulePFLogic from "./SchedulePFLogic";
+import useScheduleProjectForm from "./useScheduleProjectForm";
 
 const ScheduleProjectForm = () => {
   const {
@@ -16,7 +16,7 @@ const ScheduleProjectForm = () => {
     storeSelectedValues,
     counter,
     whichDay,
-  } = SchedulePFLogic();
+  } = useScheduleProjectForm();
 
   return (
     <>

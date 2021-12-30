@@ -7,8 +7,8 @@ import {
 } from "./styles";
 import PLList from "./PLList/PLLists";
 import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
-import ProjectLogLogic from "./ProjectLogLogic";
 import DialogBox from "../../../uicomponents/dialogBox/DialogBox";
+import useProjectLog from "./useProjectLog";
 
 const ProjectLog = () => {
   const {
@@ -17,7 +17,7 @@ const ProjectLog = () => {
     projectFormIsValid,
     projectInputData,
     dialogMessage,
-  } = ProjectLogLogic();
+  } = useProjectLog();
 
   const {
     code,

@@ -11,7 +11,7 @@ import {
   selectAuthRoutes,
 } from "../../../features/authRoutesSlice";
 
-const ProjectLogLogic = () => {
+const useProjectLog = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const {
@@ -131,4 +131,4 @@ const ProjectLogLogic = () => {
   };
 };
 
-export default ProjectLogLogic;
+export default useProjectLog;
