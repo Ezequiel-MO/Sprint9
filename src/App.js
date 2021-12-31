@@ -1,7 +1,12 @@
 import Header from "./components/Header/Header";
 import ProjectModal from "./components/ProjectModal/ProjectModal";
 import { Container } from "./generalStyles";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserIsSearchingProject,
@@ -56,6 +61,7 @@ function App() {
             component={TransfersMasterForm}
           />
           <Route path='/' exact component={Dashboard} />
+          <Route path='/*' component={() => <Redirect to='/' />} />
         </Switch>
       </Container>
       {userIsSearchingProject && <ProjectModal listingFormat='modal' />}
