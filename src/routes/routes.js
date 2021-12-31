@@ -1,12 +1,12 @@
 import {
-  Login,
   ProjectLog,
   ScheduleProjectForm,
-  ScheduleFinalCheck,
   HotelMasterForm,
+  RestaurantMasterForm,
   EventMasterForm,
   TransfersMasterForm,
-  Dashboard,
+  ScheduleFinalCheck,
+  Login,
 } from "../pages";
 
 export const routes = [
@@ -17,7 +17,7 @@ export const routes = [
   },
   {
     path: "/project-log",
-    Component: "ProjectLog",
+    Component: ProjectLog,
     name: "projectLog",
   },
   {
@@ -41,13 +41,13 @@ export const routes = [
     name: "eventMasterForm",
   },
   {
+    path: "/restaurant-master-form",
+    Component: RestaurantMasterForm,
+    name: "restaurantMasterForm",
+  },
+  {
     path: "/transfers-master-form",
     Component: TransfersMasterForm,
     name: "transfersMasterForm",
-  },
-  {
-    path: "/dashboard",
-    Component: Dashboard,
-    name: "dashboard",
   },
 ];

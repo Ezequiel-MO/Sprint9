@@ -12,20 +12,10 @@ import {
   selectUserIsSearchingProject,
   SET_UserIsSearchingProject,
 } from "./features/UserIsSearchingProjectSlice";
-import {
-  ProjectLog,
-  Dashboard,
-  ScheduleProjectForm,
-  HotelMasterForm,
-  RestaurantMasterForm,
-  EventMasterForm,
-  HotelProjectForm,
-  TransfersMasterForm,
-  ScheduleFinalCheck,
-  Login,
-} from "./pages";
+import { Dashboard, HotelProjectForm } from "./pages";
 import PrivateRoute from "./auth/PrivateRoute";
 import { selectAuthRoutes } from "./features/authRoutesSlice";
+import { routes } from "./routes/routes";
 
 function App() {
   const userIsSearchingProject = useSelector(selectUserIsSearchingProject);
@@ -37,29 +27,15 @@ function App() {
       <Header />
       <Container onClick={() => dispatch(SET_UserIsSearchingProject(false))}>
         <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/project-log' component={ProjectLog} />
+          {routes.map(({ path, Component }) => (
+            <Route key={path} path={path} component={Component} />
+          ))}
           <PrivateRoute
             path='/hotel-project-form'
             isAuth={authRoutes["hotelProjectForm"]}
           >
             <Route component={HotelProjectForm} />
           </PrivateRoute>
-          <Route
-            path='/schedule-project-form'
-            component={ScheduleProjectForm}
-          />
-          <Route path='/schedule-check' component={ScheduleFinalCheck} />
-          <Route path='/hotel-master-form' component={HotelMasterForm} />
-          <Route
-            path='/restaurant-master-form'
-            component={RestaurantMasterForm}
-          />
-          <Route path='/event-master-form' component={EventMasterForm} />
-          <Route
-            path='/transfers-master-form'
-            component={TransfersMasterForm}
-          />
           <Route path='/' exact component={Dashboard} />
           <Route path='/*' component={() => <Redirect to='/' />} />
         </Switch>
