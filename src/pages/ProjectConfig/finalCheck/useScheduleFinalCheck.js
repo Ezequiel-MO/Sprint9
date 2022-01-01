@@ -18,7 +18,6 @@ const useScheduleFinalCheck = () => {
   const [capacities, setCapacities] = useState([]);
   const [capacity, setCapacity] = useState("");
   const [vendorCost, setVendorCost] = useState(0);
-  const [nrVehicles, setNrVehicles] = useState(1);
   const [typeOfService, setTypeOfService] = useState("");
   const [transfers, setTransfers] = useState({
     transferIn: [],
@@ -47,16 +46,6 @@ const useScheduleFinalCheck = () => {
 
     return nr * cost[0].transfer_in_out;
   };
-
-  useEffect(() => {
-    if (transfersDB && capacity) {
-      if (capacity !== "Vehicle Capacity") {
-        setStatus("selected");
-        const computedCost = computeCost(nrVehicles);
-        setVendorCost(computedCost);
-      }
-    }
-  }, [capacity, nrVehicles]);
 
   useEffect(() => {
     setCapacities([]);
@@ -131,10 +120,6 @@ const useScheduleFinalCheck = () => {
     setCapacity(e.target.value);
   };
 
-  const handleNrVehiclesChange = (e) => {
-    setNrVehicles(e.target.value);
-  };
-
   const handleTypeOfServiceChange = (e) => {
     setTypeOfService(e.target.value);
   };
@@ -159,7 +144,7 @@ const useScheduleFinalCheck = () => {
     }
   }, [schedule]);
 
-  const postSchedule = () => {
+  /*   const postSchedule = () => {
     const newState = state.slice(1);
     newState.forEach((item, index) => {
       if (index === 0) {
@@ -171,11 +156,11 @@ const useScheduleFinalCheck = () => {
       }
     });
     setSchedule(newState);
-  };
+  }; */
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postSchedule();
+    /*  postSchedule(); */
   };
 
   return {
@@ -188,10 +173,8 @@ const useScheduleFinalCheck = () => {
     capacity,
     handleCapacityChange,
     capacities,
-    nrVehicles,
     handleTypeOfServiceChange,
     typeOfService,
-    handleNrVehiclesChange,
     vendorCost,
     status,
     handleSubmit,

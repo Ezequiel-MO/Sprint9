@@ -1,3 +1,4 @@
+import { Increment } from "../../../uicomponents/increment/Increment";
 import { ScheduleProjectFormContainer } from "../ProjectForms/styles";
 import useScheduleFinalCheck from "./useScheduleFinalCheck";
 
@@ -12,10 +13,8 @@ const ScheduleFinalCheck = () => {
     capacity,
     handleCapacityChange,
     capacities,
-    nrVehicles,
     handleTypeOfServiceChange,
     typeOfService,
-    handleNrVehiclesChange,
     vendorCost,
     status,
     handleSubmit,
@@ -61,13 +60,8 @@ const ScheduleFinalCheck = () => {
             <option key={item}>{item}</option>
           ))}
         </select>
+        <Increment />
 
-        <input
-          type='number'
-          placeholder='Add Quantity'
-          value={nrVehicles}
-          onChange={handleNrVehiclesChange}
-        />
         <button type='button' onClick={handleAddTransfer}>
           Add Transfer
         </button>
