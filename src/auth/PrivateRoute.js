@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router";
+import { Redirect, Route } from "react-router-dom";
 
 const PrivateRoute = ({ children, isAuth, ...rest }) => {
   return (
