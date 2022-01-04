@@ -1,71 +1,59 @@
-import { Increment } from "../../../uicomponents/increment/Increment";
 import { ScheduleProjectFormContainer } from "../ProjectForms/styles";
+import "./styles.css";
+import SelectCapacity from "./SelectCapacity";
+import SelectCity from "./SelectCity";
+import SelectOptions from "./SelectOptions";
+import SelectVendor from "./SelectVendor";
 import useScheduleFinalCheck from "./useScheduleFinalCheck";
+import { Increment } from "./increment/Increment";
+import AddTransfer from "./AddTransfer";
 
 const ScheduleFinalCheck = () => {
-  const {
-    city,
-    handleCityChange,
-    cities,
-    vendor,
-    handleVendorChange,
-    vendors,
-    capacity,
-    handleCapacityChange,
-    capacities,
-    handleTypeOfServiceChange,
-    typeOfService,
-    vendorCost,
-    status,
-    handleSubmit,
-    formIsValid,
-    transfers,
-    addTransfers,
-    handleAddTransfer,
-  } = useScheduleFinalCheck();
+  const { status, handleSubmit, transferDetails, handleChange, options } =
+    useScheduleFinalCheck();
 
-  if (formIsValid === true) {
+  if (status === "valid") {
     return (
       <ScheduleProjectFormContainer>
         <h1>Project successfully created!</h1>
       </ScheduleProjectFormContainer>
     );
   }
-
   return (
     <form onSubmit={handleSubmit}>
-      <div style={{ display: "flex", margin: "1rem" }}>
-        <select value={city} onChange={handleCityChange}>
-          <option>Select city</option>
-          {cities?.map((city) => (
-            <option key={city}>{city}</option>
-          ))}
-        </select>
-        <select value={vendor} onChange={handleVendorChange}>
-          <option>Select Vendor</option>
-          {vendors?.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
-      </div>
-      <div style={{ display: "flex", margin: "1rem" }}>
-        <select value={typeOfService} onChange={handleTypeOfServiceChange}>
-          <option>Type of Service</option>
-          <option value='transferIn'>Transfer In</option>
-          <option value='transferOut'>Transfer Out</option>
-        </select>
-        <select value={capacity} onChange={handleCapacityChange}>
-          <option>Vehicle Capacity</option>
-          {capacities?.map((item) => (
-            <option key={item}>{item}</option>
-          ))}
-        </select>
+      <h1>Check Form</h1>
+      <SelectOptions
+        options={options}
+        transferDetails={transferDetails}
+        handleChange={handleChange}
+        className='select-options'
+        transfer='transfer-in'
+      >
+        <SelectCity />
+        <SelectVendor />
+        <SelectCapacity />
         <Increment />
+        <AddTransfer />
+      </SelectOptions>
+      <SelectOptions
+        options={options}
+        transferDetails={transferDetails}
+        handleChange={handleChange}
+        className='select-options'
+        transfer='transfer-out'
+      >
+        <SelectCity />
+        <SelectVendor />
+        <SelectCapacity />
+        <Increment />
+        <AddTransfer />
+      </SelectOptions>
+      <button type='submit'>Submit</button>
+    </form>
+  );
 
-        <button type='button' onClick={handleAddTransfer}>
-          Add Transfer
-        </button>
-      </div>
+  /* 
+     
 
       {addTransfers.transferIn && (
         <div style={{ display: "flex" }}>
@@ -87,7 +75,7 @@ const ScheduleFinalCheck = () => {
         Submit Form
       </button>
     </form>
-  );
+  ); */
 };
 
 export default ScheduleFinalCheck;
