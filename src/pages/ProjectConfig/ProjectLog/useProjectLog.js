@@ -120,9 +120,11 @@ const useProjectLog = () => {
     );
   };
   return {
-    projectInputData,
+    /*  projectInputData,
     handleChange,
-    handleSubmit,
+      handleSubmit,
+     */
+
     dialogMessage,
     projectFormIsValid,
   };
