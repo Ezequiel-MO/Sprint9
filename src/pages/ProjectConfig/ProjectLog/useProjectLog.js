@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import useForm from "../../../hooks/useForm";
 import {
   AUTH_ROUTES,
   selectAuthRoutes,
@@ -20,16 +21,17 @@ const useProjectLog = () => {
   } = useAxiosFetch(`${baseURL}/projects`);
   const [dialogMessage, setDialogMessage] = useState("");
   const [projectFormIsValid, setProjectFormIsValid] = useState(false);
-  const [projectInputData, setProjectInputData] = useState({
-    code: "ex BEM20210023",
-    accountManager: "John Doe",
-    groupName: "Ciscalis",
-    groupLocation: "Barcelona",
-    arrivalDay: "20-10-2022",
-    departureDay: "22-10-2022",
-    nrPax: 100,
-    clientCo: "The Ev Mng co",
-    clientAccManager: "Jonas Smith",
+
+  const { formData: projectInputData, handleChange } = useForm({
+    code: "",
+    accountManager: "",
+    groupName: "",
+    groupLocation: "",
+    arrivalDay: "",
+    departureDay: "",
+    nrPax: null,
+    clientCo: "",
+    clientAccManager: "",
     hotels: [],
     schedule: [],
   });
@@ -60,11 +62,6 @@ const useProjectLog = () => {
       setTimeout(() => history.push("/hotel-project-form"), 500);
     }
   }, [projectFormIsValid]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProjectInputData({ ...projectInputData, [name]: value });
-  };
 
   const checkAllInputsAreNonEmpty = (arr) => {
     const allInputsAreNonEmpty = !Object.values(arr).some(
