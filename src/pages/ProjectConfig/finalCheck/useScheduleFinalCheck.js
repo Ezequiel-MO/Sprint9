@@ -1,66 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useForm from "../../../hooks/useForm";
-import useGetVendor from "../../../hooks/useGetVendor";
+import useTransferOptions from "./useTransferOptions";
+import { selectActiveCode } from "../../../features/ActiveCodeSlice";
+import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
+import { useSelector } from "react-redux";
+import { baseURL } from "../../../api/axios";
 
 const useScheduleFinalCheck = () => {
   const [status, setStatus] = useState("selecting");
   const [nrVehicles, setNrVehicles] = useState(1);
-  const [options, setOptions] = useState({
-    cities: [],
-    vendors: [],
-    capacities: [],
-  });
-  const { vendorOptions: transfersDB } = useGetVendor("transfers");
+  const activeCode = useSelector(selectActiveCode);
+  const {
+    data: { project: projectByCode },
+  } = useAxiosFetch(`${baseURL}/project/${activeCode}`);
   const {
     formData: transferDetails,
+    handleChange,
     city,
     vendor,
-    capacity,
-    handleChange,
   } = useForm({
     city: "",
     vendor: "",
     capacity: "",
   });
 
-  useEffect(() => {
-    setOptions((prevState) => ({
-      ...prevState,
-      cities: [],
-      vendors: [],
-      capacities: [],
-    }));
-    if (transfersDB) {
-      const filteredCities = transfersDB.map((vendor) => vendor.city);
-      const filteredVendors = transfersDB.filter(
-        (vendor) => vendor.city === city
-      );
-      const filteredCapacities = transfersDB.filter(
-        (item) => item.company === vendor
-      );
-      const uniqueCities = [...new Set(filteredCities)];
-      const uniqueVendors = [
-        ...new Set(filteredVendors.map((vendor) => vendor.company)),
-      ];
-      const uniqueCapacities = [
-        ...new Set(filteredCapacities.map((item) => item.vehicleCapacity)),
-      ];
-
-      setOptions((prevState) => ({
-        ...prevState,
-        cities: uniqueCities,
-        vendors: uniqueVendors,
-        capacities: uniqueCapacities,
-      }));
-    }
-  }, [transfersDB, city, vendor, capacity]);
+  const { options } = useTransferOptions(city, vendor);
 
   const increase = (value) => {
     setNrVehicles((prev) => Math.max(0, prev + value));
   };
 
   const addTransfer = (typeOfTransfer) => {
-    console.log("typeOfTransfer", typeOfTransfer);
+    //compute total cost
+    //post to database
+    //enable transfers out
   };
 
   const handleSubmit = (e) => {

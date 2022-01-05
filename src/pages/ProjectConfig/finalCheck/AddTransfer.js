@@ -1,14 +1,28 @@
-import { useContext } from "react";
-import { SelectContext } from "./SelectOptions";
+import SelectCapacity from "./SelectCapacity";
+import SelectCity from "./SelectCity";
+import SelectOptions from "./SelectOptions";
+import SelectVendor from "./SelectVendor";
+import { Increment } from "./increment/Increment";
+import AddTransferButton from "./AddTransferButton";
 import useScheduleFinalCheck from "./useScheduleFinalCheck";
 
-const AddTransfer = () => {
-  const { transfer } = useContext(SelectContext);
-  const { addTransfer } = useScheduleFinalCheck();
+const AddTransfer = ({ transfer }) => {
+  const { transferDetails, handleChange, options } = useScheduleFinalCheck();
+
   return (
-    <button type='button' onClick={() => addTransfer(transfer)}>
-      Add {transfer}
-    </button>
+    <SelectOptions
+      options={options}
+      transferDetails={transferDetails}
+      handleChange={handleChange}
+      className='select-options'
+      transfer={transfer}
+    >
+      <SelectCity />
+      <SelectVendor />
+      <SelectCapacity />
+      <Increment />
+      <AddTransferButton />
+    </SelectOptions>
   );
 };
 
