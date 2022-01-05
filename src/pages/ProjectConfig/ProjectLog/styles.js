@@ -1,6 +1,7 @@
+import { Form } from "formik";
 import styled from "styled-components";
 
-export const ProjectLogContainer = styled.form`
+export const ProjectLogContainer = styled(Form)`
   height: fit-content;
   display: flex;
   justify-content: space-evenly;
@@ -15,7 +16,7 @@ export const ProjectConfiguration = styled.div`
 export const GroupContainer = styled.fieldset`
   border: 3px solid #a9ba9d;
   border-radius: 1rem;
-  padding: 0;
+  padding: 1rem;
 `;
 
 export const ProjectResults = styled.div`
