@@ -1,8 +1,8 @@
 import { ErrorMessage, useField } from "formik";
 
 export const TextInput = ({ label, ...props }) => {
-  const [field, meta] = useField(props);
-  console.log("meta=>", meta.error);
+  const [field] = useField(props);
+ 
   return (
     <>
       <label htmlFor={props.id || props.name}>{label}</label>
@@ -12,9 +12,6 @@ export const TextInput = ({ label, ...props }) => {
         component='span'
         className='error-message'
       />
-      {/*  {meta.touched && meta.error && (
-        <span className='error-message'>{meta.error}</span>
-      )} */}
     </>
   );
 };
