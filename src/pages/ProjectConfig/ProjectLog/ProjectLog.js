@@ -1,9 +1,8 @@
-import SaveButton from "../../../uicomponents/SaveButton/SaveButton";
 import "./styles.css";
-import DialogBox from "../../../uicomponents/dialogBox/DialogBox";
 import useProjectLog from "./useProjectLog";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
+import { DialogBox, SaveButton, TextInput } from "../../../uicomponents";
 
 const ProjectLog = () => {
   const {
@@ -55,25 +54,36 @@ const ProjectLog = () => {
               </legend>
               <div className='form-inputs'>
                 <div>
-                  <label htmlFor='code'>Project Code</label>
-                  <Field name='code' type='text' />
-                  <ErrorMessage name='code' component='span' />
+                  <TextInput
+                    label='code'
+                    name='code'
+                    placeholder='ex BEM2021001'
+                    type='text'
+                  />
                 </div>
                 <div>
-                  <label htmlFor='accountManager'>Account Manager</label>
-                  <Field name='accountManager' type='text' />
-                  <ErrorMessage name='accountManager' component='span' />
+                  <TextInput
+                    label='Account Manager'
+                    name='accountManager'
+                    placeholder='ex John Doe'
+                    type='text'
+                  />
                 </div>
                 <div>
-                  <label htmlFor='groupName'>Group Name</label>
-                  <Field name='groupName' type='text' />
-                  <ErrorMessage name='groupName' component='span' />
+                  <TextInput
+                    label='Group Name'
+                    name='groupName'
+                    placeholder='ex Pfizer'
+                    type='text'
+                  />
                 </div>
-
                 <div>
-                  <label htmlFor='groupLocation'>Group Location</label>
-                  <Field name='groupLocation' type='text' />
-                  <ErrorMessage name='groupLocation' component='span' />
+                  <TextInput
+                    label='Group Location'
+                    name='groupLocation'
+                    placeholder='ex Barcelona'
+                    type='text'
+                  />
                 </div>
                 <div>
                   <label htmlFor='arrivalDay'>Arrival Day</label>
@@ -92,19 +102,25 @@ const ProjectLog = () => {
                   <ErrorMessage name='nrPax' component='span' />
                 </div>
                 <div>
-                  <label htmlFor='clientCo'>Client Company</label>
-                  <Field name='clientCo' type='text' />
-                  <ErrorMessage name='clientCo' component='span' />
+                  <TextInput
+                    label='Client Agency'
+                    name='clientCo'
+                    placeholder='ex Roar Event Mngmt'
+                    type='text'
+                  />
                 </div>
                 <div>
-                  <label htmlFor='clientAccManager'>
-                    Client Account Manager
-                  </label>
-                  <Field name='clientAccManager' type='text' />
-                  <ErrorMessage name='clientAccManager' component='span' />
+                  <TextInput
+                    label='Client Account Manager'
+                    name='clientAccManager'
+                    placeholder='ex Jonas Smith'
+                    type='text'
+                  />
                 </div>
               </div>
-              <SaveButton type='submit' text='Save and continue' />
+              <div className='save-button'>
+                <SaveButton type='submit' text='Save and continue' />
+              </div>
             </fieldset>
           </Form>
         )}

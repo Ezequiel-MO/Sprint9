@@ -1,6 +1,6 @@
 import { HeaderContainer, HeaderLeft, HeaderRight } from "./styles";
 import { Icon } from "@iconify/react";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo-dark.svg";
 import { Link } from "react-router-dom";
 import Button from "../../uicomponents/Button/Button";
 import { useDispatch, useSelector } from "react-redux";

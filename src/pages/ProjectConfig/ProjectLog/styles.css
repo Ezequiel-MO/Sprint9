@@ -9,6 +9,7 @@ fieldset {
   border-radius: 10px;
   display: flex;
   min-width: 60rem;
+  position: relative;
 }
 
 .form-inputs {
@@ -28,6 +29,12 @@ select {
   outline: none;
   padding: 10px;
   width: 200px;
+}
+
+.save-button {
+  position: absolute;
+  top: 45%;
+  right: 0;
 }
 
 span,

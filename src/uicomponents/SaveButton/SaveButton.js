@@ -1,6 +1,6 @@
 import { StyledSaveButton } from "./styles.js";
 
-const SaveButton = ({ text, type = "button", ...rest }) => {
+export const SaveButton = ({ text, type = "button", ...rest }) => {
   return (
     <StyledSaveButton type={type} {...rest}>
       <span>{text}</span>

@@ -1,6 +1,6 @@
 import { DialogBoxContainer } from "./styles";
 
-const DialogBox = ({ message }) => {
+export const DialogBox = ({ message }) => {
   return <DialogBoxContainer>{message}</DialogBoxContainer>;
 };
 
