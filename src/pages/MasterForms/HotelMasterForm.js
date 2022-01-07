@@ -1,199 +1,198 @@
 import SaveButton from "../../uicomponents/SaveButton/SaveButton";
-import {
-  MasterFormContainer,
-  Left,
-  VendorNameAndAddress,
-  Vendor,
-  Address,
-  GeneralInfo,
-  InfoGrid,
-  Box,
-  Right,
-  Description,
-  Images,
-} from "./styles";
+import * as Yup from "yup";
 import { useRef } from "react";
 import useMasterForm from "./useMasterForm";
+import { Form, Formik } from "formik";
+import { TextAreaInput, TextInput } from "../../uicomponents";
+import CheckboxInput from "../../uicomponents/CheckboxInput";
+import { Icon } from "@iconify/react";
 
 const HotelMasterForm = () => {
   const fileInput = useRef();
-  const hotels = "hotels";
-  const {
-    handleSubmit,
-    typeOfVendor,
-    textContent,
-    handleChange,
-    handleCheckboxChange,
-    handleTextDescription,
-    handleCoordsChange,
-  } = useMasterForm(fileInput, hotels);
-
-  const {
-    name,
-    city,
-    direction,
-    numberStars,
-    numberRooms,
-    checkin_out,
-    meetingRooms,
-    wheelChairAccessible,
-    wifiSpeed,
-    swimmingPool,
-    restaurants,
-    latitude,
-    longitude,
-  } = typeOfVendor;
 
   return (
-    <MasterFormContainer onSubmit={handleSubmit}>
-      <Left>
-        <VendorNameAndAddress>
-          <legend>
-            <h4>Hotel Name & Address</h4>
-          </legend>
-          <Vendor>
-            <input
-              type='text'
-              name='name'
-              value={name}
-              placeholder='Full Hotel name w/category'
-              onChange={handleChange}
-            />
-          </Vendor>
-          <Address>
-            <input
-              type='text'
-              name='direction'
-              placeholder='Hotel Address'
-              value={direction}
-              onChange={handleChange}
-            />
-            <input
-              type='text'
-              name='latitude'
-              placeholder='Coords: latitude'
-              value={latitude}
-              onChange={handleCoordsChange}
-            />
-            <input
-              type='text'
-              name='longitude'
-              placeholder='Coords: longitude'
-              value={longitude}
-              onChange={handleCoordsChange}
-            />
-          </Address>
-        </VendorNameAndAddress>
-        <GeneralInfo>
-          <legend>
-            <h4>General Info</h4>
-          </legend>
-          <InfoGrid>
-            <Box>
-              <input
-                type='text'
-                name='city'
-                value={city}
-                placeholder='Enter city'
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='number'
-                name='numberStars'
-                placeholder='star-rated'
-                value={numberStars}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='number'
-                name='numberRooms'
-                placeholder='Number of rooms'
-                value={numberRooms}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='checkbox'
-                id='handicapped'
-                name='wheelChairAccesible'
-                checked={wheelChairAccessible}
-                onChange={handleCheckboxChange}
-              />
-              <label htmlFor='handicapped'>Wheel chair friendly?</label>
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='meetingRooms'
-                placeholder='number of meeting rooms'
-                value={meetingRooms}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='checkin_out'
-                placeholder='check in/out times'
-                value={checkin_out}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='wifiSpeed'
-                placeholder='Wifi Speed'
-                value={wifiSpeed}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='swimmingPool'
-                placeholder='Pool ? indoor/outdoor'
-                value={swimmingPool}
-                onChange={handleChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='restaurants'
-                placeholder='Number of Restaurants'
-                value={restaurants}
-                onChange={handleChange}
-              />
-            </Box>
-          </InfoGrid>
-        </GeneralInfo>
-        <SaveButton text='Save Hotel' type='submit' />
-      </Left>
-      <Right>
-        <Description>
-          <legend>
-            <h4>Hotel Description</h4>
-          </legend>
-          <textarea
-            name='textContent'
-            placeholder='write your description of the hotel here ...'
-            cols='45'
-            rows='14'
-            value={textContent}
-            onChange={handleTextDescription}
-          ></textarea>
-        </Description>
-        <Images>
-          <input type='file' name='imageContentUrl' multiple ref={fileInput} />
-        </Images>
-      </Right>
-    </MasterFormContainer>
+    <>
+      <Formik
+        initialValues={{
+          name: "",
+          city: "",
+          direction: "",
+          numberStars: "",
+          numberRooms: "",
+          checkin_out: "",
+          meetingRooms: "",
+          wheelChairAccessible: "",
+          wifiSpeed: "",
+          swimmingPool: "",
+          restaurants: "",
+          longitude: "",
+          latitude: "",
+          price: "",
+          textContent: "",
+          introduction: "",
+        }}
+        onSubmit={(values) => {
+          console.log("hotel ", values);
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string().required("Required"),
+          city: Yup.string().required("Required"),
+          direction: Yup.string().required("Required"),
+          numberStars: Yup.number().required("Required"),
+          numberRooms: Yup.number().required("Required"),
+          checkin_out: Yup.string().required("Required"),
+          meetingRooms: Yup.number().required("Required"),
+          wheelChairAccessible: Yup.boolean().required("Required"),
+          wifiSpeed: Yup.string().required("Required"),
+          swimmingPool: Yup.string().required("Required"),
+          restaurants: Yup.string().required("Required"),
+          longitude: Yup.number().required("Required"),
+          latitude: Yup.number().required("Required"),
+          price: Yup.number().required("Required"),
+          textContent: Yup.string().required("Required"),
+        })}
+      >
+        {(formik) => (
+          <Form className='form'>
+            <fieldset>
+              <legend>
+                <h4>General Hotel data</h4>
+              </legend>
+              <div className='form-inputs'>
+                <div>
+                  <TextInput
+                    label='Name'
+                    name='name'
+                    placeholder='Hotel Excelsior - 4star Superior'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='City'
+                    name='city'
+                    placeholder='Restaurant City'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Address'
+                    name='direction'
+                    placeholder='ex : c/Pina 57'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Category'
+                    name='numberStars'
+                    placeholder='ex : 4'
+                    type='number'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Total Number Of Rooms'
+                    name='numberRooms'
+                    placeholder='ex : 100 rooms'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Check-in and Check-out'
+                    name='checkin_out'
+                    placeholder='ex : 12noon/3pm'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Wi-Fi Speed'
+                    name='wifiSpeed'
+                    placeholder='ex : Available all rooms/common areas'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Swimming Pool'
+                    name='swimmingPool'
+                    placeholder='ex : 1x Outdoor/ 1x Indoor'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Restaurants'
+                    name='restaurants'
+                    placeholder='ex : 1x Restaurant/ 1x Bar'
+                    type='string'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Coords Longitude'
+                    name='longitude'
+                    placeholder='ex : 2.154007'
+                    type='number'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Coords Latitude'
+                    name='latitude'
+                    placeholder='ex : 41.390205'
+                    type='number'
+                  />
+                </div>
+                <div>
+                  <CheckboxInput
+                    label='Wheelchair Accessible'
+                    name='wheelChairAccessible'
+                  />
+                </div>
+              </div>
+              <div className='form-inputs'>
+                <div>
+                  <TextAreaInput
+                    className='text-area-input-hotel'
+                    name='introduction'
+                    placeholder='Write an intro'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextAreaInput
+                    className='text-area-input-hotel'
+                    name='textContent'
+                    placeholder='Write a description'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <label for='file-upload' className='custom-file-upload'>
+                    <Icon icon='akar-icons:cloud-upload' width='40' />
+                    <span>Upload Images</span>
+                  </label>
+                  <input
+                    id='file-upload'
+                    type='file'
+                    ref={fileInput}
+                    name='imageContentUrl'
+                    multiple
+                  />
+                </div>
+                <div className='hotel-button'>
+                  <SaveButton type='submit' text='Save and continue' />
+                </div>
+              </div>
+            </fieldset>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

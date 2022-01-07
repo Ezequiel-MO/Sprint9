@@ -4,10 +4,8 @@ const CheckboxInput = ({ label, ...props }) => {
   const [field] = useField({ ...props, type: "checkbox" });
   return (
     <>
-      <label>
-        <input type='checkbox' {...field} {...props} />
-        {label}
-      </label>
+      <label>{label}</label>
+      <input type='checkbox' {...field} {...props} />
 
       <ErrorMessage
         name={props.name}
