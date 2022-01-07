@@ -8,8 +8,8 @@ const useHotelRatesTabs = (
   selectedHotelOptions
 ) => {
   const history = useHistory();
-  const [selectedTab, setSelectedTab] = useState(0);
 
+  const [selectedTab, setSelectedTab] = useState(0);
   const [hotelRates, setHotelRates] = useState({
     DUInr: null,
     DUIprice: null,

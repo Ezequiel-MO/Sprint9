@@ -1,0 +1,26 @@
+export const optionsInitialState = {
+  lunch: [],
+  dinner: [],
+  "morning-event": [],
+  "afternoon-event": [],
+};
+
+const eventOptionsReducer = (state = optionsInitialState, action) => {
+  console.log("eventOptionsReducer", action);
+  switch (action.type) {
+    case "select-option":
+    case "remove-value":
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+    case "clear":
+      return {
+        ...optionsInitialState,
+      };
+    default:
+      return state;
+  }
+};
+
+export default eventOptionsReducer;

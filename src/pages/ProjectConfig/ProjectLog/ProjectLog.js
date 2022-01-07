@@ -5,14 +5,7 @@ import * as Yup from "yup";
 import { DialogBox, SaveButton, TextInput } from "../../../uicomponents";
 
 const ProjectLog = () => {
-  const {
-    /*  handleChange,
-    handleSubmit,
-    projectInputData, */
-    projectFormIsValid,
-    dialogMessage,
-  } = useProjectLog();
-
+  const { dialogMessage, postData, checkCodeIsUnique } = useProjectLog();
   return (
     <>
       <Formik
@@ -31,6 +24,8 @@ const ProjectLog = () => {
         }}
         onSubmit={(values) => {
           console.log("values=>", values);
+          const codeIsUnique = checkCodeIsUnique(values["code"]);
+          codeIsUnique && postData(values);
         }}
         validationSchema={Yup.object({
           code: Yup.string()

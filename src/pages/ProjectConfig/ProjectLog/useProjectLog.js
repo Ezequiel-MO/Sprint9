@@ -1,73 +1,38 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { baseAPI, baseURL } from "../../../api/axios";
 import { useAxiosFetch } from "../../../hooks/useAxiosFetch";
 import { checkForDuplicates } from "../utils/utils";
 import { useDispatch } from "react-redux";
 import { SET_ActiveCode } from "../../../features/ActiveCodeSlice";
 import { useHistory } from "react-router";
-import { useSelector } from "react-redux";
-import useForm from "../../../hooks/useForm";
-import {
-  AUTH_ROUTES,
-  selectAuthRoutes,
-} from "../../../features/authRoutesSlice";
 
 const useProjectLog = () => {
-  const dispatch = useDispatch();
+  const [dialogMessage, setDialogMessage] = useState("");
   const history = useHistory();
+  const dispatch = useDispatch();
   const {
     data: { projects },
     fetchError,
   } = useAxiosFetch(`${baseURL}/projects`);
-  const [dialogMessage, setDialogMessage] = useState("");
-  const [projectFormIsValid, setProjectFormIsValid] = useState(false);
 
-  const { formData: projectInputData, handleChange } = useForm({
-    code: "",
-    accountManager: "",
-    groupName: "",
-    groupLocation: "",
-    arrivalDay: "",
-    departureDay: "",
-    nrPax: null,
-    clientCo: "",
-    clientAccManager: "",
-    hotels: [],
-    schedule: [],
-  });
-
-  const authRoutes = useSelector(selectAuthRoutes);
-
-  useEffect(() => {
+  const postData = (values) => {
     if (fetchError) {
-      alert(fetchError);
-      history.push("/");
+      setDialogMessage(fetchError);
+      setTimeout(() => history.push("/"), 500);
     }
-  }, [fetchError, history]);
-
-  useEffect(() => {
-    if (projectFormIsValid) {
-      const formData = new FormData();
-      for (const [key, value] of Object.entries(projectInputData)) {
-        formData.append(key, value);
-      }
-      const postProjectData = () => {
-        baseAPI
-          .post("/projects", formData)
-          .then((res) => console.log("res=>", res))
-          .catch((err) => console.log(err));
-      };
-      dispatch(SET_ActiveCode(projectInputData["code"]));
-      postProjectData();
-      setTimeout(() => history.push("/hotel-project-form"), 500);
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(values)) {
+      formData.append(key, value);
     }
-  }, [projectFormIsValid]);
-
-  const checkAllInputsAreNonEmpty = (arr) => {
-    const allInputsAreNonEmpty = !Object.values(arr).some(
-      (value) => value === null || value === ""
-    );
-    return allInputsAreNonEmpty;
+    const postProjectData = () => {
+      baseAPI
+        .post("/projects", formData)
+        .then((res) => console.log("res=>", res))
+        .catch((err) => console.log(err));
+    };
+    dispatch(SET_ActiveCode(values["code"]));
+    postProjectData();
+    setTimeout(() => history.push("/hotel-project-form"), 500);
   };
 
   const checkCodeIsUnique = (code) => {
@@ -76,58 +41,7 @@ const useProjectLog = () => {
     return codeIsUnique;
   };
 
-  const checkDatesAreValid = (arrivalDay, departureDay) => {
-    const arrivalDayIsAfterToday = new Date(arrivalDay) > new Date();
-    const departureDayIsAfterArrivalDayOrSameAsArrivalDay =
-      //departure day is after arrival day or same as arrival day
-      new Date(departureDay) > new Date(arrivalDay) ||
-      arrivalDay === departureDay;
-
-    return (
-      arrivalDayIsAfterToday && departureDayIsAfterArrivalDayOrSameAsArrivalDay
-    );
-  };
-
-  const showErrorMessages = (bool1, bool2, bool3) => {
-    if (bool1 && bool2 && bool3) {
-      setDialogMessage("");
-      dispatch(AUTH_ROUTES({ hotelProjectForm: true }));
-      setProjectFormIsValid(true);
-    } else if (!bool1) {
-      setDialogMessage("Please fill in all the inputs");
-      setProjectFormIsValid(false);
-    } else if (!bool2) {
-      setDialogMessage("This code is already in the DB");
-      setProjectFormIsValid(false);
-    } else if (!bool3) {
-      setDialogMessage("The Dates are not valid");
-      setProjectFormIsValid(false);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const allInputsNonEmpty = checkAllInputsAreNonEmpty(projectInputData);
-    const noDupes = checkCodeIsUnique(projectInputData["code"]);
-    const datesAreValid = checkDatesAreValid(
-      projectInputData["arrivalDay"],
-      projectInputData["departureDay"]
-    );
-    setDialogMessage("");
-    setTimeout(
-      () => showErrorMessages(allInputsNonEmpty, noDupes, datesAreValid),
-      500
-    );
-  };
-  return {
-    /*  projectInputData,
-    handleChange,
-      handleSubmit,
-     */
-
-    dialogMessage,
-    projectFormIsValid,
-  };
+  return { dialogMessage, postData, checkCodeIsUnique };
 };
 
 export default useProjectLog;

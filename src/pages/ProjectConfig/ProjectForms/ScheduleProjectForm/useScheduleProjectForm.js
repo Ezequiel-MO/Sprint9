@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import useComputeTotalDays from "../../../../hooks/useComputeTotalDays";
 import { findSelectedOptions, whichDay } from "../../utils/utils";
 import { useSelector } from "react-redux";
@@ -7,17 +7,18 @@ import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseURL } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetVendors from "../../../../hooks/useGetVendor";
+import eventOptionsReducer from "./scheduleProjectFormReducer";
+import { optionsInitialState } from "./scheduleProjectFormReducer";
 
 const useScheduleProjectForm = () => {
   const history = useHistory();
   const [schedule, setSchedule] = useState([]);
   const [dayProgram, setDayProgram] = useState({});
-  const [selectedLunchOptions, setSelectedLunchOptions] = useState([]);
-  const [selectedDinnerOptions, setSelectedDinnerOptions] = useState([]);
-  const [selectedMorningEventOptions, setSelectedMorningEventOptions] =
-    useState([]);
-  const [selectedAfternoonEventOptions, setSelectedAfternoonEventOptions] =
-    useState([]);
+  const [selectedOptions, dispatch] = useReducer(
+    eventOptionsReducer,
+    optionsInitialState
+  );
+
   const [counter, setCounter] = useState(1);
 
   const { vendorOptions: restaurantOptions } = useGetVendors("restaurants");
@@ -30,30 +31,25 @@ const useScheduleProjectForm = () => {
 
   const storeSelectedValues = (array, action) => {
     if (action.action === "select-option" || action.action === "remove-value") {
-      if (action.name === "lunch") {
-        setSelectedLunchOptions(array);
-      } else if (action.name === "dinner") {
-        setSelectedDinnerOptions(array);
-      } else if (action.name === "morning-event") {
-        setSelectedMorningEventOptions(array);
-      } else if (action.name === "afternoon-event") {
-        setSelectedAfternoonEventOptions(array);
-      } else if (action.action === "clear") {
-        if (action.name === "lunch") {
-          setSelectedLunchOptions([]);
-        } else if (action.name === "dinner") {
-          setSelectedDinnerOptions([]);
-        } else if (action.name === "morning-event") {
-          setSelectedMorningEventOptions([]);
-        } else if (action.name === "afternoon-event") {
-          setSelectedAfternoonEventOptions([]);
-        }
-      }
+      dispatch({
+        type: "select-option",
+        payload: {
+          name: action.name,
+          value: array,
+        },
+      });
+    } else if (action.action === "clear") {
+      dispatch({
+        type: "clear",
+      });
     }
   };
 
   useEffect(() => {
     if (counter < totalDays) {
+      dispatch({
+        type: "clear",
+      });
       setCounter((prevState) => prevState + 1);
     } else if (counter === totalDays) {
       history.push({
@@ -72,25 +68,24 @@ const useScheduleProjectForm = () => {
       ...dayProgram,
       date: whichDay(counter, totalDays),
       morningEvents: findSelectedOptions(
-        selectedMorningEventOptions,
+        selectedOptions["morning-event"],
         eventOptions
       ),
-      lunch: findSelectedOptions(selectedLunchOptions, restaurantOptions),
+      lunch: findSelectedOptions(selectedOptions.lunch, restaurantOptions),
       afternoonEvents: findSelectedOptions(
-        selectedAfternoonEventOptions,
+        selectedOptions["afternoon-event"],
         eventOptions
       ),
-      dinner: findSelectedOptions(selectedDinnerOptions, restaurantOptions),
+      dinner: findSelectedOptions(selectedOptions.dinner, restaurantOptions),
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateInputData();
-    setSelectedLunchOptions([]);
-    setSelectedDinnerOptions([]);
-    setSelectedMorningEventOptions([]);
-    setSelectedAfternoonEventOptions([]);
+    dispatch({
+      type: "clear",
+    });
   };
 
   return {
@@ -101,10 +96,7 @@ const useScheduleProjectForm = () => {
     storeSelectedValues,
     counter,
     whichDay,
-    selectedLunchOptions,
-    selectedDinnerOptions,
-    selectedMorningEventOptions,
-    selectedAfternoonEventOptions,
+    selectedOptions,
   };
 };
 
