@@ -9,20 +9,6 @@ import useMasterForm from "./useMasterForm";
 
 const RestaurantMasterForm = () => {
   const fileInput = useRef();
-  /* const restaurants = "restaurants"; */
-
-  /*  const {
-    handleChange,
-    handleSubmit,
-    typeOfVendor,
-    introduction,
-    handleTextDescription,
-    handleTextIntroduction,
-    handleCoordsChange,
-    textContent,
-  } = useMasterForm(fileInput, restaurants); */
-
-  /*   const { name, city, longitude, latitude, price } = typeOfVendor; */
 
   return (
     <>
@@ -37,7 +23,7 @@ const RestaurantMasterForm = () => {
           introduction: "",
         }}
         onSubmit={(values) => {
-          console.log(values);
+          console.log("restaurant ", values);
         }}
         validationSchema={Yup.object({
           name: Yup.string().required("Required"),
@@ -103,7 +89,7 @@ const RestaurantMasterForm = () => {
               <div className='form-inputs'>
                 <div>
                   <TextAreaInput
-                    className='text-area-input'
+                    className='text-area-input-restaurant'
                     name='introduction'
                     placeholder='Write an intro'
                     type='text'
@@ -111,7 +97,7 @@ const RestaurantMasterForm = () => {
                 </div>
                 <div>
                   <TextAreaInput
-                    className='text-area-input'
+                    className='text-area-input-restaurant'
                     name='textContent'
                     placeholder='Write a description'
                     type='text'

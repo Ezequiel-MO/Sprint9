@@ -6,7 +6,7 @@
 .form fieldset {
   color: #ea5933;
   border-radius: 10px;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .form-inputs {
@@ -37,7 +37,7 @@ input[type="file"] {
 }
 .custom-file-upload {
   margin-left: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.6rem;
   display: flex;
   align-items: center;
   display: inline-block;
@@ -51,14 +51,22 @@ input[type="file"] {
   font-weight: bold;
 }
 
-.text-area-input {
+.text-area-input-event {
+  margin-top: 5px;
+  margin-left: 1rem;
+  width: 550px;
+  height: 141px;
+}
+
+.text-area-input-restaurant {
   margin-top: 5px;
   margin-left: 1rem;
   width: 550px;
   height: 97px;
 }
 
-.text-area-input::placeholder {
+.text-area-input-restaurant::placeholder,
+.text-area-input-event::placeholder {
   padding: 1rem;
   font-size: 1rem;
 }
