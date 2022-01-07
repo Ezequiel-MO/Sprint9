@@ -39,8 +39,8 @@ const ProjectLog = () => {
           accountManager: Yup.string().required("Required"),
           groupName: Yup.string().required("Required"),
           groupLocation: Yup.string().required("Required"),
-          arrivalDay: Yup.string().required("Required"),
-          departureDay: Yup.string().required("Required"),
+          arrivalDay: Yup.date().required("Required").nullable(),
+          departureDay: Yup.date().required("Required"),
           nrPax: Yup.number().required("Required"),
           clientCo: Yup.string().required("Required"),
           clientAccManager: Yup.string().required("Required"),
@@ -57,7 +57,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='code'
                     name='code'
-                    placeholder='ex BEM2021001'
+                    placeholder='BEM2021001'
                     type='text'
                   />
                 </div>
@@ -65,7 +65,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='Account Manager'
                     name='accountManager'
-                    placeholder='ex John Doe'
+                    placeholder='John Doe'
                     type='text'
                   />
                 </div>
@@ -73,7 +73,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='Group Name'
                     name='groupName'
-                    placeholder='ex Pfizer'
+                    placeholder='Pfizer'
                     type='text'
                   />
                 </div>
@@ -81,7 +81,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='Group Location'
                     name='groupLocation'
-                    placeholder='ex Barcelona'
+                    placeholder='Barcelona'
                     type='text'
                   />
                 </div>
@@ -105,7 +105,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='Client Agency'
                     name='clientCo'
-                    placeholder='ex Roar Event Mngmt'
+                    placeholder='Roar Event Mngmt'
                     type='text'
                   />
                 </div>
@@ -113,7 +113,7 @@ const ProjectLog = () => {
                   <TextInput
                     label='Client Account Manager'
                     name='clientAccManager'
-                    placeholder='ex Jonas Smith'
+                    placeholder='Jonas Smith'
                     type='text'
                   />
                 </div>
