@@ -14,7 +14,7 @@ const ScheduleProjectForm = () => {
     counter,
     whichDay,
   } = useScheduleProjectForm();
-  console.log("ScheduleProjectForm", selectedOptions);
+
   return (
     <>
       <ScheduleProjectFormContainer onSubmit={handleSubmit}>

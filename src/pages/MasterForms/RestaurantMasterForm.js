@@ -1,25 +1,17 @@
+import { Form, Formik } from "formik";
 import { useRef } from "react";
+import * as Yup from "yup";
+import { TextInput, TextAreaInput } from "../../uicomponents";
 import SaveButton from "../../uicomponents/SaveButton/SaveButton";
-import {
-  MasterFormContainer,
-  Left,
-  VendorNameAndAddress,
-  Vendor,
-  Address,
-  GeneralInfo,
-  InfoGrid,
-  Box,
-  Right,
-  Description,
-  Images,
-} from "./styles";
+import { Icon } from "@iconify/react";
+import "./styles.css";
 import useMasterForm from "./useMasterForm";
 
 const RestaurantMasterForm = () => {
   const fileInput = useRef();
-  const restaurants = "restaurants";
+  /* const restaurants = "restaurants"; */
 
-  const {
+  /*  const {
     handleChange,
     handleSubmit,
     typeOfVendor,
@@ -28,97 +20,122 @@ const RestaurantMasterForm = () => {
     handleTextIntroduction,
     handleCoordsChange,
     textContent,
-  } = useMasterForm(fileInput, restaurants);
+  } = useMasterForm(fileInput, restaurants); */
 
-  const { name, city, longitude, latitude, price } = typeOfVendor;
+  /*   const { name, city, longitude, latitude, price } = typeOfVendor; */
 
   return (
-    <MasterFormContainer onSubmit={handleSubmit}>
-      <Left>
-        <VendorNameAndAddress>
-          <legend>
-            <h4>Restaurant Name</h4>
-          </legend>
-          <Vendor>
-            <input
-              type='text'
-              name='name'
-              value={name}
-              placeholder='Enter restaurant name ...'
-              onChange={handleChange}
-            />
-          </Vendor>
-          <Address>
-            <input
-              type='text'
-              name='city'
-              placeholder='City ...'
-              value={city}
-              onChange={handleChange}
-            />
-          </Address>
-          <textarea
-            name='textContent'
-            placeholder='write any introduction here ...'
-            value={introduction}
-            onChange={handleTextIntroduction}
-          ></textarea>
-        </VendorNameAndAddress>
-        <GeneralInfo>
-          <legend>
-            <h4>General Info</h4>
-          </legend>
-          <InfoGrid>
-            <Box>
-              <input
-                type='text'
-                name='longitude'
-                placeholder='coordinates : longitude'
-                value={longitude}
-                onChange={handleCoordsChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='latitude'
-                placeholder='coordinates: latitude'
-                value={latitude}
-                onChange={handleCoordsChange}
-              />
-            </Box>
-            <Box>
-              <input
-                type='text'
-                name='price'
-                placeholder='min menu price'
-                value={price}
-                onChange={handleChange}
-              />
-            </Box>
-          </InfoGrid>
-        </GeneralInfo>
-        <SaveButton text='Save Restaurant' type='submit' />
-      </Left>
-      <Right>
-        <Description>
-          <legend>
-            <h4>Description</h4>
-          </legend>
-          <textarea
-            name='textContent'
-            cols='45'
-            rows='14'
-            placeholder='write your restaurant description here ...'
-            value={textContent}
-            onChange={handleTextDescription}
-          ></textarea>
-        </Description>
-        <Images>
-          <input type='file' name='imageContentUrl' multiple ref={fileInput} />
-        </Images>
-      </Right>
-    </MasterFormContainer>
+    <>
+      <Formik
+        initialValues={{
+          name: "",
+          city: "",
+          longitude: "",
+          latitude: "",
+          price: "",
+          textContent: "",
+          introduction: "",
+        }}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+        validationSchema={Yup.object({
+          name: Yup.string().required("Required"),
+          city: Yup.string().required("Required"),
+          longitude: Yup.number().required("Required"),
+          latitude: Yup.number().required("Required"),
+          price: Yup.number().required("Required"),
+          textContent: Yup.string().required("Required"),
+          introduction: Yup.string().required("Required"),
+        })}
+      >
+        {(formik) => (
+          <Form className='form'>
+            <fieldset>
+              <legend>
+                <h4>General Restaurant data</h4>
+              </legend>
+              <div className='form-inputs'>
+                <div>
+                  <TextInput
+                    label='Name'
+                    name='name'
+                    placeholder='Restaurant Name'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='City'
+                    name='city'
+                    placeholder='Restaurant City'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Coords Longitude'
+                    name='longitude'
+                    placeholder='ex : 2.154007'
+                    type='number'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='Coords Latitude'
+                    name='latitude'
+                    placeholder='ex : 41.390205'
+                    type='number'
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label='3-Course Menu Cost'
+                    name='price'
+                    placeholder='ex : 35'
+                    type='number'
+                  />
+                </div>
+                <div className='button'>
+                  <SaveButton type='submit' text='Save and continue' />
+                </div>
+              </div>
+              <div className='form-inputs'>
+                <div>
+                  <TextAreaInput
+                    className='text-area-input'
+                    name='introduction'
+                    placeholder='Write an intro'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <TextAreaInput
+                    className='text-area-input'
+                    name='textContent'
+                    placeholder='Write a description'
+                    type='text'
+                  />
+                </div>
+                <div>
+                  <label for='file-upload' className='custom-file-upload'>
+                    <Icon icon='akar-icons:cloud-upload' width='40' />
+                    <span>Upload Images</span>
+                  </label>
+                  <input
+                    id='file-upload'
+                    type='file'
+                    ref={fileInput}
+                    name='imageContentUrl'
+                    multiple
+                  />
+                </div>
+              </div>
+            </fieldset>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 
