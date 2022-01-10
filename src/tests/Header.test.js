@@ -3,7 +3,6 @@ import Header from "../components/Header/Header";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../app/store";
-import "@testing-library/jest-dom";
 
 const MockHeader = () => {
   return (

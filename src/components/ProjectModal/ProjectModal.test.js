@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import store from "../../app/store";
 import ProjectModal from "./ProjectModal";
 
-const MockProjectModal = () => {
+/* const MockProjectModal = () => {
   return (
     <Provider store={store}>
       <ProjectModal />
@@ -12,7 +12,7 @@ const MockProjectModal = () => {
 };
 
 beforeEach(() => render(<MockProjectModal />));
-
+ */
 describe("Project Modal", () => {
   it("should render a button to create a new project", () => {
     const btnEl = screen.queryByRole("button", { name: /new project/i });
