@@ -7,7 +7,6 @@ export const optionsInitialState = {
 };
 
 const eventOptionsReducer = (state = optionsInitialState, action) => {
-  console.log("eventOptionsReducer", action);
   switch (action.type) {
     case "select-option":
     case "remove-value":

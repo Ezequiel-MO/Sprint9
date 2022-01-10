@@ -11,6 +11,7 @@ const useGetVendors = (typeOfVendor) => {
     const vendorOptionData = data[typeOfVendor];
     setVendorOptions(vendorOptionData);
   }, [data, typeOfVendor]);
+
   return { vendorOptions };
 };
 

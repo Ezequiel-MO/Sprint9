@@ -33,3 +33,19 @@ export const whichDay = (counter, daydifference) => {
     return "Day " + counter;
   }
 };
+
+//useTransferOptions.js
+
+export const findUniqueCitiesinDB = (array) => {
+  return [...new Set(array.map((item) => item.city))];
+};
+
+export const findUniqueVendorsPerCity = (array, city) => {
+  const filteredVendors = array.filter((item) => item.city === city);
+  return [...new Set(filteredVendors.map((item) => item.company))];
+};
+
+export const findUniqueCapacitiesPerVendor = (array, vendor) => {
+  const filteredCapacities = array.filter((item) => item.company === vendor);
+  return [...new Set(filteredCapacities.map((item) => item.vehicleCapacity))];
+};
