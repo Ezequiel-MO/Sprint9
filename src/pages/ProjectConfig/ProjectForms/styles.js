@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const ScheduleProjectFormContainer = styled.form`
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 `;
@@ -17,6 +16,7 @@ export const HotelFormContainer = styled.div`
 
 export const HotelProjectFormContainer = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 1rem 1rem 1rem 0;
 `;
 
@@ -135,7 +135,8 @@ export const HotelRatesFormContainer = styled.div`
 `;
 
 export const ScForm = styled.form`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  display: flex;
+  & fieldset {
+    display: flex;
+  flex-direction: column;
 `;
