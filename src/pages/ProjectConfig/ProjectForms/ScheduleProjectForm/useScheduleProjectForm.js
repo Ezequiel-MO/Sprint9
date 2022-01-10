@@ -64,6 +64,7 @@ const useScheduleProjectForm = () => {
   }, [dayProgram]);
 
   const updateInputData = () => {
+    console.log("updateInputData", selectedOptions, restaurantOptions);
     setDayProgram({
       ...dayProgram,
       date: whichDay(counter, totalDays),

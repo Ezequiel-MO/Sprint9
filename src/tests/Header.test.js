@@ -1,8 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Header from "./Header";
+import Header from "../components/Header/Header";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "../../app/store";
+import store from "../app/store";
+import "@testing-library/jest-dom";
 
 const MockHeader = () => {
   return (
@@ -14,24 +15,11 @@ const MockHeader = () => {
   );
 };
 
-describe("Menu Icon", () => {
-  render(<MockHeader />);
-  it("should render a sidebar menu icon button", () => {
-    const btnEl = screen.queryByRole("button", { name: /menu/i });
-    expect(btnEl).toBeInTheDocument();
-  });
-});
-
 describe("Code Button", () => {
   it("should initially be enabled", () => {
     render(<MockHeader />);
     const btnEl = screen.getByRole("button", { name: /code/i });
     expect(btnEl).toBeEnabled();
-  });
-  it("initial text should be: your code here", () => {
-    render(<MockHeader />);
-    const btnEl = screen.getByRole("button", { name: /your code here/i });
-    expect(btnEl).toBeInTheDocument();
   });
   it("if the button is clicked, userIsSearchingProject should turn true and the button should be disabled", () => {
     render(<MockHeader />);
@@ -52,7 +40,7 @@ describe("Code Button", () => {
 
   it("the button textContent should be the active code", () => {
     render(<MockHeader />);
-    const btnEl = screen.getByRole("button", { name: /your code here/i });
+    const btnEl = screen.getByRole("button", { name: /current code in use/i });
     fireEvent.click(btnEl);
     const { activeCode } = store.getState().activeCode;
     expect(btnEl).toHaveTextContent(activeCode);
