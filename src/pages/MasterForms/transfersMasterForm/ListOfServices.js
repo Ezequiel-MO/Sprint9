@@ -15,7 +15,7 @@ const ListOfServices = ({
     <div>
       {services?.map((service) => (
         <div key={service.id}>
-          <ScFieldset>
+          <fieldset>
             <legend>
               {service.saved === false
                 ? `Vehicles of ${service.vehicleCapacity} pax capacity`
@@ -56,7 +56,7 @@ const ListOfServices = ({
             >
               Save on DB
             </ScButton>
-          </ScFieldset>
+          </fieldset>
         </div>
       ))}
     </div>
