@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { useSelector } from "react-redux";
 import { selectActiveCode } from "../../../../features/ActiveCodeSlice";
@@ -8,6 +8,9 @@ import { findSelectedOptions } from "../../utils/utils";
 import useGetVendors from "../../../../hooks/useGetVendor";
 import { AUTH_ROUTES } from "../../../../features/authRoutesSlice";
 import { useDispatch } from "react-redux";
+import eventOptionsReducer, {
+  optionsInitialState,
+} from "../projectFormReducer";
 
 const useHotelProjectForm = () => {
   const activeCode = useSelector(selectActiveCode);
@@ -15,8 +18,11 @@ const useHotelProjectForm = () => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [hotels, setHotels] = useState([]);
   const { vendorOptions: hotelOptions } = useGetVendors("hotels");
-  const [selectedHotelOptions, setSelectedHotelOptions] = useState([]);
-  const dispatch = useDispatch();
+  const dispatch_auth = useDispatch();
+  const [selectedOptions, dispatch] = useReducer(
+    eventOptionsReducer,
+    optionsInitialState
+  );
 
   const {
     data: { project: projectByCode },
@@ -28,26 +34,34 @@ const useHotelProjectForm = () => {
       try {
         baseAPI.post(`/addHotels/${projectByCode._id}`, hotels).then((res) => {
           console.log(res);
-          dispatch(AUTH_ROUTES({ scheduleProjectForm: true }));
+          dispatch_auth(AUTH_ROUTES({ scheduleProjectForm: true }));
           setTimeout(() => history.push("/schedule-project-form"), 1000);
         });
       } catch (err) {
         console.warn(err);
       }
-    } else alert("Loading project ...");
+    } else console.log("Loading project ...");
     /*   } */
   }, [formIsValid]);
 
   const storeSelectedValues = (array, action) => {
     if (action.action === "select-option" || action.action === "remove-value") {
-      setSelectedHotelOptions(array);
+      dispatch({
+        type: "select-option",
+        payload: {
+          name: action.name,
+          value: array,
+        },
+      });
     } else if (action.action === "clear") {
-      setSelectedHotelOptions([]);
+      dispatch({
+        type: "clear",
+      });
     }
   };
 
   const updateInputData = () => {
-    setHotels(findSelectedOptions(selectedHotelOptions, hotelOptions));
+    setHotels(findSelectedOptions(selectedOptions.hotels, hotelOptions));
   };
 
   const handleSubmit = (e) => {
@@ -60,7 +74,7 @@ const useHotelProjectForm = () => {
     handleSubmit,
     hotelOptions,
     storeSelectedValues,
-    selectedHotelOptions,
+    selectedOptions,
     projectByCode,
     formIsValid,
   };

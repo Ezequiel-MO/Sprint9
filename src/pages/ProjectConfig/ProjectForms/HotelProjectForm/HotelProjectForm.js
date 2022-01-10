@@ -13,10 +13,11 @@ const HotelProjectForm = () => {
     handleSubmit,
     hotelOptions,
     storeSelectedValues,
-    selectedHotelOptions,
+    selectedOptions,
     projectByCode,
     formIsValid,
   } = useHotelProjectForm();
+  console.log("selected options", selectedOptions);
   return (
     <>
       <HotelFormContainer>
@@ -33,7 +34,7 @@ const HotelProjectForm = () => {
           <HotelProjectFormContainer>
             <HotelRatesTabs
               hotelOptions={hotelOptions}
-              selectedHotelOptions={selectedHotelOptions}
+              selectedHotelOptions={selectedOptions["hotel"]}
               projectByCode={projectByCode}
             />
           </HotelProjectFormContainer>

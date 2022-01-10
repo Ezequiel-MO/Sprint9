@@ -7,8 +7,8 @@ import { useAxiosFetch } from "../../../../hooks/useAxiosFetch";
 import { baseURL } from "../../../../api/axios";
 import { useHistory } from "react-router";
 import useGetVendors from "../../../../hooks/useGetVendor";
-import eventOptionsReducer from "./scheduleProjectFormReducer";
-import { optionsInitialState } from "./scheduleProjectFormReducer";
+import eventOptionsReducer from "../projectFormReducer";
+import { optionsInitialState } from "../projectFormReducer";
 
 const useScheduleProjectForm = () => {
   const history = useHistory();
